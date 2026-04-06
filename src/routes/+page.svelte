@@ -117,7 +117,7 @@
       <span>&middot;</span>
       <span>Built {buildDate}</span>
       <span>&middot;</span>
-      <a href="/llms.txt" class="underline underline-offset-4 hover:text-foreground">llms.txt</a>
+      <a href={resolve('/llms.txt')} class="underline underline-offset-4 hover:text-foreground">llms.txt</a>
     </div>
   </header>
 
