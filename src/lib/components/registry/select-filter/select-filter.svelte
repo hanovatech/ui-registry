@@ -12,7 +12,7 @@
     class?: string;
   }
 
-  let { key, options, defaultValue = '', placeholder = '', class: className = 'w-[220px]' }: Props = $props();
+  let { key, options, defaultValue = '', placeholder = '', class: className = 'w-[220px] bg-background' }: Props = $props();
 
   const currentValue = $derived(page.url.searchParams.get(key) || defaultValue);
   const currentLabel = $derived(() => {

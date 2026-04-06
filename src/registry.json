@@ -163,7 +163,7 @@
       "description": "A month/year selector with prev/next navigation that syncs to URL params.",
       "registryDependencies": [
         "button",
-        "select",
+        "dropdown-menu",
         "local:navigation",
         "local:i18n"
       ],

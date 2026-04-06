@@ -4,7 +4,7 @@
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";
   import Button from "$lib/components/ui/button/button.svelte";
-  import * as Select from "$lib/components/ui/select/index.js";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as ButtonGroup from "$lib/components/ui/button-group/index.js";
   import { t } from '$lib/stores/i18nStore';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
@@ -106,37 +106,45 @@
 </script>
 
 <ButtonGroup.Root>
-  <Button variant="outline" size="lg" onclick={goToPrevMonth} title="Previous month">
+  <Button variant="outline" onclick={goToPrevMonth} title="Previous month">
     <ChevronLeft class="w-4 h-4" />
   </Button>
 
-  <Select.Root type="single" value={selectedMonth.toString()} onValueChange={(value) => handleMonthChange(parseInt(value))}>
-    <Select.Trigger class="w-[120px]">
-      {monthNames[selectedMonth - 1]}
-    </Select.Trigger>
-    <Select.Content>
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger>
+      {#snippet child({ props })}
+        <Button {...props} variant="outline" class="w-24">
+          {monthNames[selectedMonth - 1]}
+        </Button>
+      {/snippet}
+    </DropdownMenu.Trigger>
+    <DropdownMenu.Content>
       {#each months as month (month.value)}
-        <Select.Item value={month.value.toString()}>
+        <DropdownMenu.Item onclick={() => handleMonthChange(month.value)}>
           {month.label}
-        </Select.Item>
+        </DropdownMenu.Item>
       {/each}
-    </Select.Content>
-  </Select.Root>
+    </DropdownMenu.Content>
+  </DropdownMenu.Root>
 
-  <Select.Root type="single" value={selectedYear.toString()} onValueChange={(value) => handleYearChange(parseInt(value))}>
-    <Select.Trigger class="w-[80px]">
-      {selectedYear.toString()}
-    </Select.Trigger>
-    <Select.Content>
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger>
+      {#snippet child({ props })}
+        <Button {...props} variant="outline" class="w-16">
+          {selectedYear}
+        </Button>
+      {/snippet}
+    </DropdownMenu.Trigger>
+    <DropdownMenu.Content>
       {#each years as year (year)}
-        <Select.Item value={year.toString()}>
+        <DropdownMenu.Item onclick={() => handleYearChange(year)}>
           {year}
-        </Select.Item>
+        </DropdownMenu.Item>
       {/each}
-    </Select.Content>
-  </Select.Root>
+    </DropdownMenu.Content>
+  </DropdownMenu.Root>
 
-  <Button variant="outline" size="lg" onclick={goToNextMonth} title="Next month">
+  <Button variant="outline" onclick={goToNextMonth} title="Next month">
     <ChevronRight class="w-4 h-4" />
   </Button>
 </ButtonGroup.Root>

@@ -104,7 +104,7 @@
 		],
 		"registryDependencies": [
 			"button",
-			"select",
+			"dropdown-menu",
 			"local:navigation",
 			"local:i18n"
 		],

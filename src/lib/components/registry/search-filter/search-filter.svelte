@@ -32,7 +32,7 @@
   }
 </script>
 
-<div class="relative w-full sm:w-75 md:w-112.5">
+<div class="relative w-full sm:w-75 md:w-112.5 bg-background">
   <Search class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
   <Input type="text" {placeholder} bind:value={searchFilter} onchange={handleSearch} onkeydown={handleKeydown} class="pl-9 w-full" />
 </div>

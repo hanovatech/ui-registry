@@ -103,7 +103,7 @@
 
 <div class="flex items-center gap-0">
   {#if showYearNavigation}
-    <Button variant="outline" size="icon" class="h-9 w-9 rounded-r-none border-r-0" onclick={() => navigateYear(-1)}>
+    <Button variant="outline" class="rounded-r-none border-r-0" onclick={() => navigateYear(-1)}>
       <ChevronLeft class="h-4 w-4" />
     </Button>
   {/if}
@@ -131,7 +131,7 @@
   </Popover.Root>
 
   {#if showYearNavigation}
-    <Button variant="outline" size="icon" class="h-9 w-9 rounded-l-none border-l-0" onclick={() => navigateYear(1)}>
+    <Button variant="outline" class="rounded-l-none border-l-0" onclick={() => navigateYear(1)}>
       <ChevronRight class="h-4 w-4" />
     </Button>
   {/if}
