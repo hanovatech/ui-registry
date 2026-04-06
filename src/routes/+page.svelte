@@ -1,6 +1,7 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
+  import { browser } from '$app/environment';
   import registry from '../registry.json';
 
   // Component imports for previews
@@ -17,7 +18,7 @@
   import { JsonTree } from '$lib/components/registry/json-tree/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
 
-  const baseUrl = $derived(`${page.url.origin}${resolve('/')}`.replace(/\/$/, ''));
+  const baseUrl = $derived(browser ? `${page.url.origin}${resolve('/')}`.replace(/\/$/, '') : '');
 
   const buildDate = new Date(import.meta.env.VITE_BUILD_DATE).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -141,7 +142,7 @@
               </div>
             </div>
 
-            {#if previewComponents[component.name]}
+            {#if browser && previewComponents[component.name]}
               <div class="border-t bg-muted/30 p-6">
                 {#if component.name === 'page-header'}
                   <PageHeader title="Dashboard" description="Overview of your account activity." icon="📊" />
