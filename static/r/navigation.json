@@ -1,0 +1,14 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "navigation",
+	"title": "Navigation Utilities",
+	"type": "registry:lib",
+	"description": "URL-aware navigation helpers for SvelteKit.",
+	"files": [
+		{
+			"content": "import { goto } from '$app/navigation';\nimport { resolve } from '$app/paths';\nimport { page } from '$app/state';\n\nexport function gotoParams(params: URLSearchParams) {\n  // @ts-expect-error resolve produces a valid URL but doesn't match SvelteKit's strict route literal types\n  return goto(resolve(`${page.url.pathname}?${params.toString()}`));\n}\n",
+			"type": "registry:component",
+			"target": "registry/lib/navigation.ts"
+		}
+	]
+}

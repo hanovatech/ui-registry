@@ -1,0 +1,14 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "page-header",
+	"title": "Page Header",
+	"type": "registry:block",
+	"description": "A page header with title, description, icon, and optional actions slot.",
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n\n  interface Props {\n    title: string;\n    description: string;\n    icon?: string;\n    children?: Snippet;\n  }\n\n  let { title, description, icon, children }: Props = $props();\n</script>\n\n<div class=\"flex flex-col sm:flex-row sm:items-center justify-between gap-4\">\n  <div>\n    <h1 class=\"text-3xl font-bold tracking-tight\">\n      {#if icon}\n        <span class=\"mr-2\">{icon}</span>\n      {/if}\n      {title}\n    </h1>\n    <p class=\"text-sm text-muted-foreground mt-1\">\n      {description}\n    </p>\n  </div>\n  {#if children}\n    {@render children()}\n  {/if}\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/page-header/page-header.svelte"
+		}
+	]
+}

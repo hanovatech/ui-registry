@@ -1,0 +1,19 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "metrics",
+	"title": "Metrics",
+	"type": "registry:block",
+	"description": "A responsive grid of metric cards with formatting helpers.",
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  interface Props {\n    title: string;\n    value: string;\n    icon?: string;\n    description?: string;\n  }\n  let { title, value, icon, description }: Props = $props();\n</script>\n\n<div class=\"rounded-lg border bg-card p-6\">\n  <div class=\"flex items-start justify-between\">\n    <div class=\"space-y-2\">\n      <p class=\"text-sm font-medium text-muted-foreground\">{title}</p>\n      <p class=\"text-3xl font-bold tracking-tight\">{value}</p>\n      {#if description}\n        <p class=\"text-xs text-muted-foreground\">{description}</p>\n      {/if}\n    </div>\n    {#if icon}\n      <div class=\"text-4xl\">{icon}</div>\n    {/if}\n  </div>\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/metrics/metric-card.svelte"
+		},
+		{
+			"content": "<script lang=\"ts\">\n  import MetricCard from \"./metric-card.svelte\";\n\n  interface Props {\n    metrics: Array<{\n      value: number | string;\n      format?: 'number' | 'currency' | 'duration' | 'date' | 'percentage';\n      emoji?: string;\n      title: string;\n      description?: string;\n    } | null>;\n    columns?: number;\n    locale?: string;\n    currency?: string;\n  }\n\n  let { metrics, columns, locale = 'en-US', currency = 'USD' }: Props = $props();\n\n  function formatCurrency(value: number): string {\n    return new Intl.NumberFormat(locale, {\n      style: 'currency',\n      currency,\n      minimumFractionDigits: 2,\n      maximumFractionDigits: 2\n    }).format(value);\n  }\n\n  function formatDuration(minutes: number): string {\n    const wholeHours = Math.floor(minutes / 60);\n    const mins = Math.round(minutes % 60);\n    return `${wholeHours}h ${mins}m`;\n  }\n\n  function formatDate(value: string | number): string {\n    return new Date(value).toLocaleDateString(locale);\n  }\n\n  function formatValue(metric: NonNullable<(typeof metrics)[number]>): string {\n    switch (metric.format) {\n      case 'currency': return formatCurrency(Number(metric.value));\n      case 'duration': return formatDuration(Number(metric.value));\n      case 'date': return formatDate(metric.value);\n      case 'percentage': return `${metric.value}%`;\n      default: return metric.value.toString();\n    }\n  }\n\n  const colsMap: Record<number, string> = {\n    1: 'lg:grid-cols-1',\n    2: 'lg:grid-cols-2',\n    3: 'lg:grid-cols-3',\n    4: 'lg:grid-cols-4',\n    5: 'lg:grid-cols-5',\n    6: 'lg:grid-cols-6',\n  };\n\n  const gridClass = $derived(\n    columns\n      ? `grid gap-6 grid-cols-1 sm:grid-cols-2 ${colsMap[columns] || 'lg:grid-cols-3'}`\n      : 'grid gap-6 md:grid-cols-3'\n  );\n</script>\n\n<div class={gridClass}>\n  {#each metrics as metric, i (i)}\n    {#if metric !== null}\n      <MetricCard\n        icon={metric.emoji}\n        title={metric.title}\n        description={metric.description}\n        value={formatValue(metric)}\n      />\n    {/if}\n  {/each}\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/metrics/metrics.svelte"
+		}
+	]
+}

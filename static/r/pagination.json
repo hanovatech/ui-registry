@@ -1,0 +1,19 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "pagination",
+	"title": "Pagination",
+	"type": "registry:block",
+	"description": "URL-driven pagination with previous/next buttons and total count.",
+	"registryDependencies": [
+		"button",
+		"./navigation.json",
+		"./i18n.json"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import { page } from '$app/state';\n  import { gotoParams } from '$lib/components/registry/lib/navigation.js';\n  import { t } from '$lib/stores/i18nStore';\n  import { SvelteURLSearchParams } from 'svelte/reactivity';\n  import { Button } from \"$lib/components/ui/button/index.js\";\n\n  interface Props {\n    page: number;\n    totalPages: number;\n    total?: number;\n    totalLabel?: string;\n  }\n\n  let {\n    page: currentPage,\n    totalPages,\n    total,\n    totalLabel,\n  }: Props = $props();\n\n  function handlePageChange(newPage: number) {\n    const params = new SvelteURLSearchParams(page.url.searchParams);\n    params.set('page', newPage.toString());\n    gotoParams(params);\n  }\n</script>\n\n{#if totalPages > 1 || total != null}\n  <div class=\"relative flex flex-col sm:flex-row items-center justify-center gap-2\">\n    {#if totalPages > 1}\n      <div class=\"flex items-center gap-2\">\n        <Button variant=\"outline\" size=\"sm\" disabled={currentPage === 1} onclick={() => handlePageChange(currentPage - 1)}>\n          {$t.common.previous}\n        </Button>\n        <span class=\"text-sm text-muted-foreground\">\n          {$t.common.page} {currentPage} {$t.common.of} {totalPages}\n        </span>\n        <Button variant=\"outline\" size=\"sm\" disabled={currentPage === totalPages} onclick={() => handlePageChange(currentPage + 1)}>\n          {$t.common.next}\n        </Button>\n      </div>\n    {/if}\n    {#if total != null}\n      <span class=\"sm:absolute sm:right-0 text-sm text-muted-foreground\">\n        {total} {totalLabel ?? $t.common.entries}\n      </span>\n    {/if}\n  </div>\n{/if}\n",
+			"type": "registry:component",
+			"target": "registry/pagination/pagination.svelte"
+		}
+	]
+}

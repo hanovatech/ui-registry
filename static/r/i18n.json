@@ -1,0 +1,24 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "i18n",
+	"title": "i18n",
+	"type": "registry:lib",
+	"description": "Internationalization store and type definitions.",
+	"files": [
+		{
+			"content": "import EN from './en.json';\nimport type { Translations } from '$lib/types/i18n';\n\nexport const defaultTranslations: Translations = EN;\n\nexport function getTranslations(): Translations {\n  return defaultTranslations;\n}\n",
+			"type": "registry:lib",
+			"target": "i18n/index.ts"
+		},
+		{
+			"content": "import type EN from '$lib/i18n/en.json';\n\nexport type Translations = typeof EN;\n",
+			"type": "registry:lib",
+			"target": "types/i18n.ts"
+		},
+		{
+			"content": "import { writable, derived } from 'svelte/store';\nimport { getTranslations } from '$lib/i18n';\nimport type { Translations } from '$lib/types/i18n';\n\nexport const translations = writable<Translations>(getTranslations());\n\nexport function setTranslations(trans: Translations) {\n  translations.set(trans);\n}\n\nexport const t = derived(translations, $translations => $translations);\n",
+			"type": "registry:lib",
+			"target": "stores/i18nStore.ts"
+		}
+	]
+}

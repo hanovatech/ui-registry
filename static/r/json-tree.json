@@ -1,0 +1,19 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "json-tree",
+	"title": "JSON Tree",
+	"type": "registry:block",
+	"description": "A recursive, collapsible JSON viewer with syntax highlighting.",
+	"files": [
+		{
+			"content": "export { default as JsonTree } from './json-tree.svelte';\n",
+			"type": "registry:component",
+			"target": "registry/json-tree/index.ts"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport Self from './json-tree.svelte';\n\n\ttype Props = {\n\t\tdata: unknown;\n\t\tkey?: string;\n\t\texpanded?: boolean;\n\t\tdepth?: number;\n\t};\n\n\tlet { data, key, expanded = true, depth = 0 }: Props = $props();\n\n\tlet isOpen = $state<boolean | null>(null);\n\tconst effectiveOpen = $derived(isOpen ?? expanded);\n\n\tconst isObject = $derived(data !== null && typeof data === 'object');\n\tconst isArray = $derived(Array.isArray(data));\n\tconst entries = $derived(isObject ? Object.entries(data as Record<string, unknown>) : []);\n\tconst isEmpty = $derived(entries.length === 0);\n\tconst preview = $derived(\n\t\tisArray\n\t\t\t? `[${isEmpty ? '' : `${entries.length}`}]`\n\t\t\t: `{${isEmpty ? '' : `${entries.length}`}}`\n\t);\n\n\tfunction toggle() {\n\t\tif (isObject && !isEmpty) isOpen = !effectiveOpen;\n\t}\n\n\tfunction formatValue(val: unknown): string {\n\t\tif (val === null) return 'null';\n\t\tif (val === undefined) return 'undefined';\n\t\tif (typeof val === 'string') return `\"${val}\"`;\n\t\treturn String(val);\n\t}\n\n\tfunction valueClass(val: unknown): string {\n\t\tif (val === null || val === undefined) return 'text-muted-foreground/60';\n\t\tif (typeof val === 'string') return 'text-green-600 dark:text-green-400';\n\t\tif (typeof val === 'number') return 'text-blue-600 dark:text-blue-400';\n\t\tif (typeof val === 'boolean') return 'text-amber-600 dark:text-amber-400';\n\t\treturn '';\n\t}\n</script>\n\n<div class=\"font-mono text-xs leading-5\" style:padding-left=\"{depth > 0 ? 16 : 0}px\">\n\t{#if isObject}\n\t\t<button\n\t\t\ttype=\"button\"\n\t\t\tclass=\"inline-flex items-baseline gap-1 hover:bg-muted/50 rounded px-0.5 -ml-0.5 cursor-pointer\"\n\t\t\tclass:cursor-default={isEmpty}\n\t\t\tonclick={toggle}\n\t\t>\n\t\t\t{#if !isEmpty}\n\t\t\t\t<span class=\"text-muted-foreground text-[10px] w-3 inline-block select-none\">\n\t\t\t\t\t{isOpen ? '▼' : '▶'}\n\t\t\t\t</span>\n\t\t\t{:else}\n\t\t\t\t<span class=\"w-3 inline-block\"></span>\n\t\t\t{/if}\n\t\t\t{#if key !== undefined}\n\t\t\t\t<span class=\"text-foreground/80\">{key}:</span>\n\t\t\t{/if}\n\t\t\t{#if !effectiveOpen || isEmpty}\n\t\t\t\t<span class=\"text-muted-foreground\">{preview}</span>\n\t\t\t{:else}\n\t\t\t\t<span class=\"text-muted-foreground\">{isArray ? '[' : '{'}</span>\n\t\t\t{/if}\n\t\t</button>\n\t\t{#if effectiveOpen && !isEmpty}\n\t\t\t{#each entries as [k, v] (k)}\n\t\t\t\t<Self data={v} key={k} expanded={depth < 1} depth={depth + 1} />\n\t\t\t{/each}\n\t\t\t<div style:padding-left=\"16px\">\n\t\t\t\t<span class=\"text-muted-foreground\">{isArray ? ']' : '}'}</span>\n\t\t\t</div>\n\t\t{/if}\n\t{:else}\n\t\t<div class=\"inline-flex items-baseline gap-1 px-0.5 -ml-0.5\">\n\t\t\t<span class=\"w-3 inline-block\"></span>\n\t\t\t{#if key !== undefined}\n\t\t\t\t<span class=\"text-foreground/80\">{key}:</span>\n\t\t\t{/if}\n\t\t\t<span class={valueClass(data)}>{formatValue(data)}</span>\n\t\t</div>\n\t{/if}\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/json-tree/json-tree.svelte"
+		}
+	]
+}

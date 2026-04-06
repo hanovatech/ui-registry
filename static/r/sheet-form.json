@@ -1,0 +1,41 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "sheet-form",
+	"title": "Sheet Form",
+	"type": "registry:block",
+	"description": "Slide-over sheets for detail views and forms with sections.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.7.0"
+	],
+	"registryDependencies": [
+		"button",
+		"sheet",
+		"alert",
+		"./i18n.json"
+	],
+	"files": [
+		{
+			"content": "export { default as SheetForm } from './sheet-form.svelte';\nexport { default as SheetFormSection } from './sheet-form-section.svelte';\nexport { default as SheetDetail } from './sheet-detail.svelte';\n",
+			"type": "registry:component",
+			"target": "registry/sheet/index.ts"
+		},
+		{
+			"content": "<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  interface Props {\n    title?: string;\n    bordered?: boolean;\n    children: Snippet;\n  }\n  let { title, bordered = false, children }: Props = $props();\n</script>\n\n<div class=\"space-y-4 {bordered ? 'border-t pt-6' : ''}\">\n  {#if title}\n    <h3 class=\"font-semibold text-sm text-muted-foreground uppercase tracking-wide\">{title}</h3>\n  {/if}\n  {@render children()}\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/sheet/sheet-form-section.svelte"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport * as Sheet from '$lib/components/ui/sheet/index.js';\n\timport type { Snippet } from 'svelte';\n\timport X from '@lucide/svelte/icons/x';\n\timport { t } from '$lib/stores/i18nStore';\n\timport type { Side } from '$lib/components/ui/sheet/sheet-content.svelte';\n\n\tinterface Props {\n\t\topen: boolean;\n\t\ttitle: string;\n\t\tdescription?: string;\n\t\tside?: Side;\n\t\tmaxWidth?: string;\n\t\tcloseLabel?: string;\n\t\tonOpenChange?: (open: boolean) => void;\n\t\tchildren: Snippet;\n\t}\n\n\tlet {\n\t\topen = $bindable(),\n\t\ttitle,\n\t\tdescription,\n\t\tside = 'right',\n\t\tmaxWidth = 'data-[side=left]:sm:max-w-lg data-[side=right]:sm:max-w-lg',\n\t\tcloseLabel = $t.common.close,\n\t\tonOpenChange,\n\t\tchildren\n\t}: Props = $props();\n\n\tfunction handleOpenChange(newOpen: boolean) {\n\t\topen = newOpen;\n\t\tonOpenChange?.(newOpen);\n\t}\n</script>\n\n<Sheet.Root bind:open onOpenChange={handleOpenChange}>\n\t<Sheet.Content {side} class=\"flex w-full flex-col gap-0 overflow-hidden {maxWidth}\">\n\t\t<Sheet.Header class=\"sticky top-0 z-10 border-b bg-muted px-4 py-4\">\n\t\t\t<div class=\"flex items-center justify-between gap-2\">\n\t\t\t\t<div class=\"flex-1 space-y-1\">\n\t\t\t\t\t<Sheet.Title>{title}</Sheet.Title>\n\t\t\t\t\t{#if description}\n\t\t\t\t\t\t<Sheet.Description>{description}</Sheet.Description>\n\t\t\t\t\t{/if}\n\t\t\t\t</div>\n\t\t\t\t<Sheet.Close class=\"sm:hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2\">\n\t\t\t\t\t<X class=\"h-5 w-5\" />\n\t\t\t\t\t<span class=\"sr-only\">{closeLabel}</span>\n\t\t\t\t</Sheet.Close>\n\t\t\t</div>\n\t\t</Sheet.Header>\n\n\t\t<div class=\"flex-1 space-y-6 overflow-y-auto px-4 py-6\">\n\t\t\t{@render children()}\n\t\t</div>\n\t</Sheet.Content>\n</Sheet.Root>\n",
+			"type": "registry:component",
+			"target": "registry/sheet/sheet-detail.svelte"
+		},
+		{
+			"content": "<script lang=\"ts\">\n\timport { Button } from '$lib/components/ui/button/index.js';\n\timport * as Sheet from '$lib/components/ui/sheet/index.js';\n\timport * as Alert from '$lib/components/ui/alert/index.js';\n\timport type { Snippet } from 'svelte';\n\timport X from '@lucide/svelte/icons/x';\n\timport { t } from '$lib/stores/i18nStore';\n\timport type { Side } from '$lib/components/ui/sheet/sheet-content.svelte';\n\n\tinterface Props {\n\t\topen: boolean;\n\t\ttitle: string;\n\t\tdescription?: string;\n\t\terror?: string;\n\t\tisLoading?: boolean;\n\t\tsubmitLabel?: string;\n\t\tsubmittingLabel?: string;\n\t\tcancelLabel?: string;\n\t\tcloseLabel?: string;\n\t\tside?: Side;\n\t\tmaxWidth?: string;\n\t\tonOpenChange?: (open: boolean) => void;\n\t\tonSubmit: (e: SubmitEvent) => void;\n\t\tchildren: Snippet;\n\t\t/** Optional snippet rendered after the error alert and before the children (sections). */\n\t\theader?: Snippet;\n\t\t/** Optional snippet to replace the default footer buttons. */\n\t\tfooter?: Snippet;\n\t}\n\n\tlet {\n\t\topen = $bindable(),\n\t\ttitle,\n\t\tdescription,\n\t\terror,\n\t\tisLoading = false,\n\t\tsubmitLabel = $t.common.save,\n\t\tsubmittingLabel = $t.common.saving,\n\t\tcancelLabel = $t.common.cancel,\n\t\tcloseLabel = $t.common.close,\n\t\tside = 'right',\n\t\tmaxWidth = 'data-[side=left]:sm:max-w-lg data-[side=right]:sm:max-w-lg',\n\t\tonOpenChange,\n\t\tonSubmit,\n\t\tchildren,\n\t\theader,\n\t\tfooter\n\t}: Props = $props();\n\n\tfunction handleOpenChange(newOpen: boolean) {\n\t\topen = newOpen;\n\t\tonOpenChange?.(newOpen);\n\t}\n</script>\n\n<Sheet.Root bind:open onOpenChange={handleOpenChange}>\n\t<Sheet.Content {side} class=\"flex w-full flex-col gap-0 overflow-hidden {maxWidth}\">\n\t\t<Sheet.Header class=\"sticky top-0 z-10 border-b bg-muted px-4 py-4\">\n\t\t\t<div class=\"flex items-center justify-between gap-2\">\n\t\t\t\t<div class=\"flex-1 space-y-1\">\n\t\t\t\t\t<Sheet.Title>{title}</Sheet.Title>\n\t\t\t\t\t{#if description}\n\t\t\t\t\t\t<Sheet.Description>{description}</Sheet.Description>\n\t\t\t\t\t{/if}\n\t\t\t\t</div>\n\t\t\t\t<Sheet.Close class=\"sm:hidden rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2\">\n\t\t\t\t\t<X class=\"h-5 w-5\" />\n\t\t\t\t\t<span class=\"sr-only\">{closeLabel}</span>\n\t\t\t\t</Sheet.Close>\n\t\t\t</div>\n\t\t</Sheet.Header>\n\n\t\t<form onsubmit={onSubmit} class=\"flex flex-1 flex-col overflow-hidden\">\n\t\t\t<div class=\"flex-1 space-y-6 overflow-y-auto px-4 py-6\">\n\t\t\t\t{#if error}\n\t\t\t\t\t<Alert.Root variant=\"destructive\">\n\t\t\t\t\t\t<Alert.Description>{error}</Alert.Description>\n\t\t\t\t\t</Alert.Root>\n\t\t\t\t{/if}\n\n\t\t\t\t{#if header}\n\t\t\t\t\t{@render header()}\n\t\t\t\t{/if}\n\n\t\t\t\t{@render children()}\n\t\t\t</div>\n\n\t\t\t<div class=\"sticky bottom-0 z-10 border-t bg-muted px-4 py-4\">\n\t\t\t\t{#if footer}\n\t\t\t\t\t{@render footer()}\n\t\t\t\t{:else}\n\t\t\t\t\t<div class=\"flex justify-end gap-2\">\n\t\t\t\t\t\t<Button\n\t\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\t\tsize=\"lg\"\n\t\t\t\t\t\t\tvariant=\"outline\"\n\t\t\t\t\t\t\tonclick={() => (open = false)}\n\t\t\t\t\t\t\tdisabled={isLoading}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t{cancelLabel}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<Button size=\"lg\" type=\"submit\" disabled={isLoading}>\n\t\t\t\t\t\t\t{isLoading ? submittingLabel : submitLabel}\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t</div>\n\t\t\t\t{/if}\n\t\t\t</div>\n\t\t</form>\n\t</Sheet.Content>\n</Sheet.Root>\n",
+			"type": "registry:component",
+			"target": "registry/sheet/sheet-form.svelte"
+		}
+	]
+}

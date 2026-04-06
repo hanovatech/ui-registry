@@ -1,0 +1,155 @@
+[
+	{
+		"name": "i18n",
+		"title": "i18n",
+		"type": "registry:lib",
+		"description": "Internationalization store and type definitions.",
+		"registryDependencies": [],
+		"relativeUrl": "i18n.json"
+	},
+	{
+		"name": "navigation",
+		"title": "Navigation Utilities",
+		"type": "registry:lib",
+		"description": "URL-aware navigation helpers for SvelteKit.",
+		"registryDependencies": [],
+		"relativeUrl": "navigation.json"
+	},
+	{
+		"name": "page-header",
+		"title": "Page Header",
+		"type": "registry:block",
+		"description": "A page header with title, description, icon, and optional actions slot.",
+		"registryDependencies": [],
+		"relativeUrl": "page-header.json"
+	},
+	{
+		"name": "pagination",
+		"title": "Pagination",
+		"type": "registry:block",
+		"description": "URL-driven pagination with previous/next buttons and total count.",
+		"registryDependencies": [
+			"button",
+			"local:navigation",
+			"local:i18n"
+		],
+		"relativeUrl": "pagination.json"
+	},
+	{
+		"name": "search-filter",
+		"title": "Search Filter",
+		"type": "registry:block",
+		"description": "A search input that syncs its value to URL search params.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input",
+			"local:navigation",
+			"local:i18n"
+		],
+		"relativeUrl": "search-filter.json"
+	},
+	{
+		"name": "select-filter",
+		"title": "Select Filter",
+		"type": "registry:block",
+		"description": "A select dropdown that syncs its value to URL search params.",
+		"registryDependencies": [
+			"select",
+			"local:navigation"
+		],
+		"relativeUrl": "select-filter.json"
+	},
+	{
+		"name": "button-group-filter",
+		"title": "Button Group Filter",
+		"type": "registry:block",
+		"description": "A button group that syncs the active value to URL search params.",
+		"dependencies": [
+			"tailwind-variants"
+		],
+		"registryDependencies": [
+			"button",
+			"local:navigation"
+		],
+		"relativeUrl": "button-group-filter.json"
+	},
+	{
+		"name": "date-range-filter",
+		"title": "Date Range Filter",
+		"type": "registry:block",
+		"description": "A date range picker with optional year navigation that syncs to URL params.",
+		"dependencies": [
+			"@internationalized/date",
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"button",
+			"popover",
+			"range-calendar",
+			"local:navigation",
+			"local:i18n"
+		],
+		"relativeUrl": "date-range-filter.json"
+	},
+	{
+		"name": "month-filter",
+		"title": "Month Filter",
+		"type": "registry:block",
+		"description": "A month/year selector with prev/next navigation that syncs to URL params.",
+		"dependencies": [
+			"@lucide/svelte",
+			"tailwind-variants"
+		],
+		"registryDependencies": [
+			"button",
+			"select",
+			"local:navigation",
+			"local:i18n"
+		],
+		"relativeUrl": "month-filter.json"
+	},
+	{
+		"name": "metrics",
+		"title": "Metrics",
+		"type": "registry:block",
+		"description": "A responsive grid of metric cards with formatting helpers.",
+		"registryDependencies": [],
+		"relativeUrl": "metrics.json"
+	},
+	{
+		"name": "sheet-form",
+		"title": "Sheet Form",
+		"type": "registry:block",
+		"description": "Slide-over sheets for detail views and forms with sections.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"button",
+			"sheet",
+			"alert",
+			"local:i18n"
+		],
+		"relativeUrl": "sheet-form.json"
+	},
+	{
+		"name": "navigation-tabs",
+		"title": "Navigation Tabs",
+		"type": "registry:block",
+		"description": "URL-driven tabs that navigate between routes.",
+		"registryDependencies": [
+			"tabs"
+		],
+		"relativeUrl": "navigation-tabs.json"
+	},
+	{
+		"name": "json-tree",
+		"title": "JSON Tree",
+		"type": "registry:block",
+		"description": "A recursive, collapsible JSON viewer with syntax highlighting.",
+		"registryDependencies": [],
+		"relativeUrl": "json-tree.json"
+	}
+]

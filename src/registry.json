@@ -1,0 +1,274 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry.json",
+  "name": "hanovatech",
+  "homepage": "https://hanovatech.com",
+  "items": [
+    {
+      "name": "i18n",
+      "type": "registry:lib",
+      "title": "i18n",
+      "description": "Internationalization store and type definitions.",
+      "docs": "This item provides a minimal i18n setup. If your project already has $lib/stores/i18nStore, $lib/i18n, and $lib/types/i18n, skip overwriting those files — the registry components are compatible with your existing implementation.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/i18n/index.ts",
+          "type": "registry:lib",
+          "target": "i18n/index.ts"
+        },
+        {
+          "path": "src/lib/types/i18n.ts",
+          "type": "registry:lib",
+          "target": "types/i18n.ts"
+        },
+        {
+          "path": "src/lib/stores/i18nStore.ts",
+          "type": "registry:lib",
+          "target": "stores/i18nStore.ts"
+        }
+      ]
+    },
+    {
+      "name": "navigation",
+      "type": "registry:lib",
+      "title": "Navigation Utilities",
+      "description": "URL-aware navigation helpers for SvelteKit.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/components/registry/lib/navigation.ts",
+          "type": "registry:component",
+          "target": "registry/lib/navigation.ts"
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "registry:block",
+      "title": "Page Header",
+      "description": "A page header with title, description, icon, and optional actions slot.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/components/registry/page-header/page-header.svelte",
+          "type": "registry:component",
+          "target": "registry/page-header/page-header.svelte"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:block",
+      "title": "Pagination",
+      "description": "URL-driven pagination with previous/next buttons and total count.",
+      "registryDependencies": [
+        "button",
+        "local:navigation",
+        "local:i18n"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/pagination/pagination.svelte",
+          "type": "registry:component",
+          "target": "registry/pagination/pagination.svelte"
+        }
+      ]
+    },
+    {
+      "name": "search-filter",
+      "type": "registry:block",
+      "title": "Search Filter",
+      "description": "A search input that syncs its value to URL search params.",
+      "registryDependencies": [
+        "input",
+        "local:navigation",
+        "local:i18n"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/search-filter/search-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/search-filter/search-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "select-filter",
+      "type": "registry:block",
+      "title": "Select Filter",
+      "description": "A select dropdown that syncs its value to URL search params.",
+      "registryDependencies": [
+        "select",
+        "local:navigation"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/select-filter/select-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/select-filter/select-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "button-group-filter",
+      "type": "registry:block",
+      "title": "Button Group Filter",
+      "description": "A button group that syncs the active value to URL search params.",
+      "registryDependencies": [
+        "button",
+        "local:navigation"
+      ],
+      "dependencies": [
+        "tailwind-variants"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/button-group-filter/button-group-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/button-group-filter/button-group-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "date-range-filter",
+      "type": "registry:block",
+      "title": "Date Range Filter",
+      "description": "A date range picker with optional year navigation that syncs to URL params.",
+      "registryDependencies": [
+        "button",
+        "popover",
+        "range-calendar",
+        "local:navigation",
+        "local:i18n"
+      ],
+      "dependencies": [
+        "@internationalized/date",
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/date-range-filter/date-range-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/date-range-filter/date-range-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "month-filter",
+      "type": "registry:block",
+      "title": "Month Filter",
+      "description": "A month/year selector with prev/next navigation that syncs to URL params.",
+      "registryDependencies": [
+        "button",
+        "select",
+        "local:navigation",
+        "local:i18n"
+      ],
+      "dependencies": [
+        "@lucide/svelte",
+        "tailwind-variants"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/month-filter/month-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/month-filter/month-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "metrics",
+      "type": "registry:block",
+      "title": "Metrics",
+      "description": "A responsive grid of metric cards with formatting helpers.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/components/registry/metrics/metric-card.svelte",
+          "type": "registry:component",
+          "target": "registry/metrics/metric-card.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/metrics/metrics.svelte",
+          "type": "registry:component",
+          "target": "registry/metrics/metrics.svelte"
+        }
+      ]
+    },
+    {
+      "name": "sheet-form",
+      "type": "registry:block",
+      "title": "Sheet Form",
+      "description": "Slide-over sheets for detail views and forms with sections.",
+      "registryDependencies": [
+        "button",
+        "sheet",
+        "alert",
+        "local:i18n"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/sheet/index.ts",
+          "type": "registry:component",
+          "target": "registry/sheet/index.ts"
+        },
+        {
+          "path": "src/lib/components/registry/sheet/sheet-form-section.svelte",
+          "type": "registry:component",
+          "target": "registry/sheet/sheet-form-section.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/sheet/sheet-detail.svelte",
+          "type": "registry:component",
+          "target": "registry/sheet/sheet-detail.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/sheet/sheet-form.svelte",
+          "type": "registry:component",
+          "target": "registry/sheet/sheet-form.svelte"
+        }
+      ]
+    },
+    {
+      "name": "navigation-tabs",
+      "type": "registry:block",
+      "title": "Navigation Tabs",
+      "description": "URL-driven tabs that navigate between routes.",
+      "registryDependencies": [
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/navigation-tabs/navigation-tabs.svelte",
+          "type": "registry:component",
+          "target": "registry/navigation-tabs/navigation-tabs.svelte"
+        }
+      ]
+    },
+    {
+      "name": "json-tree",
+      "type": "registry:block",
+      "title": "JSON Tree",
+      "description": "A recursive, collapsible JSON viewer with syntax highlighting.",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/lib/components/registry/json-tree/index.ts",
+          "type": "registry:component",
+          "target": "registry/json-tree/index.ts"
+        },
+        {
+          "path": "src/lib/components/registry/json-tree/json-tree.svelte",
+          "type": "registry:component",
+          "target": "registry/json-tree/json-tree.svelte"
+        }
+      ]
+    }
+  ]
+}
