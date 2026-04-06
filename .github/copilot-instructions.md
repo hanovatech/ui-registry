@@ -58,3 +58,9 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - Prefer `index.ts` barrel exports for multi-file components
 - Import UI components with explicit `/index.js` suffix (e.g., `$lib/components/ui/button/index.js`)
 - Use `resolve()` from `$app/paths` instead of the deprecated `base` export
+
+## Component Previews
+
+- The homepage (`src/routes/+page.svelte`) shows a live preview for each registry component
+- When adding a new component, add a preview entry in `+page.svelte`: import the component, add it to `previewComponents`, and add a preview block with sample data
+- Previews are wrapped in `{#if browser}` because the site is prerendered and components that access `page.url.searchParams` cannot run during SSR
