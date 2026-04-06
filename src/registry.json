@@ -60,9 +60,9 @@
       "name": "pagination",
       "type": "registry:block",
       "title": "Pagination",
-      "description": "URL-driven pagination with previous/next buttons and total count.",
+      "description": "URL-driven pagination with page numbers, navigation, and total count.",
       "registryDependencies": [
-        "button",
+        "pagination",
         "local:navigation",
         "local:i18n"
       ],

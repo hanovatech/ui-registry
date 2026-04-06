@@ -3,48 +3,68 @@
   import { gotoParams } from '$lib/components/registry/lib/navigation.js';
   import { t } from '$lib/stores/i18nStore';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
-  import { Button } from "$lib/components/ui/button/index.js";
+  import * as Pagination from '$lib/components/ui/pagination/index.js';
 
   interface Props {
-    page: number;
-    totalPages: number;
-    total?: number;
+    total: number;
+    perPage?: number;
+    siblingCount?: number;
     totalLabel?: string;
   }
 
   let {
-    page: currentPage,
-    totalPages,
     total,
+    perPage = 10,
+    siblingCount = 1,
     totalLabel,
   }: Props = $props();
 
+  let currentPage = $derived(Number(page.url.searchParams.get('page')) || 1);
+
   function handlePageChange(newPage: number) {
     const params = new SvelteURLSearchParams(page.url.searchParams);
-    params.set('page', newPage.toString());
+    if (newPage <= 1) {
+      params.delete('page');
+    } else {
+      params.set('page', newPage.toString());
+    }
     gotoParams(params);
   }
 </script>
 
-{#if totalPages > 1 || total != null}
-  <div class="relative flex flex-col sm:flex-row items-center justify-center gap-2">
-    {#if totalPages > 1}
-      <div class="flex items-center gap-2">
-        <Button variant="outline" size="sm" disabled={currentPage === 1} onclick={() => handlePageChange(currentPage - 1)}>
-          {$t.common.previous}
-        </Button>
-        <span class="text-sm text-muted-foreground">
-          {$t.common.page} {currentPage} {$t.common.of} {totalPages}
-        </span>
-        <Button variant="outline" size="sm" disabled={currentPage === totalPages} onclick={() => handlePageChange(currentPage + 1)}>
-          {$t.common.next}
-        </Button>
-      </div>
-    {/if}
-    {#if total != null}
-      <span class="sm:absolute sm:right-0 text-sm text-muted-foreground">
-        {total} {totalLabel ?? $t.common.entries}
-      </span>
-    {/if}
-  </div>
-{/if}
+<div class="flex flex-col items-center gap-2">
+  <Pagination.Root
+    count={total}
+    {perPage}
+    {siblingCount}
+    page={currentPage}
+    onPageChange={handlePageChange}
+  >
+    {#snippet children({ pages })}
+      <Pagination.Content>
+        <Pagination.Item>
+          <Pagination.PrevButton />
+        </Pagination.Item>
+        {#each pages as p, i (p.type === 'page' ? p.value : `ellipsis-${i}`)}
+          {#if p.type === 'ellipsis'}
+            <Pagination.Item>
+              <Pagination.Ellipsis />
+            </Pagination.Item>
+          {:else}
+            <Pagination.Item>
+              <Pagination.Link page={p} isActive={currentPage === p.value}>
+                {p.value}
+              </Pagination.Link>
+            </Pagination.Item>
+          {/if}
+        {/each}
+        <Pagination.Item>
+          <Pagination.NextButton />
+        </Pagination.Item>
+      </Pagination.Content>
+    {/snippet}
+  </Pagination.Root>
+  <p class="text-sm text-muted-foreground">
+    {total} {totalLabel ?? $t.common.entries}
+  </p>
+</div>
