@@ -15,8 +15,7 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 ## Project Structure
 
 - `src/lib/components/registry/` — Registry component source files (organized by component name)
-- `src/lib/components/registry/lib/` — Shared registry utilities (e.g., `navigation.ts`)
-- `src/lib/components/ui/` — shadcn-svelte base UI components
+- `src/lib/components/ui/` — shadcn-svelte base UI components (do not edit — managed by shadcn-svelte CLI)
 - `src/lib/i18n/` — i18n setup: `en.json` (English translations, local dev only — not shipped to consumers), `index.ts` (translation loader)
 - `src/lib/types/i18n.ts` — `Translations` type inferred from `en.json`
 - `src/lib/stores/i18nStore.ts` — Writable `translations` store, `setTranslations()`, and derived `t` store
