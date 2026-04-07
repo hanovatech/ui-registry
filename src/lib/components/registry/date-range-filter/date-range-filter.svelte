@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { gotoParams } from '$lib/components/registry/helpers/navigation.js';
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import { Button } from '$lib/components/ui/button/index.js';
   import * as Popover from '$lib/components/ui/popover/index.js';
@@ -98,6 +99,11 @@
     params.set('startDate', `${newYear}-01-01`);
     params.set('endDate', `${newYear}-12-31`);
     gotoParams(params);
+  }
+
+  function gotoParams(params: URLSearchParams) {
+    // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types
+    goto(resolve(`${page.url.pathname}?${params.toString()}`));
   }
 </script>
 

@@ -8,14 +8,6 @@
 		"relativeUrl": "i18n.json"
 	},
 	{
-		"name": "navigation",
-		"title": "Navigation Utilities",
-		"type": "registry:lib",
-		"description": "URL-aware navigation helpers for SvelteKit.",
-		"registryDependencies": [],
-		"relativeUrl": "navigation.json"
-	},
-	{
 		"name": "page-header",
 		"title": "Page Header",
 		"type": "registry:block",
@@ -29,8 +21,7 @@
 		"type": "registry:block",
 		"description": "URL-driven pagination with page numbers, navigation, and total count.",
 		"registryDependencies": [
-			"pagination",
-			"local:navigation"
+			"pagination"
 		],
 		"relativeUrl": "pagination.json"
 	},
@@ -43,8 +34,7 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input",
-			"local:navigation"
+			"input"
 		],
 		"relativeUrl": "search-filter.json"
 	},
@@ -54,8 +44,7 @@
 		"type": "registry:block",
 		"description": "A select dropdown that syncs its value to URL search params.",
 		"registryDependencies": [
-			"select",
-			"local:navigation"
+			"select"
 		],
 		"relativeUrl": "select-filter.json"
 	},
@@ -68,8 +57,7 @@
 			"tailwind-variants"
 		],
 		"registryDependencies": [
-			"button",
-			"local:navigation"
+			"button"
 		],
 		"relativeUrl": "button-group-filter.json"
 	},
@@ -85,8 +73,7 @@
 		"registryDependencies": [
 			"button",
 			"popover",
-			"range-calendar",
-			"local:navigation"
+			"range-calendar"
 		],
 		"relativeUrl": "date-range-filter.json"
 	},
@@ -101,8 +88,7 @@
 		],
 		"registryDependencies": [
 			"button",
-			"dropdown-menu",
-			"local:navigation"
+			"dropdown-menu"
 		],
 		"relativeUrl": "month-filter.json"
 	},

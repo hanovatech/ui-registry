@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import { page } from '$app/state';
-  import { gotoParams } from '$lib/components/registry/helpers/navigation.js';
   import { t } from '$lib/stores/i18nStore';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
   import * as Pagination from '$lib/components/ui/pagination/index.js';
@@ -31,6 +32,11 @@
       params.set('page', newPage.toString());
     }
     gotoParams(params);
+  }
+
+  function gotoParams(params: URLSearchParams) {
+    // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types
+    goto(resolve(`${page.url.pathname}?${params.toString()}`));
   }
 </script>
 
