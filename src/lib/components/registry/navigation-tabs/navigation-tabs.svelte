@@ -41,7 +41,9 @@
       <Tabs.Trigger
         value={tab.href}
         class={triggerClass}
-        onclick={() => goto(resolve(tab.href))}
+        onclick={() =>
+          // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types
+          goto(resolve(tab.href))}
       >
         {tab.label}
       </Tabs.Trigger>
