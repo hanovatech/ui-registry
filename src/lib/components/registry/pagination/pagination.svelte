@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { gotoParams } from '$lib/utils/navigation.js';
+  import { gotoParams } from '$lib/components/registry/helpers/navigation.js';
   import { t } from '$lib/stores/i18nStore';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
   import * as Pagination from '$lib/components/ui/pagination/index.js';

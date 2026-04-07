@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { gotoParams } from '$lib/utils/navigation.js';
+  import { gotoParams } from '$lib/components/registry/helpers/navigation.js';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
   import * as Select from '$lib/components/ui/select/index.js';
 

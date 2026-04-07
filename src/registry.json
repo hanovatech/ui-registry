@@ -36,9 +36,9 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "src/lib/utils/navigation.ts",
+          "path": "src/lib/components/registry/helpers/navigation.ts",
           "type": "registry:lib",
-          "target": "utils/navigation.ts"
+          "target": "registry/helpers/navigation.ts"
         }
       ]
     },
@@ -253,11 +253,6 @@
       "description": "A recursive, collapsible JSON viewer with syntax highlighting.",
       "registryDependencies": [],
       "files": [
-        {
-          "path": "src/lib/components/registry/json-tree/index.ts",
-          "type": "registry:component",
-          "target": "registry/json-tree/index.ts"
-        },
         {
           "path": "src/lib/components/registry/json-tree/json-tree.svelte",
           "type": "registry:component",
