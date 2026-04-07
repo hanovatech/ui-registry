@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { gotoParams } from '$lib/components/registry/lib/navigation.js';
+  import { gotoParams } from '$lib/utils/navigation.js';
   import { page } from '$app/state';
   import { Button } from '$lib/components/ui/button/index.js';
   import * as Popover from '$lib/components/ui/popover/index.js';

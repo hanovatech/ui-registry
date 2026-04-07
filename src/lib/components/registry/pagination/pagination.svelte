@@ -1,9 +1,11 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { gotoParams } from '$lib/components/registry/lib/navigation.js';
+  import { gotoParams } from '$lib/utils/navigation.js';
   import { t } from '$lib/stores/i18nStore';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
   import * as Pagination from '$lib/components/ui/pagination/index.js';
+  import ChevronLeft from '@lucide/svelte/icons/chevron-left';
+  import ChevronRight from '@lucide/svelte/icons/chevron-right';
 
   interface Props {
     total: number;
@@ -43,7 +45,10 @@
     {#snippet children({ pages })}
       <Pagination.Content>
         <Pagination.Item>
-          <Pagination.PrevButton />
+          <Pagination.PrevButton>
+            <ChevronLeft class="size-4" />
+            <span>{$t.common.previous}</span>
+          </Pagination.PrevButton>
         </Pagination.Item>
         {#each pages as p, i (p.type === 'page' ? p.value : `ellipsis-${i}`)}
           {#if p.type === 'ellipsis'}
@@ -59,7 +64,10 @@
           {/if}
         {/each}
         <Pagination.Item>
-          <Pagination.NextButton />
+          <Pagination.NextButton>
+            <span>{$t.common.next}</span>
+            <ChevronRight class="size-4" />
+          </Pagination.NextButton>
         </Pagination.Item>
       </Pagination.Content>
     {/snippet}

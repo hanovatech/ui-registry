@@ -36,9 +36,9 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "src/lib/components/registry/lib/navigation.ts",
-          "type": "registry:component",
-          "target": "registry/lib/navigation.ts"
+          "path": "src/lib/utils/navigation.ts",
+          "type": "registry:lib",
+          "target": "utils/navigation.ts"
         }
       ]
     },
@@ -63,8 +63,7 @@
       "description": "URL-driven pagination with page numbers, navigation, and total count.",
       "registryDependencies": [
         "pagination",
-        "local:navigation",
-        "local:i18n"
+        "local:navigation"
       ],
       "files": [
         {
@@ -81,8 +80,7 @@
       "description": "A search input that syncs its value to URL search params.",
       "registryDependencies": [
         "input",
-        "local:navigation",
-        "local:i18n"
+        "local:navigation"
       ],
       "dependencies": [
         "@lucide/svelte"
@@ -141,8 +139,7 @@
         "button",
         "popover",
         "range-calendar",
-        "local:navigation",
-        "local:i18n"
+        "local:navigation"
       ],
       "dependencies": [
         "@internationalized/date",
@@ -164,8 +161,7 @@
       "registryDependencies": [
         "button",
         "dropdown-menu",
-        "local:navigation",
-        "local:i18n"
+        "local:navigation"
       ],
       "dependencies": [
         "@lucide/svelte",
@@ -206,8 +202,7 @@
       "registryDependencies": [
         "button",
         "sheet",
-        "alert",
-        "local:i18n"
+        "alert"
       ],
       "dependencies": [
         "@lucide/svelte"

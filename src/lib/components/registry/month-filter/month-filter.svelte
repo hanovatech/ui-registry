@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { gotoParams } from '$lib/components/registry/lib/navigation.js';
+  import { gotoParams } from '$lib/utils/navigation.js';
   import { page } from '$app/state';
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";

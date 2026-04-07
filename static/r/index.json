@@ -30,8 +30,7 @@
 		"description": "URL-driven pagination with page numbers, navigation, and total count.",
 		"registryDependencies": [
 			"pagination",
-			"local:navigation",
-			"local:i18n"
+			"local:navigation"
 		],
 		"relativeUrl": "pagination.json"
 	},
@@ -45,8 +44,7 @@
 		],
 		"registryDependencies": [
 			"input",
-			"local:navigation",
-			"local:i18n"
+			"local:navigation"
 		],
 		"relativeUrl": "search-filter.json"
 	},
@@ -88,8 +86,7 @@
 			"button",
 			"popover",
 			"range-calendar",
-			"local:navigation",
-			"local:i18n"
+			"local:navigation"
 		],
 		"relativeUrl": "date-range-filter.json"
 	},
@@ -105,8 +102,7 @@
 		"registryDependencies": [
 			"button",
 			"dropdown-menu",
-			"local:navigation",
-			"local:i18n"
+			"local:navigation"
 		],
 		"relativeUrl": "month-filter.json"
 	},
@@ -129,8 +125,7 @@
 		"registryDependencies": [
 			"button",
 			"sheet",
-			"alert",
-			"local:i18n"
+			"alert"
 		],
 		"relativeUrl": "sheet-form.json"
 	},

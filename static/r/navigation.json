@@ -6,9 +6,9 @@
 	"description": "URL-aware navigation helpers for SvelteKit.",
 	"files": [
 		{
-			"content": "import { goto } from '$app/navigation';\nimport { resolve } from '$app/paths';\nimport { page } from '$app/state';\n\nexport function gotoParams(params: URLSearchParams) {\n  // @ts-expect-error resolve produces a valid URL but doesn't match SvelteKit's strict route literal types\n  return goto(resolve(`${page.url.pathname}?${params.toString()}`));\n}\n",
-			"type": "registry:component",
-			"target": "registry/lib/navigation.ts"
+			"content": "import { goto } from '$app/navigation';\nimport { resolve } from '$app/paths';\nimport { page } from '$app/state';\n\nexport function gotoParams(params: URLSearchParams) {\n  // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types\n  return goto(resolve(`${page.url.pathname}?${params.toString()}`));\n}\n",
+			"type": "registry:lib",
+			"target": "utils/navigation.ts"
 		}
 	]
 }
