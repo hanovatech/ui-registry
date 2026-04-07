@@ -15,7 +15,7 @@
   import Metrics from '$lib/components/registry/metrics/metrics.svelte';
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
   import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
-  import { JsonTree } from '$lib/components/registry/json-tree/index.js';
+  import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
   import { Button } from '$lib/components/ui/button/index.js';
 
   const baseUrl = $derived(browser ? `${page.url.origin}${resolve('/')}`.replace(/\/$/, '') : '');
