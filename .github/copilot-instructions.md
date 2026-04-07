@@ -36,7 +36,6 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - Components must use `$lib/` imports so they resolve in both the registry project and consumer projects
 - The `src/registry.json` manifest must list every component with `registryDependencies` (even if empty `[]`)
 - After adding or changing registry components, run `npm run registry:build` to regenerate `static/r/`
-- When adding, updating, or removing registry items (blocks, libraries, etc.), update `README.md` to keep the component table in sync
 - Components that need shadcn-svelte primitives should list them in `registryDependencies` (e.g., `"button"`, `"sheet"`)
 - Use `local:<name>` in `registryDependencies` to reference other items in this registry (e.g., `"local:navigation"`, `"local:i18n"`)
 

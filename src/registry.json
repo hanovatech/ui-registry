@@ -239,6 +239,22 @@
           "target": "registry/json-tree/json-tree.svelte"
         }
       ]
+    },
+    {
+      "name": "time-input",
+      "type": "registry:ui",
+      "title": "Time Input",
+      "description": "A masked time input (HH:MM) with auto-formatting and validation.",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/time-input/time-input.svelte",
+          "type": "registry:component",
+          "target": "registry/time-input/time-input.svelte"
+        }
+      ]
     }
   ]
 }

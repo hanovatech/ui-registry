@@ -1,0 +1,17 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "time-input",
+	"title": "Time Input",
+	"type": "registry:ui",
+	"description": "A masked time input (HH:MM) with auto-formatting and validation.",
+	"registryDependencies": [
+		"input"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Input from '$lib/components/ui/input/input.svelte';\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    id?: string;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = 'HH:MM',\n    disabled = false,\n    id,\n    class: className,\n  }: Props = $props();\n\n  function handleInput(e: Event & { currentTarget: HTMLInputElement }) {\n    const el = e.currentTarget;\n    const pos = el.selectionStart ?? 0;\n    const raw = el.value;\n    const digits = raw.replace(/[^0-9]/g, '').slice(0, 4);\n    let v = digits;\n    if (v.length >= 3) v = v.slice(0, 2) + ':' + v.slice(2);\n    el.value = v;\n    const newPos =\n      !raw.includes(':') && v.includes(':') && pos > 2\n        ? pos + 1\n        : Math.min(pos, v.length);\n    el.setSelectionRange(newPos, newPos);\n    value = v;\n  }\n\n  function handleBlur(e: FocusEvent & { currentTarget: HTMLInputElement }) {\n    const m = e.currentTarget.value.match(/^(\\d{1,2}):(\\d{2})$/);\n    if (m) {\n      const h = Math.min(parseInt(m[1]), 23);\n      const min = Math.min(parseInt(m[2]), 59);\n      value = `${String(h).padStart(2, '0')}:${String(min).padStart(2, '0')}`;\n    }\n  }\n</script>\n\n<Input\n  {id}\n  type=\"text\"\n  inputmode=\"numeric\"\n  {placeholder}\n  {value}\n  {disabled}\n  class={className}\n  oninput={handleInput}\n  onblur={handleBlur}\n/>\n",
+			"type": "registry:component",
+			"target": "registry/time-input/time-input.svelte"
+		}
+	]
+}

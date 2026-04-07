@@ -132,5 +132,15 @@
 		"description": "A recursive, collapsible JSON viewer with syntax highlighting.",
 		"registryDependencies": [],
 		"relativeUrl": "json-tree.json"
+	},
+	{
+		"name": "time-input",
+		"title": "Time Input",
+		"type": "registry:ui",
+		"description": "A masked time input (HH:MM) with auto-formatting and validation.",
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "time-input.json"
 	}
 ]

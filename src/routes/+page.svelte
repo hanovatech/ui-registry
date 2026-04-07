@@ -16,6 +16,7 @@
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
   import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
+  import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import { Button } from '$lib/components/ui/button/index.js';
 
   const baseUrl = $derived(browser ? `${page.url.origin}${resolve('/')}`.replace(/\/$/, '') : '');
@@ -98,6 +99,7 @@
     'sheet-form': true,
     'navigation-tabs': true,
     'json-tree': true,
+    'time-input': true,
   };
 </script>
 
@@ -191,6 +193,11 @@
 
                 {:else if component.name === 'json-tree'}
                   <JsonTree data={sampleJson} />
+
+                {:else if component.name === 'time-input'}
+                  <div class="w-48">
+                    <TimeInput />
+                  </div>
                 {/if}
               </div>
             {/if}
