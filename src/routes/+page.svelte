@@ -113,7 +113,7 @@
       <a href="https://next.shadcn-svelte.com" target="_blank" rel="noopener noreferrer" class="font-medium text-foreground underline underline-offset-4 hover:text-primary">shadcn-svelte</a>
       + SvelteKit. Install any component with the CLI:
     </p>
-    <pre class="overflow-x-auto rounded-lg border bg-muted px-4 py-3 text-sm"><code>npx shadcn-svelte@latest add {baseUrl}/r/component-name.json</code></pre>
+    <pre class="max-w-full overflow-x-auto rounded-lg border bg-muted px-4 py-3 text-sm"><code>npx shadcn-svelte@latest add {baseUrl}/r/component-name.json</code></pre>
     <div class="flex items-center gap-4 text-xs text-muted-foreground">
       <span>{totalItems} components</span>
       <span>&middot;</span>
@@ -136,7 +136,7 @@
               </div>
               <p class="mt-1 text-sm text-muted-foreground">{component.description}</p>
               <div class="mt-3 flex items-center gap-2">
-                <code class="flex-1 truncate rounded border bg-muted px-2 py-1 text-xs text-muted-foreground">npx shadcn-svelte@latest add {baseUrl}/r/{component.name}.json</code>
+                <code class="w-0 flex-1 truncate rounded border bg-muted px-2 py-1 text-xs text-muted-foreground">npx shadcn-svelte@latest add {baseUrl}/r/{component.name}.json</code>
                 <button
                   onclick={() => copyCommand(component.name)}
                   class="shrink-0 rounded border px-2 py-1 text-xs transition-colors hover:bg-accent"
@@ -152,7 +152,7 @@
                   <PageHeader title="Dashboard" description="Overview of your account activity." icon="📊" />
 
                 {:else if component.name === 'pagination'}
-                  <Pagination total={95} perPage={10} />
+                  <Pagination total={30} perPage={10} />
 
                 {:else if component.name === 'search-filter'}
                   <SearchFilter />

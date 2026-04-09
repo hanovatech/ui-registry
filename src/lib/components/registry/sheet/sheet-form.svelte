@@ -54,7 +54,7 @@
 </script>
 
 <Sheet.Root bind:open onOpenChange={handleOpenChange}>
-	<Sheet.Content {side} class="flex w-full flex-col gap-0 overflow-hidden {maxWidth}">
+	<Sheet.Content {side} showCloseButton={false} class="flex data-[side=left]:w-full data-[side=right]:w-full flex-col gap-0 overflow-hidden {maxWidth}">
 		<Sheet.Header class="sticky top-0 z-10 border-b bg-muted px-4 py-4">
 			<div class="flex items-center justify-between gap-2">
 				<div class="flex-1 space-y-1">
