@@ -241,6 +241,32 @@
       ]
     },
     {
+      "name": "breadcrumbs",
+      "type": "registry:block",
+      "title": "Breadcrumbs",
+      "description": "Auto-generated breadcrumbs from the current URL with dynamic segment support.",
+      "registryDependencies": [
+        "breadcrumb"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/breadcrumbs/index.ts",
+          "type": "registry:component",
+          "target": "registry/breadcrumbs/index.ts"
+        },
+        {
+          "path": "src/lib/components/registry/breadcrumbs/breadcrumbs.svelte",
+          "type": "registry:component",
+          "target": "registry/breadcrumbs/breadcrumbs.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/breadcrumbs/breadcrumbs.ts",
+          "type": "registry:component",
+          "target": "registry/breadcrumbs/breadcrumbs.ts"
+        }
+      ]
+    },
+    {
       "name": "time-input",
       "type": "registry:ui",
       "title": "Time Input",

@@ -8,7 +8,7 @@
 		"@lucide/svelte"
 	],
 	"devDependencies": [
-		"@lucide/svelte@^1.7.0"
+		"@lucide/svelte@^1.8.0"
 	],
 	"registryDependencies": [
 		"input"

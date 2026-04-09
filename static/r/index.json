@@ -101,8 +101,8 @@
 		"relativeUrl": "metrics.json"
 	},
 	{
-		"name": "sheet-form",
-		"title": "Sheet Form",
+		"name": "sheet",
+		"title": "Sheets",
 		"type": "registry:block",
 		"description": "Slide-over sheets for detail views and forms with sections.",
 		"dependencies": [
@@ -113,7 +113,7 @@
 			"sheet",
 			"alert"
 		],
-		"relativeUrl": "sheet-form.json"
+		"relativeUrl": "sheet.json"
 	},
 	{
 		"name": "navigation-tabs",
@@ -132,6 +132,16 @@
 		"description": "A recursive, collapsible JSON viewer with syntax highlighting.",
 		"registryDependencies": [],
 		"relativeUrl": "json-tree.json"
+	},
+	{
+		"name": "breadcrumbs",
+		"title": "Breadcrumbs",
+		"type": "registry:block",
+		"description": "Auto-generated breadcrumbs from the current URL with dynamic segment support.",
+		"registryDependencies": [
+			"breadcrumb"
+		],
+		"relativeUrl": "breadcrumbs.json"
 	},
 	{
 		"name": "time-input",

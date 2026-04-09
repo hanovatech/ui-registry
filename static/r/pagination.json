@@ -5,7 +5,7 @@
 	"type": "registry:block",
 	"description": "URL-driven pagination with page numbers, navigation, and total count.",
 	"devDependencies": [
-		"@lucide/svelte@^1.7.0"
+		"@lucide/svelte@^1.8.0"
 	],
 	"registryDependencies": [
 		"pagination"
