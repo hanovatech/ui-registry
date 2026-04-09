@@ -175,9 +175,9 @@
       ]
     },
     {
-      "name": "sheet-form",
+      "name": "sheet",
       "type": "registry:block",
-      "title": "Sheet Form",
+      "title": "Sheets",
       "description": "Slide-over sheets for detail views and forms with sections.",
       "registryDependencies": [
         "button",
