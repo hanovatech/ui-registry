@@ -197,7 +197,7 @@
                     </SheetDetail>
 
                   {:else if component.name === 'navigation-tabs'}
-                    <NavigationTabs tabs={[{ label: 'Overview', href: '/?tab=overview' }, { label: 'Settings', href: '/?tab=settings' }]}>
+                    <NavigationTabs triggerClass="flex-1" tabs={[{ label: 'Overview', href: '/' }, { label: 'Analytics', href: '/?tab=analytics' }, { label: 'Settings', href: '/?tab=settings' }, { label: 'Billing', href: '/?tab=billing' }]}>
                       <p class="text-sm text-muted-foreground">Tab content goes here.</p>
                     </NavigationTabs>
 
