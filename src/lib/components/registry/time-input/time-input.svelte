@@ -14,7 +14,7 @@
     placeholder = 'HH:MM',
     disabled = false,
     id,
-    class: className,
+    class: className = "bg-background",
   }: Props = $props();
 
   function handleInput(e: Event & { currentTarget: HTMLInputElement }) {
