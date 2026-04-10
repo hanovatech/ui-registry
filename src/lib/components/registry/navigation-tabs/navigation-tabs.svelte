@@ -3,7 +3,6 @@
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import * as Tabs from '$lib/components/ui/tabs/index.js';
-  import { cn } from '$lib/utils/shadcn.js';
   import type { Snippet } from 'svelte';
 
   interface Tab {
@@ -37,7 +36,7 @@
 </script>
 
 <Tabs.Root value={selectedValue}>
-  <Tabs.List class={cn("group-data-horizontal/tabs:h-auto flex w-full flex-wrap", className)}>
+  <Tabs.List class={["group-data-horizontal/tabs:h-auto flex w-full flex-wrap", className]}>
     {#each tabs as tab (tab.href)}
       <Tabs.Trigger
         value={tab.href}
