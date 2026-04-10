@@ -260,9 +260,9 @@
           "target": "registry/breadcrumbs/breadcrumbs.svelte"
         },
         {
-          "path": "src/lib/components/registry/breadcrumbs/breadcrumbs.ts",
+          "path": "src/lib/components/registry/breadcrumbs/build-breadcrumbs.ts",
           "type": "registry:component",
-          "target": "registry/breadcrumbs/breadcrumbs.ts"
+          "target": "registry/breadcrumbs/build-breadcrumbs.ts"
         }
       ]
     },
