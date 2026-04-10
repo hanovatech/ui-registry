@@ -4,4 +4,4 @@ export {
   type BreadcrumbItem,
   type DynamicSegmentMapping,
   type BuildBreadcrumbsOptions,
-} from './breadcrumbs.js';
+} from './build-breadcrumbs.js';

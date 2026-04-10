@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
-	import { buildBreadcrumbs, type DynamicSegmentMapping } from './breadcrumbs.js';
+	import { buildBreadcrumbs, type DynamicSegmentMapping } from './build-breadcrumbs.js';
 
 	interface Props {
 		labels?: Record<string, string>;
