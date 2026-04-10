@@ -14,7 +14,7 @@
     currency?: string;
   }
 
-  let { metrics, columns, locale = 'en-US', currency = 'USD' }: Props = $props();
+  let { metrics, columns, locale = 'de-DE', currency = 'EUR' }: Props = $props();
 
   function formatCurrency(value: number): string {
     return new Intl.NumberFormat(locale, {
