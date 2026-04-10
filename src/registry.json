@@ -281,6 +281,26 @@
           "target": "registry/time-input/time-input.svelte"
         }
       ]
+    },
+    {
+      "name": "scheduler",
+      "type": "registry:lib",
+      "title": "Scheduler",
+      "description": "A generic cron job scheduler with graceful shutdown. Supply your own jobs at startup.",
+      "registryDependencies": [],
+      "dependencies": [
+        "node-cron"
+      ],
+      "devDependencies": [
+        "@types/node-cron"
+      ],
+      "files": [
+        {
+          "path": "src/lib/scheduler/scheduler.ts",
+          "type": "registry:lib",
+          "target": "scheduler/scheduler.ts"
+        }
+      ]
     }
   ]
 }

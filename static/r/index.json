@@ -152,5 +152,19 @@
 			"input"
 		],
 		"relativeUrl": "time-input.json"
+	},
+	{
+		"name": "scheduler",
+		"title": "Scheduler",
+		"type": "registry:lib",
+		"description": "A generic cron job scheduler with graceful shutdown. Supply your own jobs at startup.",
+		"dependencies": [
+			"node-cron"
+		],
+		"devDependencies": [
+			"@types/node-cron"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "scheduler.json"
 	}
 ]

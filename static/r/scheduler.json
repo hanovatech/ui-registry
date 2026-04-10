@@ -1,0 +1,20 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "scheduler",
+	"title": "Scheduler",
+	"type": "registry:lib",
+	"description": "A generic cron job scheduler with graceful shutdown. Supply your own jobs at startup.",
+	"dependencies": [
+		"node-cron"
+	],
+	"devDependencies": [
+		"@types/node-cron"
+	],
+	"files": [
+		{
+			"content": "import cron, { type ScheduledTask } from 'node-cron';\n\n// Define your jobs here\n// import { myJob } from '$lib/scheduler/jobs/my-job';\n\nlet initialized = false;\nconst tasks: ScheduledTask[] = [];\n\nfunction stopAll() {\n  for (const task of tasks) task.stop();\n  tasks.length = 0;\n}\n\n/**\n * Starts the cron scheduler.\n *\n * Call once at server startup (e.g. in `hooks.server.ts`).\n * Handles graceful shutdown on SIGINT/SIGTERM.\n *\n * Add jobs below using `cron.schedule(expression, handler)`.\n */\nexport function startScheduler() {\n  if (initialized) return;\n  initialized = true;\n\n  // Register jobs here:\n  // tasks.push(cron.schedule('0 3 1 * *', myJob));\n\n  process.on('SIGINT', () => {\n    stopAll();\n    process.exit(0);\n  });\n  process.on('SIGTERM', () => {\n    stopAll();\n    process.exit(0);\n  });\n}\n",
+			"type": "registry:lib",
+			"target": "scheduler/scheduler.ts"
+		}
+	]
+}
