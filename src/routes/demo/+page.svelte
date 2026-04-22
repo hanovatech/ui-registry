@@ -5,6 +5,7 @@
     ArrowUpRight,
     Activity,
   } from '@lucide/svelte';
+  import { resolve } from '$app/paths';
   import Metrics from '$lib/components/registry/metrics/metrics.svelte';
   import * as Card from '$lib/components/ui/card/index.js';
 
@@ -162,7 +163,7 @@
         <Card.Title>Letzte Bestellungen</Card.Title>
         <Card.Description>Übersicht der neuesten Bestellungen</Card.Description>
       </div>
-      <a href="/demo/bestellungen" class="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent">
+      <a href={resolve('/demo/bestellungen')} class="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent">
         Alle anzeigen
         <ArrowUpRight class="size-3" />
       </a>
