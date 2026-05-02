@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import ChevronLeft from "@lucide/svelte/icons/chevron-left";
   import ChevronRight from "@lucide/svelte/icons/chevron-right";
@@ -106,8 +105,7 @@
   }
 
   function gotoParams(params: URLSearchParams) {
-    // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types
-    goto(resolve(`${page.url.pathname}?${params.toString()}`));
+    goto(`${page.url.pathname}?${params.toString()}`);
   }
 </script>
 

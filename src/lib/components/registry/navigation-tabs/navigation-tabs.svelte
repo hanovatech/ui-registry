@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { resolve } from '$app/paths';
   import { page } from '$app/state';
   import * as Tabs from '$lib/components/ui/tabs/index.js';
   import type { Snippet } from 'svelte';
@@ -41,9 +40,7 @@
       <Tabs.Trigger
         value={tab.href}
         class={triggerClass}
-        onclick={() =>
-          // @ts-ignore resolve produces a valid URL but doesn't match SvelteKit's strict route literal types
-          goto(resolve(tab.href))}
+        onclick={() => goto(tab.href)}
       >
         {tab.label}
       </Tabs.Trigger>

@@ -36,7 +36,7 @@
   function isActive(href: string): boolean {
     const path = page.url.pathname;
     if (href === '/demo') return path === resolve('/demo');
-    return path.startsWith(resolve(href));
+    return path.startsWith(href);
   }
 
   // Page title mapping
@@ -83,7 +83,7 @@
       <p class="mb-2 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Navigation</p>
       {#each navItems as item}
         <a
-          href={resolve(item.href)}
+          href={item.href}
           class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors
             {isActive(item.href) ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground' : 'text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'}"
         >
@@ -101,7 +101,7 @@
     <!-- Footer nav -->
     <div class="space-y-1 px-3 py-3">
       {#each navFooter as item}
-        <a href={resolve(item.href)} class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground">
+        <a href={item.href} class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground">
           <item.icon class="size-4" />
           <span>{item.label}</span>
         </a>
