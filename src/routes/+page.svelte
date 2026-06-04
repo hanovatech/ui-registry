@@ -170,7 +170,10 @@
                     <SearchFilter />
 
                   {:else if component.name === 'select-filter'}
-                    <SelectFilter key="status" options={selectOptions} placeholder="Status" />
+                    <div class="flex flex-wrap items-end gap-4">
+                      <SelectFilter key="status" options={selectOptions} placeholder="Status" />
+                      <SelectFilter key="status2" label="Status" options={selectOptions} placeholder="Status" />
+                    </div>
 
                   {:else if component.name === 'button-group-filter'}
                     <ButtonGroupFilter key="type" options={buttonGroupOptions} defaultValue="all" />
