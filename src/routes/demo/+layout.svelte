@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { resolve } from '$app/paths';
+  import type { Pathname } from '$app/types';
   import {
     LayoutDashboard,
     Users,
@@ -19,7 +20,7 @@
 
   let { children } = $props();
 
-  const navItems = [
+  const navItems: { label: string; icon: typeof LayoutDashboard; href: Pathname; badge?: number }[] = [
     { label: 'Dashboard', icon: LayoutDashboard, href: '/demo' },
     { label: 'Bestellungen', icon: ShoppingCart, href: '/demo/bestellungen', badge: 12 },
     { label: 'Kunden', icon: Users, href: '/demo/kunden' },
@@ -29,14 +30,14 @@
     { label: 'Dokumente', icon: FileText, href: '/demo/dokumente' },
   ];
 
-  const navFooter = [
+  const navFooter: { label: string; icon: typeof Settings; href: Pathname }[] = [
     { label: 'Einstellungen', icon: Settings, href: '/demo' },
   ];
 
-  function isActive(href: string): boolean {
+  function isActive(href: Pathname): boolean {
     const path = page.url.pathname;
     if (href === '/demo') return path === resolve('/demo');
-    return path.startsWith(href);
+    return path.startsWith(resolve(href));
   }
 
   // Page title mapping
@@ -50,7 +51,7 @@
     '/demo/dokumente': { title: 'Dokumente', subtitle: 'Dateien und Vorlagen' },
   };
 
-  const currentPage = $derived(pageTitles[page.url.pathname.replace(resolve('/'), '/')] ?? pageTitles['/demo']);
+  const currentPage = $derived(pageTitles[page.url.pathname.replace(resolve('/'), '/').replace(/\/$/, '') || '/demo'] ?? pageTitles['/demo']);
 </script>
 
 <div class="flex h-screen bg-background">
@@ -83,7 +84,7 @@
       <p class="mb-2 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Navigation</p>
       {#each navItems as item}
         <a
-          href={item.href}
+          href={resolve(item.href)}
           class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors
             {isActive(item.href) ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground' : 'text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground'}"
         >
@@ -101,7 +102,7 @@
     <!-- Footer nav -->
     <div class="space-y-1 px-3 py-3">
       {#each navFooter as item}
-        <a href={item.href} class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground">
+        <a href={resolve(item.href)} class="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground">
           <item.icon class="size-4" />
           <span>{item.label}</span>
         </a>
