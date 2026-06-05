@@ -134,6 +134,18 @@
 		"relativeUrl": "json-tree.json"
 	},
 	{
+		"name": "page-data-viewer",
+		"title": "Page Data Viewer",
+		"type": "registry:block",
+		"description": "A dialog that renders the current page data as a collapsible JSON tree. Useful as an admin/dev inspector.",
+		"registryDependencies": [
+			"dialog",
+			"button",
+			"local:json-tree"
+		],
+		"relativeUrl": "page-data-viewer.json"
+	},
+	{
 		"name": "breadcrumbs",
 		"title": "Breadcrumbs",
 		"type": "registry:block",

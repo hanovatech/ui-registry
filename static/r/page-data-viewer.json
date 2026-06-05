@@ -1,0 +1,22 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "page-data-viewer",
+	"title": "Page Data Viewer",
+	"type": "registry:block",
+	"description": "A dialog that renders the current page data as a collapsible JSON tree. Useful as an admin/dev inspector.",
+	"devDependencies": [
+		"@lucide/svelte@^1.8.0"
+	],
+	"registryDependencies": [
+		"dialog",
+		"button",
+		"./json-tree.json"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import { page } from \"$app/state\";\n  import * as Dialog from \"$lib/components/ui/dialog/index.js\";\n  import { buttonVariants } from \"$lib/components/ui/button/index.js\";\n  import JsonTree from \"$lib/components/registry/json-tree/json-tree.svelte\";\n  import Code from \"@lucide/svelte/icons/code\";\n  import type { Snippet } from \"svelte\";\n\n  interface Props {\n    /** Whether the trigger is shown. Gate this behind your own admin/dev check. */\n    visible?: boolean;\n    /** Data to display. Defaults to the current page state. */\n    data?: unknown;\n    /**\n     * Custom trigger. Spread the provided `props` onto your own clickable\n     * element to open the dialog. Falls back to a ghost icon button.\n     */\n    children?: Snippet<[Record<string, unknown>]>;\n  }\n\n  let { visible = true, data = page, children }: Props = $props();\n\n  let isOpen = $state(false);\n</script>\n\n{#if visible}\n  <Dialog.Root bind:open={isOpen}>\n    {#if children}\n      <Dialog.Trigger>\n        {#snippet child({ props })}\n          {@render children(props)}\n        {/snippet}\n      </Dialog.Trigger>\n    {:else}\n      <Dialog.Trigger class={buttonVariants({ variant: \"ghost\", size: \"icon\" })} title=\"View page data\">\n        <Code />\n      </Dialog.Trigger>\n    {/if}\n    <Dialog.Content class=\"sm:max-w-5xl w-full h-[80vh] flex flex-col\">\n      <Dialog.Header>\n        <Dialog.Title>Page Data</Dialog.Title>\n        <Dialog.Description>\n          All data returned by the page component\n        </Dialog.Description>\n      </Dialog.Header>\n      <div class=\"bg-muted rounded-lg p-4 overflow-auto flex-1 min-h-0\">\n        <JsonTree {data} />\n      </div>\n    </Dialog.Content>\n  </Dialog.Root>\n{/if}\n",
+			"type": "registry:component",
+			"target": "registry/page-data-viewer/page-data-viewer.svelte"
+		}
+	]
+}

@@ -241,6 +241,24 @@
       ]
     },
     {
+      "name": "page-data-viewer",
+      "type": "registry:block",
+      "title": "Page Data Viewer",
+      "description": "A dialog that renders the current page data as a collapsible JSON tree. Useful as an admin/dev inspector.",
+      "registryDependencies": [
+        "dialog",
+        "button",
+        "local:json-tree"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/page-data-viewer/page-data-viewer.svelte",
+          "type": "registry:component",
+          "target": "registry/page-data-viewer/page-data-viewer.svelte"
+        }
+      ]
+    },
+    {
       "name": "breadcrumbs",
       "type": "registry:block",
       "title": "Breadcrumbs",

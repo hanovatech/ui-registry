@@ -16,6 +16,7 @@
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
   import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
+  import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
@@ -102,6 +103,7 @@
     'sheet-form': true,
     'navigation-tabs': true,
     'json-tree': true,
+    'page-data-viewer': true,
     'time-input': true,
     'breadcrumbs': true,
   };
@@ -208,6 +210,9 @@
 
                   {:else if component.name === 'json-tree'}
                     <JsonTree data={sampleJson} />
+
+                  {:else if component.name === 'page-data-viewer'}
+                    <PageDataViewer data={sampleJson} />
 
                   {:else if component.name === 'time-input'}
                     <div class="w-48">
