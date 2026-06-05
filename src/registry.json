@@ -259,6 +259,26 @@
       ]
     },
     {
+      "name": "search-command",
+      "type": "registry:block",
+      "title": "Search Command",
+      "description": "A Cmd/Ctrl+K command palette with debounced search, grouped results, and loading/empty states. Supply a search callback and an onSelect handler.",
+      "registryDependencies": [
+        "command",
+        "button"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/search-command/search-command.svelte",
+          "type": "registry:component",
+          "target": "registry/search-command/search-command.svelte"
+        }
+      ]
+    },
+    {
       "name": "breadcrumbs",
       "type": "registry:block",
       "title": "Breadcrumbs",

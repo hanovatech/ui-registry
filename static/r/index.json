@@ -146,6 +146,20 @@
 		"relativeUrl": "page-data-viewer.json"
 	},
 	{
+		"name": "search-command",
+		"title": "Search Command",
+		"type": "registry:block",
+		"description": "A Cmd/Ctrl+K command palette with debounced search, grouped results, and loading/empty states. Supply a search callback and an onSelect handler.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"command",
+			"button"
+		],
+		"relativeUrl": "search-command.json"
+	},
+	{
 		"name": "breadcrumbs",
 		"title": "Breadcrumbs",
 		"type": "registry:block",

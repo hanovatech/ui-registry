@@ -17,6 +17,7 @@
   import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
+  import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
@@ -91,6 +92,19 @@
   let sheetFormOpen = $state(false);
   let sheetDetailOpen = $state(false);
 
+  // search-command preview: mock async search over a static dataset
+  const searchDataset: SearchResult[] = [
+    { id: '1', type: 'Customers', title: 'Acme Corporation', description: 'acme@example.com' },
+    { id: '2', type: 'Customers', title: 'Globex GmbH', description: 'info@globex.de' },
+    { id: '3', type: 'Invoices', title: 'INV-2026-0042', description: '€ 1,250.00 · paid' },
+    { id: '4', type: 'Teams', title: 'Platform Team', description: '8 members' },
+  ];
+  async function mockSearch(query: string): Promise<SearchResult[]> {
+    await new Promise((r) => setTimeout(r, 200));
+    const q = query.toLowerCase();
+    return searchDataset.filter((r) => (r.title ?? '').toLowerCase().includes(q));
+  }
+
   const previewComponents: Record<string, boolean> = {
     'page-header': true,
     'pagination': true,
@@ -104,6 +118,7 @@
     'navigation-tabs': true,
     'json-tree': true,
     'page-data-viewer': true,
+    'search-command': true,
     'time-input': true,
     'breadcrumbs': true,
   };
@@ -213,6 +228,9 @@
 
                   {:else if component.name === 'page-data-viewer'}
                     <PageDataViewer data={sampleJson} />
+
+                  {:else if component.name === 'search-command'}
+                    <SearchCommand search={mockSearch} onSelect={(r) => alert(`Selected: ${r.title}`)} />
 
                   {:else if component.name === 'time-input'}
                     <div class="w-48">
