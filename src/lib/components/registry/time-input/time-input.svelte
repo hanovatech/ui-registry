@@ -5,6 +5,8 @@
     value?: string;
     placeholder?: string;
     disabled?: boolean;
+    required?: boolean;
+    label?: string;
     id?: string;
     class?: string;
   }
@@ -13,7 +15,9 @@
     value = $bindable(''),
     placeholder = 'HH:MM',
     disabled = false,
-    id,
+    required = false,
+    label = '',
+    id = crypto.randomUUID(),
     class: className = "bg-background",
   }: Props = $props();
 
@@ -43,14 +47,28 @@
   }
 </script>
 
-<Input
-  {id}
-  type="text"
-  inputmode="numeric"
-  {placeholder}
-  {value}
-  {disabled}
-  class={className}
-  oninput={handleInput}
-  onblur={handleBlur}
-/>
+{#if label}
+  <div class="flex flex-col gap-1.5">
+    <label for={id} class="text-xs font-medium text-muted-foreground leading-none">
+      {label}{#if required}<span class="text-destructive ml-0.5">*</span>{/if}
+    </label>
+    {@render input()}
+  </div>
+{:else}
+  {@render input()}
+{/if}
+
+{#snippet input()}
+  <Input
+    {id}
+    type="text"
+    inputmode="numeric"
+    {placeholder}
+    {value}
+    {disabled}
+    {required}
+    class={className}
+    oninput={handleInput}
+    onblur={handleBlur}
+  />
+{/snippet}

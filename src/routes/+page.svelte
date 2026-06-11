@@ -234,7 +234,7 @@
 
                   {:else if component.name === 'time-input'}
                     <div class="w-48">
-                      <TimeInput />
+                      <TimeInput label="Start time" required />
                     </div>
 
                   {:else if component.name === 'breadcrumbs'}
