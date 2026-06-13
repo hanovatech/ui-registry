@@ -183,9 +183,11 @@
 		"name": "date-input",
 		"title": "Date Input",
 		"type": "registry:ui",
-		"description": "A masked date input (DD.MM.YYYY) with auto-formatting and a native browser date picker fallback.",
+		"description": "A masked date input (DD.MM.YYYY) with auto-formatting and a shadcn calendar popover for picking dates.",
 		"registryDependencies": [
-			"input"
+			"input",
+			"calendar",
+			"popover"
 		],
 		"relativeUrl": "date-input.json"
 	},
