@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import Input from '$lib/components/ui/input/input.svelte';
   import { Calendar } from '$lib/components/ui/calendar/index.js';
   import * as Popover from '$lib/components/ui/popover/index.js';
@@ -6,6 +7,7 @@
   import { CalendarDate, type DateValue } from '@internationalized/date';
 
   interface Props {
+    /** Bound value as an ISO date string (`YYYY-MM-DD`) or `''`. This is the only externally visible date format. */
     value?: string;
     placeholder?: string;
     disabled?: boolean;
@@ -31,6 +33,8 @@
     class: className = 'bg-background',
   }: Props = $props();
 
+  // What the user sees / types. Locale-formatted (DD.MM.YYYY) — a UX detail, not the bound state.
+  let displayValue = $state(isoToDisplay(value));
   let open = $state(false);
   let nativeEl: HTMLInputElement | undefined = $state();
 
@@ -44,21 +48,55 @@
     return () => mq.removeEventListener('change', onChange);
   });
 
-  function toIso(d: DateValue | undefined): string {
-    return d ? `${d.year}-${String(d.month).padStart(2, '0')}-${String(d.day).padStart(2, '0')}` : '';
+  // Keep the visible text in sync when `value` changes externally (parent reset, server hydration),
+  // without clobbering a partial edit (where `value` hasn't moved).
+  $effect(() => {
+    const iso = value;
+    untrack(() => {
+      if (displayToIso(displayValue) === iso) return;
+      displayValue = isoToDisplay(iso);
+    });
+  });
+
+  function pad(n: number | string): string {
+    return String(n).padStart(2, '0');
   }
 
-  // dd.mm.yyyy -> CalendarDate / yyyy-mm-dd (undefined/empty if incomplete or invalid)
+  function toIso(d: DateValue | undefined): string {
+    return d ? `${d.year}-${pad(d.month)}-${pad(d.day)}` : '';
+  }
+
+  /** ISO `YYYY-MM-DD` -> display `DD.MM.YYYY`; `''` for empty/invalid. */
+  function isoToDisplay(iso: string): string {
+    const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return m ? `${m[3]}.${m[2]}.${m[1]}` : '';
+  }
+
+  /** Display `DD.MM.YYYY` (1-2 digit day/month tolerated) -> ISO `YYYY-MM-DD`; `null` if incomplete or not a real date. */
+  function displayToIso(display: string): string | null {
+    const m = display.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (!m) return null;
+    const d = Number(m[1]);
+    const mo = Number(m[2]);
+    const y = Number(m[3]);
+    if (mo < 1 || mo > 12 || d < 1) return null;
+    const daysInMonth = new Date(y, mo, 0).getDate(); // mo is 1-indexed, day 0 -> last day of mo
+    if (d > daysInMonth) return null;
+    return `${y}-${pad(mo)}-${pad(d)}`;
+  }
+
+  // ISO -> CalendarDate for the popover calendar (undefined if empty/invalid).
   const calendarValue = $derived.by(() => {
-    const m = value.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+    const m = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
     if (!m) return undefined;
     try {
-      return new CalendarDate(Number(m[3]), Number(m[2]), Number(m[1]));
+      return new CalendarDate(Number(m[1]), Number(m[2]), Number(m[3]));
     } catch {
       return undefined;
     }
   });
-  const nativeValue = $derived(toIso(calendarValue));
+  // Native <input type="date"> already speaks ISO.
+  const nativeValue = $derived(/^\d{4}-\d{2}-\d{2}$/.test(value) ? value : '');
 
   function formatDate(digits: string): string {
     let v = digits.slice(0, 8);
@@ -86,31 +124,36 @@
       if (/\d/.test(v[i])) seen++;
     }
     el.setSelectionRange(newPos, newPos);
-    value = v;
+
+    displayValue = v;
+    // Only touch `value` when the edit settles into a complete state.
+    if (v === '') value = '';
+    else {
+      const iso = displayToIso(v);
+      if (iso) value = iso; // partial input leaves `value` unchanged
+    }
   }
 
-  function handleBlur(e: FocusEvent & { currentTarget: HTMLInputElement }) {
-    const m = e.currentTarget.value.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
-    if (m) {
-      const d = Math.min(Math.max(parseInt(m[1]), 1), 31);
-      const mo = Math.min(Math.max(parseInt(m[2]), 1), 12);
-      value = `${String(d).padStart(2, '0')}.${String(mo).padStart(2, '0')}.${m[3]}`;
+  function handleBlur() {
+    const iso = displayToIso(displayValue);
+    if (iso) {
+      value = iso;
+      displayValue = isoToDisplay(iso); // normalise padding, e.g. 5.3.2026 -> 05.03.2026
     }
   }
 
   function handleCalendar(v: DateValue | undefined) {
     if (v) {
-      value = `${String(v.day).padStart(2, '0')}.${String(v.month).padStart(2, '0')}.${v.year}`;
+      value = toIso(v);
+      displayValue = isoToDisplay(value);
       open = false;
     }
   }
 
   function handleNative(e: Event & { currentTarget: HTMLInputElement }) {
     const nv = e.currentTarget.value; // yyyy-mm-dd
-    if (nv) {
-      const [y, mo, d] = nv.split('-');
-      value = `${d}.${mo}.${y}`;
-    }
+    value = nv;
+    displayValue = isoToDisplay(nv);
   }
 
   function openNativePicker() {
@@ -154,7 +197,7 @@
       type="text"
       inputmode="numeric"
       {placeholder}
-      {value}
+      value={displayValue}
       {disabled}
       {required}
       class="{className} pr-9"

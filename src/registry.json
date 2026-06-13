@@ -324,7 +324,7 @@
       "name": "date-input",
       "type": "registry:ui",
       "title": "Date Input",
-      "description": "A masked date input (DD.MM.YYYY) with auto-formatting and a shadcn calendar popover for picking dates.",
+      "description": "A masked date input with locale-formatted display and a shadcn calendar popover. Binds an ISO (YYYY-MM-DD) value for direct API use.",
       "registryDependencies": [
         "input",
         "calendar",
