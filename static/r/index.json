@@ -180,6 +180,16 @@
 		"relativeUrl": "time-input.json"
 	},
 	{
+		"name": "date-input",
+		"title": "Date Input",
+		"type": "registry:ui",
+		"description": "A masked date input (DD.MM.YYYY) with auto-formatting and a native browser date picker fallback.",
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "date-input.json"
+	},
+	{
 		"name": "scheduler",
 		"title": "Scheduler",
 		"type": "registry:lib",

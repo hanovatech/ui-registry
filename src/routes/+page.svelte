@@ -19,6 +19,7 @@
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
   import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
+  import DateInput from '$lib/components/registry/date-input/date-input.svelte';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
   import * as Card from '$lib/components/ui/card/index.js';
@@ -120,6 +121,7 @@
     'page-data-viewer': true,
     'search-command': true,
     'time-input': true,
+    'date-input': true,
     'breadcrumbs': true,
   };
 </script>
@@ -235,6 +237,11 @@
                   {:else if component.name === 'time-input'}
                     <div class="w-48">
                       <TimeInput label="Start time" required />
+                    </div>
+
+                  {:else if component.name === 'date-input'}
+                    <div class="w-48">
+                      <DateInput label="Start date" required />
                     </div>
 
                   {:else if component.name === 'breadcrumbs'}

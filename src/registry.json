@@ -321,6 +321,22 @@
       ]
     },
     {
+      "name": "date-input",
+      "type": "registry:ui",
+      "title": "Date Input",
+      "description": "A masked date input (DD.MM.YYYY) with auto-formatting and a native browser date picker fallback.",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/date-input/date-input.svelte",
+          "type": "registry:component",
+          "target": "registry/date-input/date-input.svelte"
+        }
+      ]
+    },
+    {
       "name": "scheduler",
       "type": "registry:lib",
       "title": "Scheduler",
