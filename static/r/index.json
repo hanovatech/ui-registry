@@ -192,6 +192,20 @@
 		"relativeUrl": "date-input.json"
 	},
 	{
+		"name": "card-form",
+		"title": "Card Form",
+		"type": "registry:block",
+		"description": "A Card wrapped in a form with a default Save footer — eliminates boilerplate on settings pages with multiple editable sections.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"card",
+			"button"
+		],
+		"relativeUrl": "card-form.json"
+	},
+	{
 		"name": "scheduler",
 		"title": "Scheduler",
 		"type": "registry:lib",

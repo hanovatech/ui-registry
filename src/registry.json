@@ -339,6 +339,27 @@
       ]
     },
     {
+      "name": "card-form",
+      "type": "registry:block",
+      "title": "Card Form",
+      "description": "A Card wrapped in a form with a default Save footer — eliminates boilerplate on settings pages with multiple editable sections.",
+      "docs": "Intentional omissions in v1: no `formId` prop (the deprecated PageHeader form= pattern is not supported — add later if needed), no `header` snippet (feedback goes through toasts, not inline alerts — unlike sheet-form which keeps an error slot for inline validation summaries).",
+      "registryDependencies": [
+        "card",
+        "button"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/card-form/card-form.svelte",
+          "type": "registry:component",
+          "target": "registry/card-form/card-form.svelte"
+        }
+      ]
+    },
+    {
       "name": "scheduler",
       "type": "registry:lib",
       "title": "Scheduler",

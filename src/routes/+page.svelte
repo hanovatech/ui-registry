@@ -20,6 +20,8 @@
   import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import DateInput from '$lib/components/registry/date-input/date-input.svelte';
+  import CardForm from '$lib/components/registry/card-form/card-form.svelte';
+  import { Input } from '$lib/components/ui/input/index.js';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
   import * as Card from '$lib/components/ui/card/index.js';
@@ -123,6 +125,7 @@
     'time-input': true,
     'date-input': true,
     'breadcrumbs': true,
+    'card-form': true,
   };
 </script>
 
@@ -264,6 +267,14 @@
                         </Breadcrumb.List>
                       </Breadcrumb.Root>
                     </nav>
+                  {:else if component.name === 'card-form'}
+                    <CardForm title="Company Details" description="Update your organisation's display name." onSubmit={(e) => e.preventDefault()}>
+                      <div class="space-y-1">
+                        <label for="cf-name" class="text-sm font-medium">Company name</label>
+                        <Input id="cf-name" placeholder="Acme Inc." />
+                      </div>
+                    </CardForm>
+
                   {/if}
                   </div>
                 </div>
