@@ -4,7 +4,7 @@
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import type { Snippet } from 'svelte';
 	import X from '@lucide/svelte/icons/x';
-	import { t } from '$lib/stores/i18nStore';
+	import { t } from '$lib/stores/i18n';
 	import type { Side } from '$lib/components/ui/sheet/sheet-content.svelte';
 
 	interface Props {

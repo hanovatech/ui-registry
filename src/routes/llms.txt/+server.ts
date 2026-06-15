@@ -46,7 +46,7 @@ export const GET: RequestHandler = () => {
     '- Tailwind CSS v4',
     '- shadcn-svelte',
     '',
-    'Components that use labels (pagination, search, date pickers, etc.) depend on an i18n store at `$lib/stores/i18nStore`. Install the `i18n` library first or provide your own compatible implementation.',
+    'Components that use labels (pagination, search, date pickers, etc.) depend on an i18n store at `$lib/stores/i18n`. Install the `i18n` library first or provide your own compatible implementation.',
     '',
   ];
 

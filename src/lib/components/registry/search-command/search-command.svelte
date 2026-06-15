@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t } from '$lib/stores/i18nStore';
+  import { t } from '$lib/stores/i18n';
   import { Button } from '$lib/components/ui/button/index.js';
   import {
     Command,

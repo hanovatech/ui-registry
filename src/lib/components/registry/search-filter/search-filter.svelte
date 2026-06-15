@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
-  import { t } from '$lib/stores/i18nStore';
+  import { t } from '$lib/stores/i18n';
   import Input from '$lib/components/ui/input/input.svelte';
   import Search from '@lucide/svelte/icons/search';
 

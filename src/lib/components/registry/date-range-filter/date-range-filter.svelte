@@ -8,7 +8,7 @@
   import ChevronLeft from '@lucide/svelte/icons/chevron-left';
   import ChevronRight from '@lucide/svelte/icons/chevron-right';
   import { CalendarDate, getLocalTimeZone, type DateValue } from '@internationalized/date';
-  import { t } from '$lib/stores/i18nStore';
+  import { t } from '$lib/stores/i18n';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   interface Props {

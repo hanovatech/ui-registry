@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
-  import { t } from '$lib/stores/i18nStore';
+  import { t } from '$lib/stores/i18n';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
   import * as Pagination from '$lib/components/ui/pagination/index.js';
   import ChevronLeft from '@lucide/svelte/icons/chevron-left';

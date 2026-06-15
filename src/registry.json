@@ -8,7 +8,7 @@
       "type": "registry:lib",
       "title": "i18n",
       "description": "Internationalization store and type definitions.",
-      "docs": "This item provides a minimal i18n setup. If your project already has $lib/stores/i18nStore, $lib/i18n, and $lib/types/i18n, skip overwriting those files — the registry components are compatible with your existing implementation.",
+      "docs": "This item provides a minimal i18n setup. If your project already has $lib/stores/i18n, $lib/i18n, and $lib/types/i18n, skip overwriting those files — the registry components are compatible with your existing implementation.",
       "registryDependencies": [],
       "files": [
         {
@@ -22,9 +22,9 @@
           "target": "types/i18n.ts"
         },
         {
-          "path": "src/lib/stores/i18nStore.ts",
+          "path": "src/lib/stores/i18n.ts",
           "type": "registry:lib",
-          "target": "stores/i18nStore.ts"
+          "target": "stores/i18n.ts"
         }
       ]
     },

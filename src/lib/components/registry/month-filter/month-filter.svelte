@@ -6,7 +6,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as ButtonGroup from "$lib/components/ui/button-group/index.js";
-  import { t } from '$lib/stores/i18nStore';
+  import { t } from '$lib/stores/i18n';
   import { SvelteURLSearchParams } from 'svelte/reactivity';
 
   interface Props {

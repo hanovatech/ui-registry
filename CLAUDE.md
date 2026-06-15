@@ -18,7 +18,7 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - `src/lib/components/ui/` — shadcn-svelte base UI components (do not edit — managed by shadcn-svelte CLI)
 - `src/lib/i18n/` — i18n setup: `en.json` (English translations, local dev only — not shipped to consumers), `index.ts` (translation loader)
 - `src/lib/types/i18n.ts` — `Translations` type inferred from `en.json`
-- `src/lib/stores/i18nStore.ts` — Writable `translations` store, `setTranslations()`, and derived `t` store
+- `src/lib/stores/i18n.ts` — Writable `translations` store, `setTranslations()`, and derived `t` store
 - `src/lib/utils/` — Shared utilities (`cn` helper, etc.)
 - `src/registry.json` — Registry manifest defining all items (build-time only, not served)
 - `static/r/` — Built registry JSON output (generated, do not edit manually)
@@ -41,11 +41,11 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 
 ## i18n Conventions
 
-- Components with internal labels (e.g., "Previous", "Save", month names) must use the `t` store from `$lib/stores/i18nStore`
-- Import as: `import { t } from '$lib/stores/i18nStore';` — use `$t.common.<key>` in templates
+- Components with internal labels (e.g., "Previous", "Save", month names) must use the `t` store from `$lib/stores/i18n`
+- Import as: `import { t } from '$lib/stores/i18n';` — use `$t.common.<key>` in templates
 - Label props should default to `$t.common.<key>` (e.g., `previousLabel = $t.common.previous`) so they are translatable yet overridable
 - The `en.json` file in this project exists only for local development — it is **not** included in the `i18n` registry item
-- The `i18n` registry item ships: `stores/i18nStore.ts`, `i18n/index.ts`, `types/i18n.ts`
+- The `i18n` registry item ships: `stores/i18n.ts`, `i18n/index.ts`, `types/i18n.ts`
 - Consumer projects are expected to have their own translation JSON files and call `setTranslations()` to provide them
 - When adding a new label to a component, add the English default to `src/lib/i18n/en.json` under `common`
 
