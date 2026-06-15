@@ -12,9 +12,14 @@
 	],
 	"files": [
 		{
-			"content": "import cron, { type ScheduledTask } from 'node-cron';\n\n// Define your jobs here\n// import { myJob } from '$lib/scheduler/jobs/my-job';\n\nlet initialized = false;\nconst tasks: ScheduledTask[] = [];\n\nfunction stopAll() {\n  for (const task of tasks) task.stop();\n  tasks.length = 0;\n}\n\n/**\n * Starts the cron scheduler.\n *\n * Call once at server startup (e.g. in `hooks.server.ts`).\n * Handles graceful shutdown on SIGINT/SIGTERM.\n *\n * Add jobs below using `cron.schedule(expression, handler)`.\n */\nexport function startScheduler() {\n  if (initialized) return;\n  initialized = true;\n\n  // Register jobs here:\n  // tasks.push(cron.schedule('0 3 1 * *', myJob));\n\n  process.on('SIGINT', () => {\n    stopAll();\n    process.exit(0);\n  });\n  process.on('SIGTERM', () => {\n    stopAll();\n    process.exit(0);\n  });\n}\n",
+			"content": "import cron, { type ScheduledTask } from 'node-cron';\n\nlet initialized = false;\nconst tasks: ScheduledTask[] = [];\n\nfunction stopAll() {\n  for (const task of tasks) task.stop();\n  tasks.length = 0;\n}\n\n/**\n * Starts the cron scheduler.\n *\n * Call once at server startup (e.g. in `hooks.server.ts`).\n * Handles graceful shutdown on SIGINT/SIGTERM.\n *\n * Register cron jobs here. Job bodies live in ./jobs/<name>.ts as\n * pure async functions; this file pairs them with their cron expression.\n *\n * import cron from 'node-cron';\n * import { closeStaleTickets } from './jobs/close-stale-tickets';\n * tasks.push(cron.schedule('0 3 * * *', closeStaleTickets));\n */\nexport function startScheduler() {\n  if (initialized) return;\n  initialized = true;\n\n  process.on('SIGINT', () => {\n    stopAll();\n    process.exit(0);\n  });\n  process.on('SIGTERM', () => {\n    stopAll();\n    process.exit(0);\n  });\n}\n",
 			"type": "registry:lib",
-			"target": "scheduler/scheduler.ts"
+			"target": "server/scheduler/index.ts"
+		},
+		{
+			"content": "",
+			"type": "registry:file",
+			"target": "server/scheduler/jobs/.gitkeep"
 		}
 	]
 }

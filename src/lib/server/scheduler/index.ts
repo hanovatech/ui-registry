@@ -1,8 +1,5 @@
 import cron, { type ScheduledTask } from 'node-cron';
 
-// Define your jobs here
-// import { myJob } from '$lib/scheduler/jobs/my-job';
-
 let initialized = false;
 const tasks: ScheduledTask[] = [];
 
@@ -17,14 +14,16 @@ function stopAll() {
  * Call once at server startup (e.g. in `hooks.server.ts`).
  * Handles graceful shutdown on SIGINT/SIGTERM.
  *
- * Add jobs below using `cron.schedule(expression, handler)`.
+ * Register cron jobs here. Job bodies live in ./jobs/<name>.ts as
+ * pure async functions; this file pairs them with their cron expression.
+ *
+ * import cron from 'node-cron';
+ * import { closeStaleTickets } from './jobs/close-stale-tickets';
+ * tasks.push(cron.schedule('0 3 * * *', closeStaleTickets));
  */
 export function startScheduler() {
   if (initialized) return;
   initialized = true;
-
-  // Register jobs here:
-  // tasks.push(cron.schedule('0 3 1 * *', myJob));
 
   process.on('SIGINT', () => {
     stopAll();

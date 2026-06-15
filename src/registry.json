@@ -401,9 +401,14 @@
       ],
       "files": [
         {
-          "path": "src/lib/scheduler/scheduler.ts",
+          "path": "src/lib/server/scheduler/index.ts",
           "type": "registry:lib",
-          "target": "scheduler/scheduler.ts"
+          "target": "server/scheduler/index.ts"
+        },
+        {
+          "path": "src/lib/server/scheduler/jobs/.gitkeep",
+          "type": "registry:file",
+          "target": "server/scheduler/jobs/.gitkeep"
         }
       ]
     }
