@@ -1,0 +1,29 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "all",
+	"title": "All",
+	"type": "registry:block",
+	"description": "Meta-item that installs every component in this registry in a single command.",
+	"registryDependencies": [
+		"./i18n.json",
+		"./page-header.json",
+		"./pagination.json",
+		"./search-filter.json",
+		"./select-filter.json",
+		"./button-group-filter.json",
+		"./date-range-filter.json",
+		"./month-filter.json",
+		"./metrics.json",
+		"./sheet.json",
+		"./navigation-tabs.json",
+		"./json-tree.json",
+		"./page-data-viewer.json",
+		"./search-command.json",
+		"./breadcrumbs.json",
+		"./time-input.json",
+		"./date-input.json",
+		"./card-form.json",
+		"./scheduler.json"
+	],
+	"files": []
+}

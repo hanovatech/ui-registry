@@ -4,6 +4,34 @@
   "homepage": "https://hanovatech.com",
   "items": [
     {
+      "name": "all",
+      "type": "registry:block",
+      "title": "All",
+      "description": "Meta-item that installs every component in this registry in a single command.",
+      "registryDependencies": [
+        "local:i18n",
+        "local:page-header",
+        "local:pagination",
+        "local:search-filter",
+        "local:select-filter",
+        "local:button-group-filter",
+        "local:date-range-filter",
+        "local:month-filter",
+        "local:metrics",
+        "local:sheet",
+        "local:navigation-tabs",
+        "local:json-tree",
+        "local:page-data-viewer",
+        "local:search-command",
+        "local:breadcrumbs",
+        "local:time-input",
+        "local:date-input",
+        "local:card-form",
+        "local:scheduler"
+      ],
+      "files": []
+    },
+    {
       "name": "i18n",
       "type": "registry:lib",
       "title": "i18n",

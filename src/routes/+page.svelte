@@ -145,6 +145,10 @@
         + SvelteKit. Install any component with the CLI:
       </p>
       <pre class="max-w-full overflow-x-auto rounded-lg border bg-muted px-4 py-3 text-sm"><code>npx shadcn-svelte@latest add {baseUrl}/r/component-name.json</code></pre>
+      <p class="text-sm text-muted-foreground">
+        Want everything at once? Use the <code class="rounded bg-muted px-1 py-0.5 text-xs font-mono text-foreground">all</code> meta-item:
+      </p>
+      <pre class="max-w-full overflow-x-auto rounded-lg border bg-muted px-4 py-3 text-sm"><code>npx shadcn-svelte@latest add {baseUrl}/r/all.json</code></pre>
       <div class="flex items-center gap-4 text-xs text-muted-foreground">
         <span>{totalItems} components</span>
         <span>&middot;</span>
