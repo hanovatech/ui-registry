@@ -38,6 +38,7 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - After adding or changing registry components, run `npm run registry:build` to regenerate `static/r/`
 - Components that need shadcn-svelte primitives should list them in `registryDependencies` (e.g., `"button"`, `"sheet"`)
 - Use `local:<name>` in `registryDependencies` to reference other items in this registry (e.g., `"local:navigation"`, `"local:i18n"`)
+- **The `all` meta-item in `registry.json` must always be kept up to date.** Whenever a new registry item is added, add `"local:<name>"` to the `registryDependencies` of the `all` item.
 
 ## i18n Conventions
 
