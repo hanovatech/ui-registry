@@ -23,16 +23,7 @@
 			"local:date-input",
 			"local:card-form",
 			"local:color-picker-input",
-			"local:card",
-			"local:password-input",
-			"local:number-input",
-			"local:duration-input",
-			"local:slug-input",
-			"local:currency-input",
-			"local:phone-input",
-			"local:url-input",
-			"local:select",
-			"local:textarea"
+			"local:card"
 		],
 		"relativeUrl": "all.json"
 	},
@@ -251,105 +242,6 @@
 			"card"
 		],
 		"relativeUrl": "card.json"
-	},
-	{
-		"name": "password-input",
-		"title": "Password Input",
-		"type": "registry:ui",
-		"description": "A password input with show/hide toggle.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "password-input.json"
-	},
-	{
-		"name": "number-input",
-		"title": "Number Input",
-		"type": "registry:ui",
-		"description": "A locale-formatted number input with min/max/step. Binds a `number | null`.",
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "number-input.json"
-	},
-	{
-		"name": "duration-input",
-		"title": "Duration Input",
-		"type": "registry:ui",
-		"description": "A masked duration input (HH:MM:SS) with auto-formatting and validation.",
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "duration-input.json"
-	},
-	{
-		"name": "slug-input",
-		"title": "Slug Input",
-		"type": "registry:ui",
-		"description": "A URL slug input that auto-formats to lowercase-hyphenated. Optionally derives from a `source` prop.",
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "slug-input.json"
-	},
-	{
-		"name": "currency-input",
-		"title": "Currency Input",
-		"type": "registry:ui",
-		"description": "A locale-formatted currency input with symbol prefix. Binds a `number | null`.",
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "currency-input.json"
-	},
-	{
-		"name": "phone-input",
-		"title": "Phone Input",
-		"type": "registry:ui",
-		"description": "A phone number input with icon prefix and optional country code.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "phone-input.json"
-	},
-	{
-		"name": "url-input",
-		"title": "URL Input",
-		"type": "registry:ui",
-		"description": "A URL input that auto-prepends https:// and validates on blur.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "url-input.json"
-	},
-	{
-		"name": "select",
-		"title": "Select",
-		"type": "registry:ui",
-		"description": "A labeled select with bindable value. Drop-in for form use without URL params.",
-		"registryDependencies": [
-			"select"
-		],
-		"relativeUrl": "select.json"
-	},
-	{
-		"name": "textarea",
-		"title": "Textarea",
-		"type": "registry:ui",
-		"description": "A labeled textarea with optional auto-resize.",
-		"registryDependencies": [
-			"textarea"
-		],
-		"relativeUrl": "textarea.json"
 	},
 	{
 		"name": "registry-cn",

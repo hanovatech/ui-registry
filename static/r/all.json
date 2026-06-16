@@ -23,16 +23,7 @@
 		"./date-input.json",
 		"./card-form.json",
 		"./color-picker-input.json",
-		"./card.json",
-		"./password-input.json",
-		"./number-input.json",
-		"./duration-input.json",
-		"./slug-input.json",
-		"./currency-input.json",
-		"./phone-input.json",
-		"./url-input.json",
-		"./select.json",
-		"./textarea.json"
+		"./card.json"
 	],
 	"files": []
 }
