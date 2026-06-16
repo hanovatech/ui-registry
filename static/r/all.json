@@ -5,6 +5,18 @@
 	"type": "registry:block",
 	"description": "Meta-item that installs every component in this registry in a single command.",
 	"registryDependencies": [
+		"./number-input.json",
+		"./currency-input.json",
+		"./email-input.json",
+		"./phone-input.json",
+		"./password-input.json",
+		"./textarea-input.json",
+		"./select-input.json",
+		"./switch-input.json",
+		"./date-input.json",
+		"./time-input.json",
+		"./color-picker-input.json",
+		"./card.json",
 		"./page-header.json",
 		"./pagination.json",
 		"./search-filter.json",
@@ -19,11 +31,7 @@
 		"./page-data-viewer.json",
 		"./search-command.json",
 		"./breadcrumbs.json",
-		"./time-input.json",
-		"./date-input.json",
-		"./card-form.json",
-		"./color-picker-input.json",
-		"./card.json"
+		"./card-form.json"
 	],
 	"files": []
 }

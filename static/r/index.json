@@ -1,10 +1,173 @@
 [
 	{
+		"name": "number-input",
+		"title": "Number Input",
+		"type": "registry:ui",
+		"description": "A numeric text input with optional min/max clamping and decimal formatting.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "number-input.json"
+	},
+	{
+		"name": "currency-input",
+		"title": "Currency Input",
+		"type": "registry:ui",
+		"description": "A currency input with EUR/USD symbol, comma decimal separator, and thousands formatting.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input",
+			"local:registry-cn"
+		],
+		"relativeUrl": "currency-input.json"
+	},
+	{
+		"name": "email-input",
+		"title": "Email Input",
+		"type": "registry:ui",
+		"description": "An email input with mail icon and required validation state.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "email-input.json"
+	},
+	{
+		"name": "phone-input",
+		"title": "Phone Input",
+		"type": "registry:ui",
+		"description": "A telephone input with phone icon and required validation state (min. 6 digits).",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "phone-input.json"
+	},
+	{
+		"name": "password-input",
+		"title": "Password Input",
+		"type": "registry:ui",
+		"description": "A password input with lock icon and show/hide toggle.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "password-input.json"
+	},
+	{
+		"name": "textarea-input",
+		"title": "Textarea Input",
+		"type": "registry:ui",
+		"description": "A textarea with label, required validation state, and optional character counter.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"textarea"
+		],
+		"relativeUrl": "textarea-input.json"
+	},
+	{
+		"name": "select-input",
+		"title": "Select Input",
+		"type": "registry:ui",
+		"description": "A form select built on shadcn-svelte Select with label and required validation state.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"select"
+		],
+		"relativeUrl": "select-input.json"
+	},
+	{
+		"name": "switch-input",
+		"title": "Switch Input",
+		"type": "registry:ui",
+		"description": "A labeled switch with optional description and required validation state.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"switch"
+		],
+		"relativeUrl": "switch-input.json"
+	},
+	{
+		"name": "date-input",
+		"title": "Date Input",
+		"type": "registry:ui",
+		"description": "A masked date input with locale-formatted display and a shadcn calendar popover. Binds an ISO (YYYY-MM-DD) value for direct API use.",
+		"registryDependencies": [
+			"input",
+			"calendar",
+			"popover"
+		],
+		"relativeUrl": "date-input.json"
+	},
+	{
+		"name": "time-input",
+		"title": "Time Input",
+		"type": "registry:ui",
+		"description": "A masked time input (HH:MM) with auto-formatting and validation.",
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "time-input.json"
+	},
+	{
+		"name": "color-picker-input",
+		"title": "Color Picker Input",
+		"type": "registry:ui",
+		"description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input",
+			"local:registry-cn"
+		],
+		"relativeUrl": "color-picker-input.json"
+	},
+	{
+		"name": "card",
+		"title": "Card",
+		"type": "registry:ui",
+		"description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
+		"registryDependencies": [
+			"card"
+		],
+		"relativeUrl": "card.json"
+	},
+	{
 		"name": "all",
 		"title": "All",
 		"type": "registry:block",
 		"description": "Meta-item that installs every component in this registry in a single command.",
 		"registryDependencies": [
+			"local:number-input",
+			"local:currency-input",
+			"local:email-input",
+			"local:phone-input",
+			"local:password-input",
+			"local:textarea-input",
+			"local:select-input",
+			"local:switch-input",
+			"local:date-input",
+			"local:time-input",
+			"local:color-picker-input",
+			"local:card",
 			"local:page-header",
 			"local:pagination",
 			"local:search-filter",
@@ -19,21 +182,9 @@
 			"local:page-data-viewer",
 			"local:search-command",
 			"local:breadcrumbs",
-			"local:time-input",
-			"local:date-input",
-			"local:card-form",
-			"local:color-picker-input",
-			"local:card"
+			"local:card-form"
 		],
 		"relativeUrl": "all.json"
-	},
-	{
-		"name": "i18n",
-		"title": "i18n",
-		"type": "registry:lib",
-		"description": "Internationalization store and type definitions.",
-		"registryDependencies": [],
-		"relativeUrl": "i18n.json"
 	},
 	{
 		"name": "page-header",
@@ -198,28 +349,6 @@
 		"relativeUrl": "breadcrumbs.json"
 	},
 	{
-		"name": "time-input",
-		"title": "Time Input",
-		"type": "registry:ui",
-		"description": "A masked time input (HH:MM) with auto-formatting and validation.",
-		"registryDependencies": [
-			"input"
-		],
-		"relativeUrl": "time-input.json"
-	},
-	{
-		"name": "date-input",
-		"title": "Date Input",
-		"type": "registry:ui",
-		"description": "A masked date input with locale-formatted display and a shadcn calendar popover. Binds an ISO (YYYY-MM-DD) value for direct API use.",
-		"registryDependencies": [
-			"input",
-			"calendar",
-			"popover"
-		],
-		"relativeUrl": "date-input.json"
-	},
-	{
 		"name": "card-form",
 		"title": "Card Form",
 		"type": "registry:block",
@@ -234,14 +363,12 @@
 		"relativeUrl": "card-form.json"
 	},
 	{
-		"name": "card",
-		"title": "Card",
-		"type": "registry:ui",
-		"description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
-		"registryDependencies": [
-			"card"
-		],
-		"relativeUrl": "card.json"
+		"name": "i18n",
+		"title": "i18n",
+		"type": "registry:lib",
+		"description": "Internationalization store and type definitions.",
+		"registryDependencies": [],
+		"relativeUrl": "i18n.json"
 	},
 	{
 		"name": "registry-cn",
@@ -254,20 +381,6 @@
 		],
 		"registryDependencies": [],
 		"relativeUrl": "registry-cn.json"
-	},
-	{
-		"name": "color-picker-input",
-		"title": "Color Picker Input",
-		"type": "registry:ui",
-		"description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
-		"registryDependencies": [
-			"input",
-			"local:registry-cn"
-		],
-		"relativeUrl": "color-picker-input.json"
 	},
 	{
 		"name": "scheduler",

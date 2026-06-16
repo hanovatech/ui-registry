@@ -4,11 +4,251 @@
   "homepage": "https://hanovatech.com",
   "items": [
     {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "Number Input",
+      "description": "A numeric text input with optional min/max clamping and decimal formatting.",
+      "registryDependencies": [
+        "input"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/number-input/number-input.svelte",
+          "type": "registry:component",
+          "target": "registry/number-input/number-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "currency-input",
+      "type": "registry:ui",
+      "title": "Currency Input",
+      "description": "A currency input with EUR/USD symbol, comma decimal separator, and thousands formatting.",
+      "registryDependencies": [
+        "input",
+        "local:registry-cn"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/currency-input/currency-input.svelte",
+          "type": "registry:component",
+          "target": "registry/currency-input/currency-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "email-input",
+      "type": "registry:ui",
+      "title": "Email Input",
+      "description": "An email input with mail icon and required validation state.",
+      "registryDependencies": [
+        "input"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/email-input/email-input.svelte",
+          "type": "registry:component",
+          "target": "registry/email-input/email-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "title": "Phone Input",
+      "description": "A telephone input with phone icon and required validation state (min. 6 digits).",
+      "registryDependencies": [
+        "input"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/phone-input/phone-input.svelte",
+          "type": "registry:component",
+          "target": "registry/phone-input/phone-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "description": "A password input with lock icon and show/hide toggle.",
+      "registryDependencies": [
+        "input"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/password-input/password-input.svelte",
+          "type": "registry:component",
+          "target": "registry/password-input/password-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "textarea-input",
+      "type": "registry:ui",
+      "title": "Textarea Input",
+      "description": "A textarea with label, required validation state, and optional character counter.",
+      "registryDependencies": [
+        "textarea"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/textarea-input/textarea-input.svelte",
+          "type": "registry:component",
+          "target": "registry/textarea-input/textarea-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "select-input",
+      "type": "registry:ui",
+      "title": "Select Input",
+      "description": "A form select built on shadcn-svelte Select with label and required validation state.",
+      "registryDependencies": [
+        "select"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/select-input/select-input.svelte",
+          "type": "registry:component",
+          "target": "registry/select-input/select-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "switch-input",
+      "type": "registry:ui",
+      "title": "Switch Input",
+      "description": "A labeled switch with optional description and required validation state.",
+      "registryDependencies": [
+        "switch"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/switch-input/switch-input.svelte",
+          "type": "registry:component",
+          "target": "registry/switch-input/switch-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "date-input",
+      "type": "registry:ui",
+      "title": "Date Input",
+      "description": "A masked date input with locale-formatted display and a shadcn calendar popover. Binds an ISO (YYYY-MM-DD) value for direct API use.",
+      "registryDependencies": [
+        "input",
+        "calendar",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/date-input/date-input.svelte",
+          "type": "registry:component",
+          "target": "registry/date-input/date-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "time-input",
+      "type": "registry:ui",
+      "title": "Time Input",
+      "description": "A masked time input (HH:MM) with auto-formatting and validation.",
+      "registryDependencies": [
+        "input"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/time-input/time-input.svelte",
+          "type": "registry:component",
+          "target": "registry/time-input/time-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "color-picker-input",
+      "type": "registry:ui",
+      "title": "Color Picker Input",
+      "description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
+      "registryDependencies": [
+        "input",
+        "local:registry-cn"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/color-picker-input/color-picker-input.svelte",
+          "type": "registry:component",
+          "target": "registry/color-picker-input/color-picker-input.svelte"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/card/card-root.svelte",
+          "type": "registry:component",
+          "target": "registry/card/card-root.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/card/index.ts",
+          "type": "registry:component",
+          "target": "registry/card/index.ts"
+        }
+      ]
+    },
+    {
       "name": "all",
       "type": "registry:block",
       "title": "All",
       "description": "Meta-item that installs every component in this registry in a single command.",
       "registryDependencies": [
+        "local:number-input",
+        "local:currency-input",
+        "local:email-input",
+        "local:phone-input",
+        "local:password-input",
+        "local:textarea-input",
+        "local:select-input",
+        "local:switch-input",
+        "local:date-input",
+        "local:time-input",
+        "local:color-picker-input",
+        "local:card",
         "local:page-header",
         "local:pagination",
         "local:search-filter",
@@ -23,38 +263,9 @@
         "local:page-data-viewer",
         "local:search-command",
         "local:breadcrumbs",
-        "local:time-input",
-        "local:date-input",
-        "local:card-form",
-        "local:color-picker-input",
-        "local:card"
+        "local:card-form"
       ],
       "files": []
-    },
-    {
-      "name": "i18n",
-      "type": "registry:lib",
-      "title": "i18n",
-      "description": "Internationalization store and type definitions.",
-      "docs": "This item provides a minimal i18n setup. If your project already has $lib/stores/i18n, $lib/i18n, and $lib/types/i18n, skip overwriting those files — the registry components are compatible with your existing implementation.",
-      "registryDependencies": [],
-      "files": [
-        {
-          "path": "src/lib/i18n/index.ts",
-          "type": "registry:lib",
-          "target": "i18n/index.ts"
-        },
-        {
-          "path": "src/lib/types/i18n.ts",
-          "type": "registry:lib",
-          "target": "types/i18n.ts"
-        },
-        {
-          "path": "src/lib/stores/i18n.ts",
-          "type": "registry:lib",
-          "target": "stores/i18n.ts"
-        }
-      ]
     },
     {
       "name": "page-header",
@@ -333,40 +544,6 @@
       ]
     },
     {
-      "name": "time-input",
-      "type": "registry:ui",
-      "title": "Time Input",
-      "description": "A masked time input (HH:MM) with auto-formatting and validation.",
-      "registryDependencies": [
-        "input"
-      ],
-      "files": [
-        {
-          "path": "src/lib/components/registry/time-input/time-input.svelte",
-          "type": "registry:component",
-          "target": "registry/time-input/time-input.svelte"
-        }
-      ]
-    },
-    {
-      "name": "date-input",
-      "type": "registry:ui",
-      "title": "Date Input",
-      "description": "A masked date input with locale-formatted display and a shadcn calendar popover. Binds an ISO (YYYY-MM-DD) value for direct API use.",
-      "registryDependencies": [
-        "input",
-        "calendar",
-        "popover"
-      ],
-      "files": [
-        {
-          "path": "src/lib/components/registry/date-input/date-input.svelte",
-          "type": "registry:component",
-          "target": "registry/date-input/date-input.svelte"
-        }
-      ]
-    },
-    {
       "name": "card-form",
       "type": "registry:block",
       "title": "Card Form",
@@ -388,23 +565,27 @@
       ]
     },
     {
-      "name": "card",
-      "type": "registry:ui",
-      "title": "Card",
-      "description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
-      "registryDependencies": [
-        "card"
-      ],
+      "name": "i18n",
+      "type": "registry:lib",
+      "title": "i18n",
+      "description": "Internationalization store and type definitions.",
+      "docs": "This item provides a minimal i18n setup. If your project already has $lib/stores/i18n, $lib/i18n, and $lib/types/i18n, skip overwriting those files — the registry components are compatible with your existing implementation.",
+      "registryDependencies": [],
       "files": [
         {
-          "path": "src/lib/components/registry/card/card-root.svelte",
-          "type": "registry:component",
-          "target": "registry/card/card-root.svelte"
+          "path": "src/lib/i18n/index.ts",
+          "type": "registry:lib",
+          "target": "i18n/index.ts"
         },
         {
-          "path": "src/lib/components/registry/card/index.ts",
-          "type": "registry:component",
-          "target": "registry/card/index.ts"
+          "path": "src/lib/types/i18n.ts",
+          "type": "registry:lib",
+          "target": "types/i18n.ts"
+        },
+        {
+          "path": "src/lib/stores/i18n.ts",
+          "type": "registry:lib",
+          "target": "stores/i18n.ts"
         }
       ]
     },
@@ -423,26 +604,6 @@
           "path": "src/lib/utils/registry/cn.ts",
           "type": "registry:lib",
           "target": "utils/registry/cn.ts"
-        }
-      ]
-    },
-    {
-      "name": "color-picker-input",
-      "type": "registry:ui",
-      "title": "Color Picker Input",
-      "description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
-      "registryDependencies": [
-        "input",
-        "local:registry-cn"
-      ],
-      "dependencies": [
-        "@lucide/svelte"
-      ],
-      "files": [
-        {
-          "path": "src/lib/components/registry/color-picker-input/color-picker-input.svelte",
-          "type": "registry:component",
-          "target": "registry/color-picker-input/color-picker-input.svelte"
         }
       ]
     },
