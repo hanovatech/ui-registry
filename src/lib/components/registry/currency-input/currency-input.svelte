@@ -3,7 +3,6 @@
   import Input from '$lib/components/ui/input/input.svelte';
   import CircleDashed from '@lucide/svelte/icons/circle-dashed';
   import CircleCheck from '@lucide/svelte/icons/circle-check';
-  import { cn } from '$lib/utils/registry/cn.js';
 
   interface Props {
     /** Bound value as a number (e.g. `1234.56`), or `null` for empty. */
@@ -105,15 +104,12 @@
       value={displayValue}
       {disabled}
       {required}
-      class={cn(isPrefix ? 'pl-7' : 'pr-7', className)}
+      class={`${isPrefix ? 'pl-7' : 'pr-7'}${className ? ' ' + className : ''}`}
       oninput={handleInput}
       onblur={handleBlur}
     />
     <span
-      class={cn(
-        'pointer-events-none absolute inset-y-0 flex items-center text-sm text-muted-foreground',
-        isPrefix ? 'left-0 pl-2.5' : 'right-0 pr-2.5',
-      )}
+      class={`pointer-events-none absolute inset-y-0 flex items-center text-sm text-muted-foreground ${isPrefix ? 'left-0 pl-2.5' : 'right-0 pr-2.5'}`}
     >
       {symbol}
     </span>

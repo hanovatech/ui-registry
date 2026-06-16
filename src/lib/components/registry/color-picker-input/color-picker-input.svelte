@@ -3,7 +3,6 @@
   import CircleDashed from '@lucide/svelte/icons/circle-dashed';
   import CircleCheck from '@lucide/svelte/icons/circle-check';
   import XIcon from '@lucide/svelte/icons/x';
-  import { cn } from '$lib/utils/registry/cn.js';
 
   interface Props {
     /** Bound value as a hex color string (`#rrggbb`), or `''` for empty. */
@@ -129,7 +128,7 @@
       placeholder="#000000"
       {disabled}
       {required}
-      class={cn('pl-9 pr-9 font-mono', className)}
+      class={`pl-9 pr-9 font-mono${className ? ' ' + className : ''}`}
       oninput={handleInput}
       onblur={handleBlur}
     />
@@ -141,10 +140,7 @@
       tabindex="-1"
       aria-label="Clear color"
       onclick={clear}
-      class={cn(
-        'absolute inset-y-0 right-0 flex items-center pr-2.5 text-muted-foreground transition-opacity hover:text-foreground disabled:pointer-events-none',
-        value ? 'opacity-100' : 'pointer-events-none opacity-0',
-      )}
+      class={`absolute inset-y-0 right-0 flex items-center pr-2.5 text-muted-foreground transition-opacity hover:text-foreground disabled:pointer-events-none ${value ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
     >
       <XIcon class="size-4" />
     </button>
