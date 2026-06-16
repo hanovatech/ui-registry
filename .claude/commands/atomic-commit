@@ -1,0 +1,37 @@
+Erstelle atomic commits für deine Änderungen. Befolge dabei strikt die Regeln aus CLAUDE.md.
+
+## Vorgehen
+
+1. **Eigene Dateien identifizieren:** Prüfe `git status` und `git diff`. Andere Agenten arbeiten möglicherweise parallel am selben Branch — committe ausschließlich Dateien, die zu deinem Aufgabenbereich gehören. Fasse keine Dateien anderer Features an.
+
+2. **Atomisch aufteilen:** Jeder Commit enthält genau eine logische Änderung. Trenne z.B. Schema/Types, API-Routes, Components und Pages in separate Commits. Jeder Commit muss für sich allein buildbar und konsistent sein.
+
+3. **Stage und commit in einem Schritt:** Da andere Agenten gleichzeitig committen können, kombiniere `git add` und `git commit` in einem einzigen Bash-Aufruf um Race Conditions zu vermeiden.
+
+4. **Commit-Message-Format:** Conventional Commits, englisch, imperative mood:
+
+   ```
+   <type>(<scope>): <summary>
+
+   <optional body>
+
+   Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+   ```
+
+5. **Nicht pushen.** Nur committen, nicht pushen — es sei denn explizit gewünscht.
+
+## Formatting / Linting
+
+**Nicht manuell `prettier --write` oder `npm run lint` vorher laufen lassen.** Das Projekt hat einen husky-Pre-Commit-Hook (`.husky/pre-commit` → `npx lint-staged`), der Prettier + ESLint automatisch auf die staged Files anwendet. Doppelter Check ist nur Lärm.
+
+Falls der Hook etwas reformatiert, wird der finale Commit den formatierten Inhalt enthalten — du musst nichts nachstagen. Schlägt ESLint mit echten Errors fehl, blockt der Hook den Commit; dann den Fehler beheben, neu stagen, neu committen (kein `--amend`, der Hook lief beim fehlgeschlagenen Commit nicht durch).
+
+Notfall-Bypass: `git commit --no-verify` — nur einsetzen, wenn der Hook explizit umgangen werden soll und du das begründen kannst.
+
+## Checkliste pro Commit
+
+- [ ] Nur eigene Dateien enthalten
+- [ ] Logisch zusammengehörig (ein Zweck pro Commit)
+- [ ] Summary ≤ 72 Zeichen, lowercase, kein Punkt am Ende
+- [ ] Body erklärt das _warum_, nicht das _was_
+- [ ] Keine sensiblen Dateien (.env, credentials)
