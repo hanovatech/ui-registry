@@ -57,6 +57,10 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - Import UI components with explicit `/index.js` suffix (e.g., `$lib/components/ui/button/index.js`)
 - Use `resolve()` from `$app/paths` instead of the deprecated `base` export
 
+## Git Workflow
+
+- **Never commit or push automatically.** Always ask the user for confirmation before running `git commit` or `git push`.
+
 ## Component Previews
 
 - The homepage (`src/routes/+page.svelte`) shows a live preview for each registry component
