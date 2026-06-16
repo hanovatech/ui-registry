@@ -35,7 +35,7 @@
 </script>
 
 <form onsubmit={onSubmit}>
-	<Card.Root>
+	<Card.Root class="shadow-md">
 		<Card.Header>
 			<Card.Title>{title}</Card.Title>
 			{#if description}

@@ -26,7 +26,8 @@
         "local:time-input",
         "local:date-input",
         "local:card-form",
-        "local:color-picker-input"
+        "local:color-picker-input",
+        "local:card"
       ],
       "files": []
     },
@@ -383,6 +384,27 @@
           "path": "src/lib/components/registry/card-form/card-form.svelte",
           "type": "registry:component",
           "target": "registry/card-form/card-form.svelte"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/card/card-root.svelte",
+          "type": "registry:component",
+          "target": "registry/card/card-root.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/card/index.ts",
+          "type": "registry:component",
+          "target": "registry/card/index.ts"
         }
       ]
     },
