@@ -61,6 +61,7 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 ## Git Workflow
 
 - **Never commit or push automatically.** Always ask the user for confirmation before running `git commit` or `git push`.
+- **Always run `npm run registry:build` before committing** to ensure `static/r/` is in sync with `src/registry.json` and the component source files.
 
 ## Component Previews
 
