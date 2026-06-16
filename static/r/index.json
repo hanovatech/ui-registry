@@ -21,8 +21,7 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input",
-			"local:registry-cn"
+			"input"
 		],
 		"relativeUrl": "currency-input.json"
 	},
@@ -135,8 +134,7 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input",
-			"local:registry-cn"
+			"input"
 		],
 		"relativeUrl": "color-picker-input.json"
 	},
@@ -369,18 +367,6 @@
 		"description": "Internationalization store and type definitions.",
 		"registryDependencies": [],
 		"relativeUrl": "i18n.json"
-	},
-	{
-		"name": "registry-cn",
-		"title": "Registry cn",
-		"type": "registry:lib",
-		"description": "Minimal cn() helper (clsx + tailwind-merge) at a fixed path for registry components.",
-		"dependencies": [
-			"clsx",
-			"tailwind-merge"
-		],
-		"registryDependencies": [],
-		"relativeUrl": "registry-cn.json"
 	},
 	{
 		"name": "scheduler",
