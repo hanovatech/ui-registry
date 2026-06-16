@@ -9,7 +9,6 @@
       "title": "All",
       "description": "Meta-item that installs every component in this registry in a single command.",
       "registryDependencies": [
-        "local:i18n",
         "local:page-header",
         "local:pagination",
         "local:search-filter",
@@ -26,8 +25,7 @@
         "local:breadcrumbs",
         "local:time-input",
         "local:date-input",
-        "local:card-form",
-        "local:scheduler"
+        "local:card-form"
       ],
       "files": []
     },

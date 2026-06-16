@@ -5,7 +5,6 @@
 	"type": "registry:block",
 	"description": "Meta-item that installs every component in this registry in a single command.",
 	"registryDependencies": [
-		"./i18n.json",
 		"./page-header.json",
 		"./pagination.json",
 		"./search-filter.json",
@@ -22,8 +21,7 @@
 		"./breadcrumbs.json",
 		"./time-input.json",
 		"./date-input.json",
-		"./card-form.json",
-		"./scheduler.json"
+		"./card-form.json"
 	],
 	"files": []
 }
