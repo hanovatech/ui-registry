@@ -273,6 +273,9 @@
                     </nav>
                   {:else if component.name === 'card-form'}
                     <CardForm title="Company Details" description="Update your organisation's display name." onSubmit={(e) => e.preventDefault()}>
+                      {#snippet footerStart()}
+                        <Button type="button" variant="destructive">Delete</Button>
+                      {/snippet}
                       <div class="space-y-1">
                         <label for="cf-name" class="text-sm font-medium">Company name</label>
                         <Input id="cf-name" placeholder="Acme Inc." />
