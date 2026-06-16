@@ -124,7 +124,7 @@
       class="hidden md:flex relative w-full md:w-64 justify-start lg:text-sm lg:text-muted-foreground"
       onclick={() => (open = true)}
     >
-      <Search class="h-4 w-4 lg:mr-2 stroke-2 text-foreground flex-shrink-0" />
+      <Search class="h-4 w-4 lg:mr-2 stroke-2 text-foreground shrink-0" />
       <span class="hidden md:inline-flex text-sm">{placeholder}</span>
       <kbd class="pointer-events-none ml-auto h-6 hidden md:flex select-none items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
         <span class="text-[12px] leading-none">⌘</span>
