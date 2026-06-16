@@ -186,7 +186,7 @@
               </Card.Header>
 
               {#if browser && previewComponents[component.name]}
-                <div class="px-6">
+                <div class="px-6 {component.name === 'card-form' ? 'pb-4' : ''}">
                   <div class="rounded-lg border bg-muted/30 p-6">
                   {#if component.name === 'page-header'}
                     <PageHeader title="Dashboard" description="Overview of your account activity." icon="📊" />

@@ -1,0 +1,22 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "card",
+	"title": "Card",
+	"type": "registry:ui",
+	"description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
+	"registryDependencies": [
+		"card"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import CardRoot from '$lib/components/ui/card/card.svelte';\n  import type { ComponentProps } from 'svelte';\n\n  let { class: className, ...restProps }: ComponentProps<typeof CardRoot> = $props();\n</script>\n\n<CardRoot class=\"shadow-md {className ?? ''}\" {...restProps} />\n",
+			"type": "registry:component",
+			"target": "registry/card/card-root.svelte"
+		},
+		{
+			"content": "import Root from './card-root.svelte';\n\nexport { Root, Root as Card };\nexport {\n  Content,\n  Description,\n  Footer,\n  Header,\n  Title,\n  Action,\n  Content as CardContent,\n  Description as CardDescription,\n  Footer as CardFooter,\n  Header as CardHeader,\n  Title as CardTitle,\n  Action as CardAction,\n} from '$lib/components/ui/card/index.js';\n",
+			"type": "registry:component",
+			"target": "registry/card/index.ts"
+		}
+	]
+}

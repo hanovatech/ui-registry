@@ -22,7 +22,8 @@
 			"local:time-input",
 			"local:date-input",
 			"local:card-form",
-			"local:color-picker-input"
+			"local:color-picker-input",
+			"local:card"
 		],
 		"relativeUrl": "all.json"
 	},
@@ -231,6 +232,16 @@
 			"button"
 		],
 		"relativeUrl": "card-form.json"
+	},
+	{
+		"name": "card",
+		"title": "Card",
+		"type": "registry:ui",
+		"description": "Extends the shadcn Card with shadow-md by default. Drop-in replacement — same API, just change the import path.",
+		"registryDependencies": [
+			"card"
+		],
+		"relativeUrl": "card.json"
 	},
 	{
 		"name": "registry-cn",
