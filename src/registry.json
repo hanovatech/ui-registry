@@ -9,10 +9,8 @@
       "title": "Number Input",
       "description": "A numeric text input with optional min/max clamping and decimal formatting.",
       "registryDependencies": [
-        "input"
-      ],
-      "dependencies": [
-        "@lucide/svelte"
+        "input",
+        "local:input-label"
       ],
       "files": [
         {
@@ -28,10 +26,8 @@
       "title": "Currency Input",
       "description": "A currency input with EUR/USD symbol, comma decimal separator, and thousands formatting.",
       "registryDependencies": [
-        "input"
-      ],
-      "dependencies": [
-        "@lucide/svelte"
+        "input",
+        "local:input-label"
       ],
       "files": [
         {
@@ -47,7 +43,8 @@
       "title": "Email Input",
       "description": "An email input with mail icon and required validation state.",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:input-label"
       ],
       "dependencies": [
         "@lucide/svelte"
@@ -66,7 +63,8 @@
       "title": "Phone Input",
       "description": "A telephone input with phone icon and required validation state (min. 6 digits).",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:input-label"
       ],
       "dependencies": [
         "@lucide/svelte"
@@ -85,7 +83,8 @@
       "title": "Password Input",
       "description": "A password input with lock icon and show/hide toggle.",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:input-label"
       ],
       "dependencies": [
         "@lucide/svelte"
@@ -104,10 +103,8 @@
       "title": "Textarea Input",
       "description": "A textarea with label, required validation state, and optional character counter.",
       "registryDependencies": [
-        "textarea"
-      ],
-      "dependencies": [
-        "@lucide/svelte"
+        "textarea",
+        "local:input-label"
       ],
       "files": [
         {
@@ -123,10 +120,8 @@
       "title": "Select Input",
       "description": "A form select built on shadcn-svelte Select with label and required validation state.",
       "registryDependencies": [
-        "select"
-      ],
-      "dependencies": [
-        "@lucide/svelte"
+        "select",
+        "local:input-label"
       ],
       "files": [
         {
@@ -156,6 +151,30 @@
       ]
     },
     {
+      "name": "input-label",
+      "type": "registry:ui",
+      "title": "Input Label",
+      "description": "A form label wrapper with optional description and required validation indicator.",
+      "registryDependencies": [
+        "local:i18n"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/input-label/input-label.svelte",
+          "type": "registry:component",
+          "target": "registry/input-label/input-label.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/input-label/index.ts",
+          "type": "registry:component",
+          "target": "registry/input-label/index.ts"
+        }
+      ]
+    },
+    {
       "name": "date-input",
       "type": "registry:ui",
       "title": "Date Input",
@@ -163,7 +182,8 @@
       "registryDependencies": [
         "input",
         "calendar",
-        "popover"
+        "popover",
+        "local:input-label"
       ],
       "files": [
         {
@@ -179,7 +199,8 @@
       "title": "Time Input",
       "description": "A masked time input (HH:MM) with auto-formatting and validation.",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:input-label"
       ],
       "files": [
         {
@@ -195,7 +216,8 @@
       "title": "Color Picker Input",
       "description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:input-label"
       ],
       "dependencies": [
         "@lucide/svelte"
@@ -243,6 +265,7 @@
         "local:textarea-input",
         "local:select-input",
         "local:switch-input",
+        "local:input-label",
         "local:date-input",
         "local:time-input",
         "local:color-picker-input",

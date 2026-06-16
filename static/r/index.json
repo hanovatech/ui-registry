@@ -4,11 +4,9 @@
 		"title": "Number Input",
 		"type": "registry:ui",
 		"description": "A numeric text input with optional min/max clamping and decimal formatting.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "number-input.json"
 	},
@@ -17,11 +15,9 @@
 		"title": "Currency Input",
 		"type": "registry:ui",
 		"description": "A currency input with EUR/USD symbol, comma decimal separator, and thousands formatting.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "currency-input.json"
 	},
@@ -34,7 +30,8 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "email-input.json"
 	},
@@ -47,7 +44,8 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "phone-input.json"
 	},
@@ -60,7 +58,8 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "password-input.json"
 	},
@@ -69,11 +68,9 @@
 		"title": "Textarea Input",
 		"type": "registry:ui",
 		"description": "A textarea with label, required validation state, and optional character counter.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
 		"registryDependencies": [
-			"textarea"
+			"textarea",
+			"local:input-label"
 		],
 		"relativeUrl": "textarea-input.json"
 	},
@@ -82,11 +79,9 @@
 		"title": "Select Input",
 		"type": "registry:ui",
 		"description": "A form select built on shadcn-svelte Select with label and required validation state.",
-		"dependencies": [
-			"@lucide/svelte"
-		],
 		"registryDependencies": [
-			"select"
+			"select",
+			"local:input-label"
 		],
 		"relativeUrl": "select-input.json"
 	},
@@ -104,6 +99,19 @@
 		"relativeUrl": "switch-input.json"
 	},
 	{
+		"name": "input-label",
+		"title": "Input Label",
+		"type": "registry:ui",
+		"description": "A form label wrapper with optional description and required validation indicator.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"local:i18n"
+		],
+		"relativeUrl": "input-label.json"
+	},
+	{
 		"name": "date-input",
 		"title": "Date Input",
 		"type": "registry:ui",
@@ -111,7 +119,8 @@
 		"registryDependencies": [
 			"input",
 			"calendar",
-			"popover"
+			"popover",
+			"local:input-label"
 		],
 		"relativeUrl": "date-input.json"
 	},
@@ -121,7 +130,8 @@
 		"type": "registry:ui",
 		"description": "A masked time input (HH:MM) with auto-formatting and validation.",
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "time-input.json"
 	},
@@ -134,7 +144,8 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:input-label"
 		],
 		"relativeUrl": "color-picker-input.json"
 	},
@@ -162,6 +173,7 @@
 			"local:textarea-input",
 			"local:select-input",
 			"local:switch-input",
+			"local:input-label",
 			"local:date-input",
 			"local:time-input",
 			"local:color-picker-input",

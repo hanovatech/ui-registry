@@ -27,6 +27,10 @@
     "september": "September",
     "october": "October",
     "november": "November",
-    "december": "December"
+    "december": "December",
+    "required": "Required",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "selectPlaceholder": "Select…"
   }
 }

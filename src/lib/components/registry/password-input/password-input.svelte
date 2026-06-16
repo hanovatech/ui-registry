@@ -3,8 +3,8 @@
   import LockIcon from '@lucide/svelte/icons/lock';
   import EyeIcon from '@lucide/svelte/icons/eye';
   import EyeOffIcon from '@lucide/svelte/icons/eye-off';
-  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
-  import CircleCheck from '@lucide/svelte/icons/circle-check';
+  import { t } from '$lib/stores/i18n';
+  import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
     value?: string;
@@ -35,25 +35,7 @@
   let visible = $state(false);
 </script>
 
-{#if label}
-  <div class="flex flex-col gap-1.5">
-    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
-      {label}
-      {#if required && !hideRequiredIcon}
-        {#if value}
-          <CircleCheck class="size-3 text-green-500" />
-        {:else}
-          <CircleDashed class="size-3 text-destructive" />
-        {/if}
-      {/if}
-    </label>
-    {@render field()}
-  </div>
-{:else}
-  {@render field()}
-{/if}
-
-{#snippet field()}
+<InputLabel {label} required={required && !hideRequiredIcon} valid={!!value} for={id}>
   <div class="relative">
     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-muted-foreground">
       <LockIcon class="size-4" />
@@ -72,7 +54,7 @@
         type="button"
         tabindex="-1"
         {disabled}
-        aria-label={visible ? 'Passwort verbergen' : 'Passwort anzeigen'}
+        aria-label={visible ? $t.common.hidePassword : $t.common.showPassword}
         onclick={() => (visible = !visible)}
         class="absolute inset-y-0 right-0 flex items-center px-2.5 text-muted-foreground hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
       >
@@ -84,4 +66,4 @@
       </button>
     {/if}
   </div>
-{/snippet}
+</InputLabel>

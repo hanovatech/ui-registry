@@ -1,8 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import Input from '$lib/components/ui/input/input.svelte';
-  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
-  import CircleCheck from '@lucide/svelte/icons/circle-check';
+  import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
     /** Bound value as a number (e.g. `1234.56`), or `null` for empty. */
@@ -76,25 +75,7 @@
   }
 </script>
 
-{#if label}
-  <div class="flex flex-col gap-1.5">
-    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
-      {label}
-      {#if required}
-        {#if value != null}
-          <CircleCheck class="size-3 text-green-500" />
-        {:else}
-          <CircleDashed class="size-3 text-destructive" />
-        {/if}
-      {/if}
-    </label>
-    {@render field()}
-  </div>
-{:else}
-  {@render field()}
-{/if}
-
-{#snippet field()}
+<InputLabel {label} {required} valid={value != null} for={id}>
   <div class="relative">
     <Input
       {id}
@@ -114,4 +95,4 @@
       {symbol}
     </span>
   </div>
-{/snippet}
+</InputLabel>

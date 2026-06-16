@@ -1,12 +1,11 @@
 <script lang="ts">
   import { untrack } from 'svelte';
   import Input from '$lib/components/ui/input/input.svelte';
-  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
-  import CircleCheck from '@lucide/svelte/icons/circle-check';
   import { Calendar } from '$lib/components/ui/calendar/index.js';
   import * as Popover from '$lib/components/ui/popover/index.js';
   import CalendarIcon from '@lucide/svelte/icons/calendar';
   import { CalendarDate, type DateValue } from '@internationalized/date';
+  import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
     /** Bound value as an ISO date string (`YYYY-MM-DD`) or `''`. This is the only externally visible date format. */
@@ -59,6 +58,8 @@
       displayValue = isoToDisplay(iso);
     });
   });
+
+  const isValid = $derived(/^\d{4}-\d{2}-\d{2}$/.test(value));
 
   function pad(n: number | string): string {
     return String(n).padStart(2, '0');
@@ -168,38 +169,7 @@
   }
 </script>
 
-{#if label}
-  <div class="flex flex-col gap-1.5">
-    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
-      {label}
-      {#if required}
-        {#if /^\d{4}-\d{2}-\d{2}$/.test(value)}
-          <CircleCheck class="size-3 text-green-500" />
-        {:else}
-          <CircleDashed class="size-3 text-destructive" />
-        {/if}
-      {/if}
-    </label>
-    {@render field()}
-  </div>
-{:else}
-  {@render field()}
-{/if}
-
-{#snippet calendarButton(props: Record<string, unknown> = {})}
-  <button
-    {...props}
-    type="button"
-    {disabled}
-    tabindex="-1"
-    aria-label="Open date picker"
-    class="absolute inset-y-0 right-0 flex items-center px-2.5 text-muted-foreground hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
-  >
-    <CalendarIcon class="size-4" />
-  </button>
-{/snippet}
-
-{#snippet field()}
+<InputLabel {label} {required} valid={isValid} for={id}>
   <div class="relative">
     <Input
       {id}
@@ -243,7 +213,16 @@
       <Popover.Root bind:open>
         <Popover.Trigger>
           {#snippet child({ props })}
-            {@render calendarButton(props)}
+            <button
+              {...props}
+              type="button"
+              {disabled}
+              tabindex="-1"
+              aria-label="Open date picker"
+              class="absolute inset-y-0 right-0 flex items-center px-2.5 text-muted-foreground hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
+            >
+              <CalendarIcon class="size-4" />
+            </button>
           {/snippet}
         </Popover.Trigger>
         <Popover.Content align="end" class="w-auto p-0">
@@ -260,4 +239,4 @@
       </Popover.Root>
     {/if}
   </div>
-{/snippet}
+</InputLabel>

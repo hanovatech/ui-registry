@@ -1,7 +1,6 @@
 <script lang="ts">
   import Input from '$lib/components/ui/input/input.svelte';
-  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
-  import CircleCheck from '@lucide/svelte/icons/circle-check';
+  import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
     value?: string;
@@ -20,8 +19,10 @@
     required = false,
     label = '',
     id = crypto.randomUUID(),
-    class: className = "bg-background",
+    class: className = 'bg-background',
   }: Props = $props();
+
+  const isValid = $derived(/^\d{2}:\d{2}$/.test(value));
 
   function handleInput(e: Event & { currentTarget: HTMLInputElement }) {
     const el = e.currentTarget;
@@ -49,25 +50,7 @@
   }
 </script>
 
-{#if label}
-  <div class="flex flex-col gap-1.5">
-    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
-      {label}
-      {#if required}
-        {#if /^\d{2}:\d{2}$/.test(value)}
-          <CircleCheck class="size-3 text-green-500" />
-        {:else}
-          <CircleDashed class="size-3 text-destructive" />
-        {/if}
-      {/if}
-    </label>
-    {@render input()}
-  </div>
-{:else}
-  {@render input()}
-{/if}
-
-{#snippet input()}
+<InputLabel {label} {required} valid={isValid} for={id}>
   <Input
     {id}
     type="text"
@@ -80,4 +63,4 @@
     oninput={handleInput}
     onblur={handleBlur}
   />
-{/snippet}
+</InputLabel>

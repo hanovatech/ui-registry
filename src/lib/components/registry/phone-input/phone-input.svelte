@@ -1,8 +1,7 @@
 <script lang="ts">
   import Input from '$lib/components/ui/input/input.svelte';
   import PhoneIcon from '@lucide/svelte/icons/phone';
-  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
-  import CircleCheck from '@lucide/svelte/icons/circle-check';
+  import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
     value?: string;
@@ -34,25 +33,7 @@
   }
 </script>
 
-{#if label}
-  <div class="flex flex-col gap-1.5">
-    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
-      {label}
-      {#if required}
-        {#if isValid}
-          <CircleCheck class="size-3 text-green-500" />
-        {:else}
-          <CircleDashed class="size-3 text-destructive" />
-        {/if}
-      {/if}
-    </label>
-    {@render field()}
-  </div>
-{:else}
-  {@render field()}
-{/if}
-
-{#snippet field()}
+<InputLabel {label} {required} valid={isValid} for={id}>
   <div class="relative">
     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-muted-foreground">
       <PhoneIcon class="size-4" />
@@ -69,4 +50,4 @@
       oninput={handleInput}
     />
   </div>
-{/snippet}
+</InputLabel>
