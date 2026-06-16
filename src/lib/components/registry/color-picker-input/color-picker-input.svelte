@@ -1,5 +1,7 @@
 <script lang="ts">
   import Input from '$lib/components/ui/input/input.svelte';
+  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
+  import CircleCheck from '@lucide/svelte/icons/circle-check';
   import XIcon from '@lucide/svelte/icons/x';
   import { cn } from '$lib/utils/registry/cn.js';
 
@@ -70,8 +72,15 @@
 
 {#if label}
   <div class="flex flex-col gap-1.5">
-    <label for={id} class="text-xs font-medium text-muted-foreground leading-none">
-      {label}{#if required}<span class="text-destructive ml-0.5">*</span>{/if}
+    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
+      {label}
+      {#if required}
+        {#if value}
+          <CircleCheck class="size-3 text-green-500" />
+        {:else}
+          <CircleDashed class="size-3 text-destructive" />
+        {/if}
+      {/if}
     </label>
     {@render field()}
   </div>

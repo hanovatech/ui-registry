@@ -35,7 +35,7 @@
 
 {#if label}
   <div class="flex flex-col gap-1.5">
-    <span class="text-xs font-medium text-muted-foreground leading-none">{label}</span>
+    <span class="text-xs font-medium text-foreground/75 leading-none">{label}</span>
     {@render select()}
   </div>
 {:else}
