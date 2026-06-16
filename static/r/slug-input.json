@@ -1,0 +1,17 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "slug-input",
+	"title": "Slug Input",
+	"type": "registry:ui",
+	"description": "A URL slug input that auto-formats to lowercase-hyphenated. Optionally derives from a `source` prop.",
+	"registryDependencies": [
+		"input"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import { untrack } from 'svelte';\n  import Input from '$lib/components/ui/input/input.svelte';\n\n  interface Props {\n    /** Bound value as a URL slug string. */\n    value?: string;\n    /**\n     * Optional source string (e.g. a title field). When provided the slug is\n     * auto-derived from `source` until the user manually edits the field.\n     */\n    source?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    id?: string;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    source,\n    placeholder = 'my-url-slug',\n    disabled = false,\n    required = false,\n    label = '',\n    id = crypto.randomUUID(),\n    class: className = 'bg-background',\n  }: Props = $props();\n\n  let manuallyEdited = $state(false);\n\n  function toSlug(s: string): string {\n    return s\n      .normalize('NFD')\n      .replace(/[̀-ͯ]/g, '')\n      .toLowerCase()\n      .replace(/[^a-z0-9\\s-]/g, '')\n      .trim()\n      .replace(/[\\s_]+/g, '-')\n      .replace(/-+/g, '-');\n  }\n\n  // Auto-derive from source when it changes (unless user has manually edited)\n  $effect(() => {\n    const s = source;\n    untrack(() => {\n      if (s !== undefined && !manuallyEdited) value = toSlug(s);\n    });\n  });\n\n  function handleInput(e: Event & { currentTarget: HTMLInputElement }) {\n    const raw = e.currentTarget.value;\n    // Allow typing freely; normalise on blur\n    value = raw;\n    manuallyEdited = true;\n  }\n\n  function handleBlur(e: FocusEvent & { currentTarget: HTMLInputElement }) {\n    const slug = toSlug(e.currentTarget.value);\n    value = slug;\n    e.currentTarget.value = slug;\n  }\n</script>\n\n{#if label}\n  <div class=\"flex flex-col gap-1.5\">\n    <label for={id} class=\"text-xs font-medium text-muted-foreground leading-none\">\n      {label}{#if required}<span class=\"text-destructive ml-0.5\">*</span>{/if}\n    </label>\n    {@render field()}\n  </div>\n{:else}\n  {@render field()}\n{/if}\n\n{#snippet field()}\n  <Input\n    {id}\n    type=\"text\"\n    {value}\n    {placeholder}\n    {disabled}\n    {required}\n    class=\"font-mono {className}\"\n    oninput={handleInput}\n    onblur={handleBlur}\n  />\n{/snippet}\n",
+			"type": "registry:component",
+			"target": "registry/slug-input/slug-input.svelte"
+		}
+	]
+}

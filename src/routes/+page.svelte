@@ -21,6 +21,15 @@
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import DateInput from '$lib/components/registry/date-input/date-input.svelte';
   import ColorPickerInput from '$lib/components/registry/color-picker-input/color-picker-input.svelte';
+  import PasswordInput from '$lib/components/registry/password-input/password-input.svelte';
+  import NumberInput from '$lib/components/registry/number-input/number-input.svelte';
+  import DurationInput from '$lib/components/registry/duration-input/duration-input.svelte';
+  import SlugInput from '$lib/components/registry/slug-input/slug-input.svelte';
+  import CurrencyInput from '$lib/components/registry/currency-input/currency-input.svelte';
+  import PhoneInput from '$lib/components/registry/phone-input/phone-input.svelte';
+  import UrlInput from '$lib/components/registry/url-input/url-input.svelte';
+  import SelectInput from '$lib/components/registry/select/select.svelte';
+  import Textarea from '$lib/components/registry/textarea/textarea.svelte';
   import CardForm from '$lib/components/registry/card-form/card-form.svelte';
   import { Input } from '$lib/components/ui/input/index.js';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
@@ -126,6 +135,15 @@
     'time-input': true,
     'date-input': true,
     'color-picker-input': true,
+    'password-input': true,
+    'number-input': true,
+    'duration-input': true,
+    'slug-input': true,
+    'currency-input': true,
+    'phone-input': true,
+    'url-input': true,
+    'select': true,
+    'textarea': true,
     'breadcrumbs': true,
     'card-form': true,
   };
@@ -256,6 +274,51 @@
                   {:else if component.name === 'color-picker-input'}
                     <div class="w-48">
                       <ColorPickerInput label="Brand color" value="#6366f1" />
+                    </div>
+
+                  {:else if component.name === 'password-input'}
+                    <div class="w-64">
+                      <PasswordInput label="Password" required />
+                    </div>
+
+                  {:else if component.name === 'number-input'}
+                    <div class="w-48">
+                      <NumberInput label="Quantity" min={0} max={9999} />
+                    </div>
+
+                  {:else if component.name === 'duration-input'}
+                    <div class="w-48">
+                      <DurationInput label="Duration" />
+                    </div>
+
+                  {:else if component.name === 'slug-input'}
+                    <div class="w-64">
+                      <SlugInput label="URL Slug" value="my-blog-post" />
+                    </div>
+
+                  {:else if component.name === 'currency-input'}
+                    <div class="w-48">
+                      <CurrencyInput label="Price" currency="EUR" locale="de-DE" />
+                    </div>
+
+                  {:else if component.name === 'phone-input'}
+                    <div class="w-64">
+                      <PhoneInput label="Phone number" />
+                    </div>
+
+                  {:else if component.name === 'url-input'}
+                    <div class="w-72">
+                      <UrlInput label="Website" />
+                    </div>
+
+                  {:else if component.name === 'select'}
+                    <div class="w-56">
+                      <SelectInput label="Status" options={[{ value: 'active', label: 'Active' }, { value: 'inactive', label: 'Inactive' }, { value: 'pending', label: 'Pending' }]} />
+                    </div>
+
+                  {:else if component.name === 'textarea'}
+                    <div class="w-80">
+                      <Textarea label="Description" placeholder="Enter a description…" autoresize />
                     </div>
 
                   {:else if component.name === 'breadcrumbs'}

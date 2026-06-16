@@ -1,0 +1,17 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "textarea",
+	"title": "Textarea",
+	"type": "registry:ui",
+	"description": "A labeled textarea with optional auto-resize.",
+	"registryDependencies": [
+		"textarea"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import { Textarea } from '$lib/components/ui/textarea/index.js';\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    rows?: number;\n    /** Auto-grow to fit content instead of scrolling. */\n    autoresize?: boolean;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    id?: string;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = '',\n    rows = 3,\n    autoresize = false,\n    disabled = false,\n    required = false,\n    label = '',\n    id = crypto.randomUUID(),\n    class: className = 'bg-background',\n  }: Props = $props();\n\n  let el: HTMLTextAreaElement | undefined = $state();\n\n  function resize() {\n    if (!autoresize || !el) return;\n    el.style.height = 'auto';\n    el.style.height = el.scrollHeight + 'px';\n  }\n\n  $effect(() => {\n    // Resize on initial render when autoresize is enabled\n    if (autoresize) resize();\n  });\n</script>\n\n{#if label}\n  <div class=\"flex flex-col gap-1.5\">\n    <label for={id} class=\"text-xs font-medium text-muted-foreground leading-none\">\n      {label}{#if required}<span class=\"text-destructive ml-0.5\">*</span>{/if}\n    </label>\n    {@render field()}\n  </div>\n{:else}\n  {@render field()}\n{/if}\n\n{#snippet field()}\n  <Textarea\n    bind:ref={el}\n    {id}\n    bind:value\n    {placeholder}\n    {rows}\n    {disabled}\n    {required}\n    class=\"{autoresize ? 'resize-none overflow-hidden' : ''} {className}\"\n    oninput={resize}\n  />\n{/snippet}\n",
+			"type": "registry:component",
+			"target": "registry/textarea/textarea.svelte"
+		}
+	]
+}

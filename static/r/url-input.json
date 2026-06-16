@@ -1,0 +1,23 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "url-input",
+	"title": "URL Input",
+	"type": "registry:ui",
+	"description": "A URL input that auto-prepends https:// and validates on blur.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"input"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Input from '$lib/components/ui/input/input.svelte';\n  import LinkIcon from '@lucide/svelte/icons/link';\n\n  interface Props {\n    /** Bound value as a URL string. */\n    value?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    id?: string;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = 'https://example.com',\n    disabled = false,\n    required = false,\n    label = '',\n    id = crypto.randomUUID(),\n    class: className = 'bg-background',\n  }: Props = $props();\n\n  let invalid = $state(false);\n\n  function isValidUrl(s: string): boolean {\n    if (!s) return true;\n    try { new URL(s); return true; } catch { return false; }\n  }\n\n  function handleInput(e: Event & { currentTarget: HTMLInputElement }) {\n    value = e.currentTarget.value;\n    invalid = false;\n  }\n\n  function handleBlur(e: FocusEvent & { currentTarget: HTMLInputElement }) {\n    const raw = e.currentTarget.value.trim();\n    if (!raw) { value = ''; invalid = false; return; }\n    // Auto-prepend https:// if no protocol present\n    const withProtocol = /^https?:\\/\\//i.test(raw) ? raw : 'https://' + raw;\n    if (isValidUrl(withProtocol)) {\n      value = withProtocol;\n      e.currentTarget.value = withProtocol;\n      invalid = false;\n    } else {\n      invalid = true;\n    }\n  }\n</script>\n\n{#if label}\n  <div class=\"flex flex-col gap-1.5\">\n    <label for={id} class=\"text-xs font-medium text-muted-foreground leading-none\">\n      {label}{#if required}<span class=\"text-destructive ml-0.5\">*</span>{/if}\n    </label>\n    {@render field()}\n  </div>\n{:else}\n  {@render field()}\n{/if}\n\n{#snippet field()}\n  <div class=\"relative\">\n    <LinkIcon class=\"pointer-events-none absolute inset-y-0 left-0 my-auto ml-3 size-4 {invalid ? 'text-destructive' : 'text-muted-foreground'}\" />\n    <Input\n      {id}\n      type=\"url\"\n      {value}\n      {placeholder}\n      {disabled}\n      {required}\n      class=\"pl-9 {invalid ? 'border-destructive focus-visible:ring-destructive/20' : ''} {className}\"\n      oninput={handleInput}\n      onblur={handleBlur}\n    />\n  </div>\n{/snippet}\n",
+			"type": "registry:component",
+			"target": "registry/url-input/url-input.svelte"
+		}
+	]
+}
