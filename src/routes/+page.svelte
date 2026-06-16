@@ -20,6 +20,7 @@
   import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import DateInput from '$lib/components/registry/date-input/date-input.svelte';
+  import ColorPickerInput from '$lib/components/registry/color-picker-input/color-picker-input.svelte';
   import CardForm from '$lib/components/registry/card-form/card-form.svelte';
   import { Input } from '$lib/components/ui/input/index.js';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
@@ -124,6 +125,7 @@
     'search-command': true,
     'time-input': true,
     'date-input': true,
+    'color-picker-input': true,
     'breadcrumbs': true,
     'card-form': true,
   };
@@ -249,6 +251,11 @@
                   {:else if component.name === 'date-input'}
                     <div class="w-48">
                       <DateInput label="Start date" required />
+                    </div>
+
+                  {:else if component.name === 'color-picker-input'}
+                    <div class="w-48">
+                      <ColorPickerInput label="Brand color" value="#6366f1" />
                     </div>
 
                   {:else if component.name === 'breadcrumbs'}

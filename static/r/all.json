@@ -21,7 +21,8 @@
 		"./breadcrumbs.json",
 		"./time-input.json",
 		"./date-input.json",
-		"./card-form.json"
+		"./card-form.json",
+		"./color-picker-input.json"
 	],
 	"files": []
 }

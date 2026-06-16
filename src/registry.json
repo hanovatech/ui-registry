@@ -25,7 +25,8 @@
         "local:breadcrumbs",
         "local:time-input",
         "local:date-input",
-        "local:card-form"
+        "local:card-form",
+        "local:color-picker-input"
       ],
       "files": []
     },
@@ -382,6 +383,25 @@
           "path": "src/lib/components/registry/card-form/card-form.svelte",
           "type": "registry:component",
           "target": "registry/card-form/card-form.svelte"
+        }
+      ]
+    },
+    {
+      "name": "color-picker-input",
+      "type": "registry:ui",
+      "title": "Color Picker Input",
+      "description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
+      "registryDependencies": [
+        "input"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/color-picker-input/color-picker-input.svelte",
+          "type": "registry:component",
+          "target": "registry/color-picker-input/color-picker-input.svelte"
         }
       ]
     },

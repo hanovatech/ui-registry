@@ -5,7 +5,6 @@
 		"type": "registry:block",
 		"description": "Meta-item that installs every component in this registry in a single command.",
 		"registryDependencies": [
-			"local:i18n",
 			"local:page-header",
 			"local:pagination",
 			"local:search-filter",
@@ -23,7 +22,7 @@
 			"local:time-input",
 			"local:date-input",
 			"local:card-form",
-			"local:scheduler"
+			"local:color-picker-input"
 		],
 		"relativeUrl": "all.json"
 	},
@@ -232,6 +231,19 @@
 			"button"
 		],
 		"relativeUrl": "card-form.json"
+	},
+	{
+		"name": "color-picker-input",
+		"title": "Color Picker Input",
+		"type": "registry:ui",
+		"description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input"
+		],
+		"relativeUrl": "color-picker-input.json"
 	},
 	{
 		"name": "scheduler",
