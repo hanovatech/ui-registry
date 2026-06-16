@@ -1,0 +1,23 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "email-input",
+	"title": "Email Input",
+	"type": "registry:ui",
+	"description": "An email input with mail icon and required validation state.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"input"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Input from '$lib/components/ui/input/input.svelte';\n  import MailIcon from '@lucide/svelte/icons/mail';\n  import CircleDashed from '@lucide/svelte/icons/circle-dashed';\n  import CircleCheck from '@lucide/svelte/icons/circle-check';\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    id?: string;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = 'name@beispiel.de',\n    disabled = false,\n    required = false,\n    label = '',\n    id = crypto.randomUUID(),\n    class: className = 'bg-background',\n  }: Props = $props();\n\n  const isValid = $derived(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(value));\n</script>\n\n{#if label}\n  <div class=\"flex flex-col gap-1.5\">\n    <label for={id} class=\"flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none\">\n      {label}\n      {#if required}\n        {#if isValid}\n          <CircleCheck class=\"size-3 text-green-500\" />\n        {:else}\n          <CircleDashed class=\"size-3 text-destructive\" />\n        {/if}\n      {/if}\n    </label>\n    {@render field()}\n  </div>\n{:else}\n  {@render field()}\n{/if}\n\n{#snippet field()}\n  <div class=\"relative\">\n    <span class=\"pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-muted-foreground\">\n      <MailIcon class=\"size-4\" />\n    </span>\n    <Input\n      {id}\n      type=\"email\"\n      inputmode=\"email\"\n      {placeholder}\n      bind:value\n      {disabled}\n      {required}\n      class=\"pl-9 {className}\"\n    />\n  </div>\n{/snippet}\n",
+			"type": "registry:component",
+			"target": "registry/email-input/email-input.svelte"
+		}
+	]
+}

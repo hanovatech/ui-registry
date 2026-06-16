@@ -1,0 +1,23 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "textarea-input",
+	"title": "Textarea Input",
+	"type": "registry:ui",
+	"description": "A textarea with label, required validation state, and optional character counter.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"textarea"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Textarea from '$lib/components/ui/textarea/textarea.svelte';\n  import CircleDashed from '@lucide/svelte/icons/circle-dashed';\n  import CircleCheck from '@lucide/svelte/icons/circle-check';\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    id?: string;\n    rows?: number;\n    maxlength?: number;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = '',\n    disabled = false,\n    required = false,\n    label = '',\n    id = crypto.randomUUID(),\n    rows,\n    maxlength,\n    class: className = 'bg-background',\n  }: Props = $props();\n</script>\n\n{#if label}\n  <div class=\"flex flex-col gap-1.5\">\n    <div class=\"flex items-center justify-between\">\n      <label for={id} class=\"flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none\">\n        {label}\n        {#if required}\n          {#if value}\n            <CircleCheck class=\"size-3 text-green-500\" />\n          {:else}\n            <CircleDashed class=\"size-3 text-destructive\" />\n          {/if}\n        {/if}\n      </label>\n      {#if maxlength}\n        <span class=\"text-xs leading-none text-muted-foreground\">{value.length}/{maxlength}</span>\n      {/if}\n    </div>\n    {@render field()}\n  </div>\n{:else}\n  {@render field()}\n{/if}\n\n{#snippet field()}\n  <Textarea\n    {id}\n    {placeholder}\n    bind:value\n    {disabled}\n    {required}\n    {rows}\n    {maxlength}\n    class={className}\n  />\n{/snippet}\n",
+			"type": "registry:component",
+			"target": "registry/textarea-input/textarea-input.svelte"
+		}
+	]
+}

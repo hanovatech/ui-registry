@@ -1,0 +1,23 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "switch-input",
+	"title": "Switch Input",
+	"type": "registry:ui",
+	"description": "A labeled switch with optional description and required validation state.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"switch"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Switch from '$lib/components/ui/switch/switch.svelte';\n  import CircleDashed from '@lucide/svelte/icons/circle-dashed';\n  import CircleCheck from '@lucide/svelte/icons/circle-check';\n\n  interface Props {\n    checked?: boolean;\n    label?: string;\n    description?: string;\n    disabled?: boolean;\n    required?: boolean;\n    /** Wraps the switch in a bordered container. */\n    bordered?: boolean;\n    id?: string;\n  }\n\n  let {\n    checked = $bindable(false),\n    label = '',\n    description = '',\n    disabled = false,\n    required = false,\n    bordered = false,\n    id = crypto.randomUUID(),\n  }: Props = $props();\n</script>\n\n<div class=\"flex items-center justify-between gap-4 {bordered ? 'rounded-lg border bg-background px-4 py-3' : ''}\">\n  {#if label}\n    <div class=\"flex flex-col gap-0.5\">\n      <label for={id} class=\"flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none\">\n        {label}\n        {#if required}\n          {#if checked}\n            <CircleCheck class=\"size-3 text-green-500\" />\n          {:else}\n            <CircleDashed class=\"size-3 text-destructive\" />\n          {/if}\n        {/if}\n      </label>\n      {#if description}\n        <p class=\"text-xs text-muted-foreground/70 leading-snug\">{description}</p>\n      {/if}\n    </div>\n  {/if}\n  <Switch {id} bind:checked {disabled} />\n</div>\n",
+			"type": "registry:component",
+			"target": "registry/switch-input/switch-input.svelte"
+		}
+	]
+}

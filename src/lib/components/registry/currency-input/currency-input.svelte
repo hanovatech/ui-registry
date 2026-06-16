@@ -1,0 +1,121 @@
+<script lang="ts">
+  import { untrack } from 'svelte';
+  import Input from '$lib/components/ui/input/input.svelte';
+  import CircleDashed from '@lucide/svelte/icons/circle-dashed';
+  import CircleCheck from '@lucide/svelte/icons/circle-check';
+  import { cn } from '$lib/utils/registry/cn.js';
+
+  interface Props {
+    /** Bound value as a number (e.g. `1234.56`), or `null` for empty. */
+    value?: number | null;
+    currency?: 'EUR' | 'USD';
+    disabled?: boolean;
+    required?: boolean;
+    label?: string;
+    id?: string;
+    class?: string;
+  }
+
+  let {
+    value = $bindable(null),
+    currency = 'EUR',
+    disabled = false,
+    required = false,
+    label = '',
+    id = crypto.randomUUID(),
+    class: className = 'bg-background',
+  }: Props = $props();
+
+  const symbol = $derived(currency === 'EUR' ? '€' : '$');
+  const isPrefix = $derived(currency === 'USD');
+
+  let displayValue = $state(value != null ? format(value) : '');
+
+  $effect(() => {
+    const v = value;
+    untrack(() => {
+      if (parse(displayValue) === v) return;
+      displayValue = v != null ? format(v) : '';
+    });
+  });
+
+  /** Number → German display string: `1.234,56` */
+  function format(n: number): string {
+    return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  /** Display string → number; `null` if empty or incomplete. */
+  function parse(s: string): number | null {
+    if (!s) return null;
+    const normalized = s.replace(/\./g, '').replace(',', '.');
+    const n = Number(normalized);
+    return isNaN(n) ? null : n;
+  }
+
+  function handleInput(e: Event & { currentTarget: HTMLInputElement }) {
+    const el = e.currentTarget;
+    let raw = el.value.replace(/[^0-9,]/g, '');
+    // Only one comma
+    const ci = raw.indexOf(',');
+    if (ci !== -1) raw = raw.slice(0, ci + 1) + raw.slice(ci + 1).replace(/,/g, '');
+    el.value = raw;
+    displayValue = raw;
+    value = parse(raw);
+  }
+
+  function handleBlur(e: FocusEvent & { currentTarget: HTMLInputElement }) {
+    const n = parse(e.currentTarget.value);
+    if (n == null) {
+      value = null;
+      displayValue = '';
+      e.currentTarget.value = '';
+    } else {
+      value = n;
+      displayValue = format(n);
+      e.currentTarget.value = displayValue;
+    }
+  }
+</script>
+
+{#if label}
+  <div class="flex flex-col gap-1.5">
+    <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
+      {label}
+      {#if required}
+        {#if value != null}
+          <CircleCheck class="size-3 text-green-500" />
+        {:else}
+          <CircleDashed class="size-3 text-destructive" />
+        {/if}
+      {/if}
+    </label>
+    {@render field()}
+  </div>
+{:else}
+  {@render field()}
+{/if}
+
+{#snippet field()}
+  <div class="relative">
+    <Input
+      {id}
+      type="text"
+      inputmode="decimal"
+      placeholder="0,00"
+      value={displayValue}
+      {disabled}
+      {required}
+      class={cn(isPrefix ? 'pl-7' : 'pr-7', className)}
+      oninput={handleInput}
+      onblur={handleBlur}
+    />
+    <span
+      class={cn(
+        'pointer-events-none absolute inset-y-0 flex items-center text-sm text-muted-foreground',
+        isPrefix ? 'left-0 pl-2.5' : 'right-0 pr-2.5',
+      )}
+    >
+      {symbol}
+    </span>
+  </div>
+{/snippet}

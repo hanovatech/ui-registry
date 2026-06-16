@@ -21,6 +21,14 @@
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
   import DateInput from '$lib/components/registry/date-input/date-input.svelte';
   import ColorPickerInput from '$lib/components/registry/color-picker-input/color-picker-input.svelte';
+  import NumberInput from '$lib/components/registry/number-input/number-input.svelte';
+  import CurrencyInput from '$lib/components/registry/currency-input/currency-input.svelte';
+  import SelectInput from '$lib/components/registry/select-input/select-input.svelte';
+  import TextareaInput from '$lib/components/registry/textarea-input/textarea-input.svelte';
+  import EmailInput from '$lib/components/registry/email-input/email-input.svelte';
+  import PhoneInput from '$lib/components/registry/phone-input/phone-input.svelte';
+  import PasswordInput from '$lib/components/registry/password-input/password-input.svelte';
+  import SwitchInput from '$lib/components/registry/switch-input/switch-input.svelte';
   import CardForm from '$lib/components/registry/card-form/card-form.svelte';
   import { Input } from '$lib/components/ui/input/index.js';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
@@ -125,6 +133,14 @@
     'search-command': true,
     'time-input': true,
     'date-input': true,
+    'switch-input': true,
+    'password-input': true,
+    'phone-input': true,
+    'email-input': true,
+    'textarea-input': true,
+    'select-input': true,
+    'currency-input': true,
+    'number-input': true,
     'color-picker-input': true,
     'breadcrumbs': true,
     'card-form': true,
@@ -199,8 +215,8 @@
 
                   {:else if component.name === 'select-filter'}
                     <div class="flex flex-wrap items-end gap-4">
-                      <SelectFilter key="status" options={selectOptions} placeholder="Status" />
                       <SelectFilter key="status2" label="Status" options={selectOptions} placeholder="Status" />
+                      <SelectFilter key="status" options={selectOptions} placeholder="Status" />
                     </div>
 
                   {:else if component.name === 'button-group-filter'}
@@ -251,6 +267,106 @@
                   {:else if component.name === 'date-input'}
                     <div class="w-48">
                       <DateInput label="Start date" required />
+                    </div>
+
+                  {:else if component.name === 'switch-input'}
+                    <div class="flex flex-wrap gap-8">
+                      <div class="flex flex-col gap-4 w-72">
+                        <SwitchInput label="Benachrichtigungen" required />
+                        <SwitchInput label="Dark Mode" checked description="Dunkles Design aktivieren" />
+                        <SwitchInput label="Wartungsmodus" description="Seite für Besucher sperren" disabled />
+                      </div>
+                      <div class="flex flex-col gap-3 w-72">
+                        <SwitchInput bordered label="Benachrichtigungen" required />
+                        <SwitchInput bordered label="Dark Mode" checked description="Dunkles Design aktivieren" />
+                        <SwitchInput bordered label="Wartungsmodus" description="Seite für Besucher sperren" disabled />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'password-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-56">
+                        <PasswordInput label="Passwort" required hideRequiredIcon />
+                      </div>
+                      <div class="w-56">
+                        <PasswordInput label="API Key" required hideToggle placeholder="sk-••••••••••••" />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'phone-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-56">
+                        <PhoneInput label="Telefon" required />
+                      </div>
+                      <div class="w-56">
+                        <PhoneInput label="Mobil" value="+49 170 1234567" />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'email-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-64">
+                        <EmailInput label="E-Mail" required />
+                      </div>
+                      <div class="w-64">
+                        <EmailInput label="Kontakt" value="max@beispiel.de" />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'textarea-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-80">
+                        <TextareaInput label="Beschreibung" required placeholder="Bitte beschreiben…" maxlength={300} />
+                      </div>
+                      <div class="w-80">
+                        <TextareaInput label="Notizen" placeholder="Optionale Notizen…" />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'select-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-48">
+                        <SelectInput
+                          label="Status"
+                          required
+                          options={[
+                            { value: 'active', label: 'Aktiv' },
+                            { value: 'inactive', label: 'Inaktiv' },
+                            { value: 'pending', label: 'Ausstehend' },
+                          ]}
+                        />
+                      </div>
+                      <div class="w-48">
+                        <SelectInput
+                          label="Kategorie"
+                          value="hardware"
+                          options={[
+                            { value: 'hardware', label: 'Hardware' },
+                            { value: 'software', label: 'Software' },
+                            { value: 'service', label: 'Service' },
+                          ]}
+                        />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'currency-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-44">
+                        <CurrencyInput label="Betrag" currency="EUR" required />
+                      </div>
+                      <div class="w-44">
+                        <CurrencyInput label="Amount" currency="USD" value={1234.56} />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'number-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-40">
+                        <NumberInput label="Menge" required min={0} max={999} placeholder="0" />
+                      </div>
+                      <div class="w-40">
+                        <NumberInput label="Gewicht (kg)" decimals={2} placeholder="0,00" />
+                      </div>
                     </div>
 
                   {:else if component.name === 'color-picker-input'}
