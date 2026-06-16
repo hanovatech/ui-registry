@@ -45,13 +45,13 @@
 		<Card.Content class={contentClass}>
 			{@render children()}
 		</Card.Content>
-		<Card.Footer class="py-3 justify-between gap-2">
-			<div class="flex gap-2">
+		<Card.Footer class="py-3 flex-wrap justify-between gap-2">
+			<div class="flex flex-wrap gap-2">
 				{#if footerStart}
 					{@render footerStart()}
 				{/if}
 			</div>
-			<div class="flex gap-2">
+			<div class="flex flex-wrap gap-2">
 				{#if footer}
 					{@render footer()}
 				{:else}
