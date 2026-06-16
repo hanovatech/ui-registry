@@ -387,12 +387,31 @@
       ]
     },
     {
+      "name": "registry-cn",
+      "type": "registry:lib",
+      "title": "Registry cn",
+      "description": "Minimal cn() helper (clsx + tailwind-merge) at a fixed path for registry components.",
+      "registryDependencies": [],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils/registry/cn.ts",
+          "type": "registry:lib",
+          "target": "utils/registry/cn.ts"
+        }
+      ]
+    },
+    {
       "name": "color-picker-input",
       "type": "registry:ui",
       "title": "Color Picker Input",
       "description": "A hex color input with a native color-picker swatch and clear button. Binds a `#rrggbb` string or `''`.",
       "registryDependencies": [
-        "input"
+        "input",
+        "local:registry-cn"
       ],
       "dependencies": [
         "@lucide/svelte"

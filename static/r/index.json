@@ -233,6 +233,18 @@
 		"relativeUrl": "card-form.json"
 	},
 	{
+		"name": "registry-cn",
+		"title": "Registry cn",
+		"type": "registry:lib",
+		"description": "Minimal cn() helper (clsx + tailwind-merge) at a fixed path for registry components.",
+		"dependencies": [
+			"clsx",
+			"tailwind-merge"
+		],
+		"registryDependencies": [],
+		"relativeUrl": "registry-cn.json"
+	},
+	{
 		"name": "color-picker-input",
 		"title": "Color Picker Input",
 		"type": "registry:ui",
@@ -241,7 +253,8 @@
 			"@lucide/svelte"
 		],
 		"registryDependencies": [
-			"input"
+			"input",
+			"local:registry-cn"
 		],
 		"relativeUrl": "color-picker-input.json"
 	},
