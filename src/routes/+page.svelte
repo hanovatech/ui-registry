@@ -313,7 +313,7 @@
                         <UrlInput label="Website" required />
                       </div>
                       <div class="w-72">
-                        <UrlInput label="Docs" value="https://hanovatech.com" />
+                        <UrlInput label="Docs" value="https://www.hanovatech.de" />
                       </div>
                     </div>
 
