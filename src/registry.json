@@ -151,6 +151,26 @@
       ]
     },
     {
+      "name": "url-input",
+      "type": "registry:ui",
+      "title": "URL Input",
+      "description": "A URL input with globe icon and required validation state (must be a valid http/https URL).",
+      "registryDependencies": [
+        "input",
+        "local:input-label"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/url-input/url-input.svelte",
+          "type": "registry:component",
+          "target": "registry/url-input/url-input.svelte"
+        }
+      ]
+    },
+    {
       "name": "text-input",
       "type": "registry:ui",
       "title": "Text Input",
@@ -280,6 +300,7 @@
         "local:textarea-input",
         "local:select-input",
         "local:switch-input",
+        "local:url-input",
         "local:text-input",
         "local:input-label",
         "local:date-input",

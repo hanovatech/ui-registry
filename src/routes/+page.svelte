@@ -27,6 +27,7 @@
   import TextareaInput from '$lib/components/registry/textarea-input/textarea-input.svelte';
   import EmailInput from '$lib/components/registry/email-input/email-input.svelte';
   import TextInput from '$lib/components/registry/text-input/text-input.svelte';
+  import UrlInput from '$lib/components/registry/url-input/url-input.svelte';
   import PhoneInput from '$lib/components/registry/phone-input/phone-input.svelte';
   import PasswordInput from '$lib/components/registry/password-input/password-input.svelte';
   import SwitchInput from '$lib/components/registry/switch-input/switch-input.svelte';
@@ -138,6 +139,7 @@
     'password-input': true,
     'phone-input': true,
     'email-input': true,
+    'url-input': true,
     'text-input': true,
     'textarea-input': true,
     'select-input': true,
@@ -302,6 +304,16 @@
                       </div>
                       <div class="w-56">
                         <PhoneInput label="Mobil" value="+49 170 1234567" />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'url-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-72">
+                        <UrlInput label="Website" required />
+                      </div>
+                      <div class="w-72">
+                        <UrlInput label="Docs" value="https://hanovatech.com" />
                       </div>
                     </div>
 

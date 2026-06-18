@@ -99,6 +99,20 @@
 		"relativeUrl": "switch-input.json"
 	},
 	{
+		"name": "url-input",
+		"title": "URL Input",
+		"type": "registry:ui",
+		"description": "A URL input with globe icon and required validation state (must be a valid http/https URL).",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"input",
+			"local:input-label"
+		],
+		"relativeUrl": "url-input.json"
+	},
+	{
 		"name": "text-input",
 		"title": "Text Input",
 		"type": "registry:ui",
@@ -182,6 +196,7 @@
 			"local:textarea-input",
 			"local:select-input",
 			"local:switch-input",
+			"local:url-input",
 			"local:text-input",
 			"local:input-label",
 			"local:date-input",

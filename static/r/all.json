@@ -13,6 +13,7 @@
 		"./textarea-input.json",
 		"./select-input.json",
 		"./switch-input.json",
+		"./url-input.json",
 		"./text-input.json",
 		"./input-label.json",
 		"./date-input.json",
