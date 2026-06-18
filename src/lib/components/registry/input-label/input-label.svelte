@@ -51,11 +51,12 @@
           {@render labelSuffix()}
         {/if}
       </div>
-      {#if hint}
-        <p class="text-xs text-muted-foreground leading-snug">{hint}</p>
-      {/if}
     </div>
   {/if}
 
   {@render children?.()}
+
+  {#if hint}
+    <p class="text-xs text-muted-foreground leading-snug">{hint}</p>
+  {/if}
 </div>
