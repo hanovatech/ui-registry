@@ -1,0 +1,18 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "text-input",
+	"title": "Text Input",
+	"type": "registry:ui",
+	"description": "A generic text input with label, optional description, and required validation state.",
+	"registryDependencies": [
+		"input",
+		"./input-label.json"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import Input from '$lib/components/ui/input/input.svelte';\n  import { InputLabel } from '$lib/components/registry/input-label/index.js';\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    label?: string;\n    hint?: string;\n    id?: string;\n    maxlength?: number;\n    class?: string;\n  }\n\n  let {\n    value = $bindable(''),\n    placeholder = '',\n    disabled = false,\n    required = false,\n    label = '',\n    hint = '',\n    id = crypto.randomUUID(),\n    maxlength,\n    class: className = 'bg-background',\n  }: Props = $props();\n</script>\n\n<InputLabel {label} {required} valid={!!value} for={id} {hint}>\n  <Input\n    {id}\n    type=\"text\"\n    {placeholder}\n    bind:value\n    {disabled}\n    {required}\n    {maxlength}\n    class={className}\n  />\n</InputLabel>\n",
+			"type": "registry:component",
+			"target": "registry/text-input/text-input.svelte"
+		}
+	]
+}

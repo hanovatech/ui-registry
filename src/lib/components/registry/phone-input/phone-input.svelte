@@ -9,6 +9,7 @@
     disabled?: boolean;
     required?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     class?: string;
   }
@@ -19,6 +20,7 @@
     disabled = false,
     required = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     class: className = 'bg-background',
   }: Props = $props();
@@ -33,7 +35,7 @@
   }
 </script>
 
-<InputLabel {label} {required} valid={isValid} for={id}>
+<InputLabel {label} {required} valid={isValid} for={id} {hint}>
   <div class="relative">
     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-muted-foreground">
       <PhoneIcon class="size-4" />

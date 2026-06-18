@@ -16,6 +16,7 @@
     disabled?: boolean;
     required?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     class?: string;
   }
@@ -27,6 +28,7 @@
     disabled = false,
     required = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     class: className = 'w-full bg-background',
   }: Props = $props();
@@ -34,7 +36,7 @@
   const selectedLabel = $derived(options.find((o) => o.value === value)?.label ?? placeholder);
 </script>
 
-<InputLabel {label} {required} valid={!!value} for={id}>
+<InputLabel {label} {required} valid={!!value} for={id} {hint}>
   <Select.Root type="single" {value} onValueChange={(v) => (value = v)} {disabled}>
     <Select.Trigger id={id} class={className}>
       <span data-slot="select-value" class={value ? '' : 'text-muted-foreground'}>

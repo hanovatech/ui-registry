@@ -16,6 +16,7 @@
     /** Hide the show/hide toggle (e.g. when the field contains dummy data). */
     hideToggle?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     class?: string;
   }
@@ -28,6 +29,7 @@
     hideRequiredIcon = false,
     hideToggle = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     class: className = 'bg-background',
   }: Props = $props();
@@ -35,7 +37,7 @@
   let visible = $state(false);
 </script>
 
-<InputLabel {label} required={required && !hideRequiredIcon} valid={!!value} for={id}>
+<InputLabel {label} required={required && !hideRequiredIcon} valid={!!value} for={id} {hint}>
   <div class="relative">
     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5 text-muted-foreground">
       <LockIcon class="size-4" />

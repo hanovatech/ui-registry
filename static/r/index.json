@@ -99,6 +99,17 @@
 		"relativeUrl": "switch-input.json"
 	},
 	{
+		"name": "text-input",
+		"title": "Text Input",
+		"type": "registry:ui",
+		"description": "A generic text input with label, optional description, and required validation state.",
+		"registryDependencies": [
+			"input",
+			"local:input-label"
+		],
+		"relativeUrl": "text-input.json"
+	},
+	{
 		"name": "input-label",
 		"title": "Input Label",
 		"type": "registry:ui",
@@ -106,9 +117,7 @@
 		"dependencies": [
 			"@lucide/svelte"
 		],
-		"registryDependencies": [
-			"local:i18n"
-		],
+		"registryDependencies": [],
 		"relativeUrl": "input-label.json"
 	},
 	{
@@ -173,6 +182,7 @@
 			"local:textarea-input",
 			"local:select-input",
 			"local:switch-input",
+			"local:text-input",
 			"local:input-label",
 			"local:date-input",
 			"local:time-input",

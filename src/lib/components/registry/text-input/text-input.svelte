@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Textarea from '$lib/components/ui/textarea/textarea.svelte';
+  import Input from '$lib/components/ui/input/input.svelte';
   import { InputLabel } from '$lib/components/registry/input-label/index.js';
 
   interface Props {
@@ -10,7 +10,6 @@
     label?: string;
     hint?: string;
     id?: string;
-    rows?: number;
     maxlength?: number;
     class?: string;
   }
@@ -23,26 +22,19 @@
     label = '',
     hint = '',
     id = crypto.randomUUID(),
-    rows,
     maxlength,
     class: className = 'bg-background',
   }: Props = $props();
 </script>
 
 <InputLabel {label} {required} valid={!!value} for={id} {hint}>
-  {#snippet labelSuffix()}
-    {#if maxlength}
-      <span class="text-xs leading-none text-muted-foreground">{value.length}/{maxlength}</span>
-    {/if}
-  {/snippet}
-
-  <Textarea
+  <Input
     {id}
+    type="text"
     {placeholder}
     bind:value
     {disabled}
     {required}
-    {rows}
     {maxlength}
     class={className}
   />

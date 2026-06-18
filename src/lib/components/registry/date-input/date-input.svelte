@@ -14,6 +14,7 @@
     disabled?: boolean;
     required?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     locale?: string;
     minValue?: DateValue;
@@ -27,6 +28,7 @@
     disabled = false,
     required = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     locale = 'de-DE',
     minValue,
@@ -169,7 +171,7 @@
   }
 </script>
 
-<InputLabel {label} {required} valid={isValid} for={id}>
+<InputLabel {label} {required} valid={isValid} for={id} {hint}>
   <div class="relative">
     <Input
       {id}

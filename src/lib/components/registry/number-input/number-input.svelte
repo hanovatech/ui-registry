@@ -10,6 +10,7 @@
     disabled?: boolean;
     required?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     min?: number;
     max?: number;
@@ -24,6 +25,7 @@
     disabled = false,
     required = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     min,
     max,
@@ -91,7 +93,7 @@
   }
 </script>
 
-<InputLabel {label} {required} valid={value != null} for={id}>
+<InputLabel {label} {required} valid={value != null} for={id} {hint}>
   <Input
     {id}
     type="text"

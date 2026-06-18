@@ -151,13 +151,28 @@
       ]
     },
     {
+      "name": "text-input",
+      "type": "registry:ui",
+      "title": "Text Input",
+      "description": "A generic text input with label, optional description, and required validation state.",
+      "registryDependencies": [
+        "input",
+        "local:input-label"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/text-input/text-input.svelte",
+          "type": "registry:component",
+          "target": "registry/text-input/text-input.svelte"
+        }
+      ]
+    },
+    {
       "name": "input-label",
       "type": "registry:ui",
       "title": "Input Label",
       "description": "A form label wrapper with optional description and required validation indicator.",
-      "registryDependencies": [
-        "local:i18n"
-      ],
+      "registryDependencies": [],
       "dependencies": [
         "@lucide/svelte"
       ],
@@ -265,6 +280,7 @@
         "local:textarea-input",
         "local:select-input",
         "local:switch-input",
+        "local:text-input",
         "local:input-label",
         "local:date-input",
         "local:time-input",

@@ -10,7 +10,7 @@
     required?: boolean;
     /** `null` = not yet validated (shows neutral `*`), `true` = valid, `false` = invalid */
     valid?: boolean | null;
-    description?: string;
+    hint?: string;
     class?: string;
     labelClass?: string;
     /** Optional snippet rendered to the right of the label row (e.g. a character counter). */
@@ -23,7 +23,7 @@
     label = '',
     required = false,
     valid = null,
-    description = '',
+    hint = '',
     class: className = '',
     labelClass = '',
     labelSuffix,
@@ -51,8 +51,8 @@
           {@render labelSuffix()}
         {/if}
       </div>
-      {#if description}
-        <p class="text-xs text-muted-foreground leading-snug">{description}</p>
+      {#if hint}
+        <p class="text-xs text-muted-foreground leading-snug">{hint}</p>
       {/if}
     </div>
   {/if}

@@ -9,6 +9,7 @@
     disabled?: boolean;
     required?: boolean;
     label?: string;
+    hint?: string;
     id?: string;
     class?: string;
   }
@@ -18,6 +19,7 @@
     disabled = false,
     required = false,
     label = '',
+    hint = '',
     id = crypto.randomUUID(),
     class: className = 'bg-background',
   }: Props = $props();
@@ -68,7 +70,7 @@
   }
 </script>
 
-<InputLabel {label} {required} valid={!!value} for={id}>
+<InputLabel {label} {required} valid={!!value} for={id} {hint}>
   <div class="relative">
     <!-- Hidden native color picker -->
     <input
