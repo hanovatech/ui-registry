@@ -102,7 +102,7 @@
 		"name": "url-input",
 		"title": "URL Input",
 		"type": "registry:ui",
-		"description": "A URL input with globe icon and required validation state (must be a valid http/https URL).",
+		"description": "A URL input with globe icon and soft validation. `requireProtocol` (default true) switches between full-URL and bare-domain mode; `trailingSlash` ('forbid' | 'require' | 'preserve') controls slash normalisation on blur/paste. Empty optional fields show a neutral indicator.",
 		"dependencies": [
 			"@lucide/svelte"
 		],
