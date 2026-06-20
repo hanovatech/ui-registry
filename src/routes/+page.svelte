@@ -37,6 +37,7 @@
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
   import * as Card from '$lib/components/ui/card/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
+  import { CalendarDate } from '@internationalized/date';
 
   const baseUrl = $derived(browser ? `${page.url.origin}${resolve('/')}`.replace(/\/$/, '') : '');
 
@@ -105,6 +106,7 @@
 
   let sheetFormOpen = $state(false);
   let sheetDetailOpen = $state(false);
+  let dateRangeValue = $state({ start: new CalendarDate(2026, 1, 1), end: new CalendarDate(2026, 12, 31) });
 
   // search-command preview: mock async search over a static dataset
   const searchDataset: SearchResult[] = [
@@ -227,7 +229,10 @@
                     <ButtonGroupFilter key="type" options={buttonGroupOptions} defaultValue="all" />
 
                   {:else if component.name === 'date-range-filter'}
-                    <DateRangeFilter showYearNavigation />
+                    <div class="flex flex-wrap items-center gap-4">
+                      <DateRangeFilter showYearNavigation bind:value={dateRangeValue} />
+                      <DateRangeFilter />
+                    </div>
 
                   {:else if component.name === 'month-filter'}
                     <MonthFilter />
