@@ -52,6 +52,15 @@ This is a **shadcn-svelte custom component registry** built with SvelteKit. It s
 - Consumer projects are expected to have their own translation JSON files and call `setTranslations()` to provide them
 - When adding a new label to a component, add the English default to `src/lib/i18n/en.json` under `common`
 
+## Input Component Conventions
+
+- **All input components must use `InputLabel`** from `$lib/components/registry/input-label/index.js` for their label, required indicator, and hint — never inline custom label markup.
+- The only exception is inputs with fundamentally different layouts (e.g. `switch-input`, which is a horizontal row) where `InputLabel`'s column structure does not apply.
+- Standard prop set for every input: `value` (bindable), `placeholder`, `disabled`, `required`, `label`, `hint`, `id`, `class`.
+- Pass `valid={isValid}` to `InputLabel` where `isValid` is a `$derived` boolean based on the field's own validation logic. Pass `null` when the field is empty so the indicator stays neutral.
+- Declare `local:input-label` in `registryDependencies` for every input that uses it.
+- Remove `@lucide/svelte` from `dependencies` in `registry.json` if the component no longer imports any icons directly (i.e. only uses `InputLabel` and the shadcn primitive).
+
 ## Code Style
 
 - Svelte 5 runes (`$props()`, `$derived`, `$state`, `$effect`)
