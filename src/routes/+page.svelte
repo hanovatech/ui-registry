@@ -310,10 +310,10 @@
                   {:else if component.name === 'url-input'}
                     <div class="flex flex-wrap gap-6">
                       <div class="w-72">
-                        <UrlInput label="Website" required />
+                        <UrlInput label="Website" required value="https://hanovatech.de" />
                       </div>
                       <div class="w-72">
-                        <UrlInput label="Docs" value="https://www.hanovatech.de" />
+                        <UrlInput label="Domain" required requireProtocol={false} value="hanovatech.de" />
                       </div>
                     </div>
 
