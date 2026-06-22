@@ -39,14 +39,19 @@
 
   const trackClass = $derived(variant === 'status' ? statusTrackClass : undefined);
 
-  const statusBorderClass = $derived(checked ? 'border-green-500' : 'border-orange-500');
+  // Tinted border + background for the status variant, reactive to `checked`.
+  const statusContainerClass = $derived(
+    checked ? 'border-green-500 bg-green-500/10' : 'border-orange-500 bg-orange-500/10'
+  );
+
+  const containerClass = $derived(
+    bordered
+      ? `rounded-lg border px-4 py-3 ${variant === 'status' ? statusContainerClass : 'bg-background'}`
+      : ''
+  );
 </script>
 
-<div
-  class="flex items-center justify-between gap-4 {bordered
-    ? `rounded-lg border bg-background px-4 py-3 ${variant === 'status' ? statusBorderClass : ''}`
-    : ''}"
->
+<div class="flex items-center justify-between gap-4 {containerClass}">
   {#if label}
     <div class="flex flex-col gap-0.5">
       <label for={id} class="flex items-center gap-1 text-xs font-medium text-foreground/75 leading-none">
