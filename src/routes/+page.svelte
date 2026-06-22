@@ -288,7 +288,7 @@
                       <div class="flex flex-col gap-3 w-72">
                         <SwitchInput bordered label="Benachrichtigungen" required />
                         <SwitchInput bordered label="Dark Mode" checked description="Dunkles Design aktivieren" />
-                        <SwitchInput bordered label="Wartungsmodus" description="Seite für Besucher sperren" disabled />
+                        <SwitchInput variant="status" bordered label="Wartungsmodus" description="Seite für Besucher sperren" />
                       </div>
                     </div>
 

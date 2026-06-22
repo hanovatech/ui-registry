@@ -135,7 +135,7 @@
       "name": "switch-input",
       "type": "registry:ui",
       "title": "Switch Input",
-      "description": "A labeled switch with optional description and required validation state.",
+      "description": "A labeled switch with optional description and required validation state. The `variant` prop ('default' | 'status', default 'default') optionally colours the track green when on and orange when off — and, with `bordered`, colours the surrounding border to match — for clear enable/disable toggles.",
       "registryDependencies": [
         "switch"
       ],
