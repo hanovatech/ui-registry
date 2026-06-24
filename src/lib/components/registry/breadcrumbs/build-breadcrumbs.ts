@@ -7,6 +7,14 @@ export interface DynamicSegmentMapping {
   dataKey: string;
   property: string;
   resolve?: (data: Record<string, Record<string, unknown>>) => string | undefined;
+  /**
+   * Extra crumbs inserted immediately before this segment's own crumb. Lets a
+   * detail page surface a parent context that is not part of the URL path — e.g.
+   * a ticket's category between "Tickets" and the ticket itself. Unlike the
+   * path-derived crumbs, the returned hrefs are arbitrary, so they may point at
+   * filtered list views (query strings).
+   */
+  prepend?: (data: Record<string, Record<string, unknown>>) => BreadcrumbItem[];
 }
 
 export interface BuildBreadcrumbsOptions {
@@ -42,6 +50,8 @@ export function buildBreadcrumbs(options: BuildBreadcrumbsOptions): BreadcrumbIt
       const mapping = prevSegment ? dynamicSegments[prevSegment] : null;
 
       if (mapping) {
+        if (mapping.prepend) items.push(...mapping.prepend(data));
+
         let label: string | undefined;
         if (mapping.resolve) {
           label = mapping.resolve(data);
