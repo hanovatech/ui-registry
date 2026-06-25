@@ -138,7 +138,7 @@
     </Button>
 
     <!-- Command Dialog -->
-    <CommandDialog {open} onOpenChange={(value) => (open = value)}>
+    <CommandDialog {open} onOpenChange={(value) => (open = value)} class="sm:max-w-2xl">
       <Command class="rounded-lg border shadow-md">
         <CommandInput {placeholder} value={searchQuery} oninput={handleInput} />
         <CommandList>
