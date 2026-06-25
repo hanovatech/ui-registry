@@ -49,6 +49,11 @@
       ? `rounded-lg border px-4 py-3 ${variant === 'status' ? statusContainerClass : 'bg-background'}`
       : ''
   );
+
+  // The tinted status background washes out the faint muted hint, so render it darker there.
+  const descriptionClass = $derived(
+    variant === 'status' ? 'text-foreground/70' : 'text-muted-foreground/70'
+  );
 </script>
 
 <div class="flex items-center justify-between gap-4 {containerClass}">
@@ -65,7 +70,7 @@
         {/if}
       </label>
       {#if description}
-        <p class="text-xs text-muted-foreground/70 leading-snug">{description}</p>
+        <p class="text-xs {descriptionClass} leading-snug">{description}</p>
       {/if}
     </div>
   {/if}
