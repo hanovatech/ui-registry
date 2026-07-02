@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import LoaderCircle from '@lucide/svelte/icons/loader-circle';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
@@ -14,6 +15,8 @@
 		isLoading?: boolean;
 		onConfirm: () => void | Promise<void>;
 		onOpenChange?: (open: boolean) => void;
+		/** Optional content rendered between the header and the footer buttons. */
+		children?: Snippet;
 	}
 
 	let {
@@ -25,7 +28,8 @@
 		variant = 'default',
 		isLoading = false,
 		onConfirm,
-		onOpenChange
+		onOpenChange,
+		children
 	}: Props = $props();
 
 	function handleOpenChange(newOpen: boolean) {
@@ -42,6 +46,10 @@
 				<AlertDialog.Description>{description}</AlertDialog.Description>
 			{/if}
 		</AlertDialog.Header>
+
+		{#if children}
+			{@render children()}
+		{/if}
 
 		<AlertDialog.Footer>
 			<AlertDialog.Cancel disabled={isLoading}>{cancelLabel}</AlertDialog.Cancel>

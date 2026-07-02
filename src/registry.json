@@ -672,7 +672,7 @@
       "name": "confirm-dialog",
       "type": "registry:block",
       "title": "Confirm Dialog",
-      "description": "A declarative confirm/destructive dialog built on AlertDialog. Supports a `destructive` variant, a loading spinner, and does not auto-close on confirm — the caller closes via `bind:open` after its async action resolves, so a failed action keeps the dialog open.",
+      "description": "A declarative confirm/destructive dialog built on AlertDialog. Supports a `destructive` variant, a loading spinner, optional `children` content between header and footer, and does not auto-close on confirm — the caller closes via `bind:open` after its async action resolves, so a failed action keeps the dialog open.",
       "registryDependencies": [
         "alert-dialog",
         "button"
