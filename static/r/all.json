@@ -18,6 +18,7 @@
 		"./input-label.json",
 		"./date-input.json",
 		"./time-input.json",
+		"./duration-input.json",
 		"./color-picker-input.json",
 		"./card.json",
 		"./page-header.json",

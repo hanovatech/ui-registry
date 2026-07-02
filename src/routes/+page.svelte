@@ -19,6 +19,7 @@
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
   import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
   import TimeInput from '$lib/components/registry/time-input/time-input.svelte';
+  import DurationInput from '$lib/components/registry/duration-input/duration-input.svelte';
   import DateInput from '$lib/components/registry/date-input/date-input.svelte';
   import ColorPickerInput from '$lib/components/registry/color-picker-input/color-picker-input.svelte';
   import NumberInput from '$lib/components/registry/number-input/number-input.svelte';
@@ -136,6 +137,7 @@
     'page-data-viewer': true,
     'search-command': true,
     'time-input': true,
+    'duration-input': true,
     'date-input': true,
     'switch-input': true,
     'password-input': true,
@@ -271,6 +273,16 @@
                   {:else if component.name === 'time-input'}
                     <div class="w-48">
                       <TimeInput label="Start time" required />
+                    </div>
+
+                  {:else if component.name === 'duration-input'}
+                    <div class="w-64">
+                      <DurationInput
+                        label="Duration"
+                        required
+                        presets={[15, 30, 60, 90]}
+                        hint="Try '4,5' or '4h 30m'"
+                      />
                     </div>
 
                   {:else if component.name === 'date-input'}

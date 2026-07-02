@@ -246,6 +246,24 @@
       ]
     },
     {
+      "name": "duration-input",
+      "type": "registry:ui",
+      "title": "Duration Input",
+      "description": "A free-form duration input that binds whole minutes. Accepts decimal hours ('4,5') and unit notation ('4h 30m', '90m', '45min'), normalising to compact 'Hh Mm' on blur. Optional `presets` renders quick-pick buttons (e.g. 15m, 30m).",
+      "registryDependencies": [
+        "input",
+        "button",
+        "local:input-label"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/duration-input/duration-input.svelte",
+          "type": "registry:component",
+          "target": "registry/duration-input/duration-input.svelte"
+        }
+      ]
+    },
+    {
       "name": "color-picker-input",
       "type": "registry:ui",
       "title": "Color Picker Input",
@@ -305,6 +323,7 @@
         "local:input-label",
         "local:date-input",
         "local:time-input",
+        "local:duration-input",
         "local:color-picker-input",
         "local:card",
         "local:page-header",

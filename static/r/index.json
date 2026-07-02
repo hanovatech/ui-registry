@@ -159,6 +159,18 @@
 		"relativeUrl": "time-input.json"
 	},
 	{
+		"name": "duration-input",
+		"title": "Duration Input",
+		"type": "registry:ui",
+		"description": "A free-form duration input that binds whole minutes. Accepts decimal hours ('4,5') and unit notation ('4h 30m', '90m', '45min'), normalising to compact 'Hh Mm' on blur. Optional `presets` renders quick-pick buttons (e.g. 15m, 30m).",
+		"registryDependencies": [
+			"input",
+			"button",
+			"local:input-label"
+		],
+		"relativeUrl": "duration-input.json"
+	},
+	{
 		"name": "color-picker-input",
 		"title": "Color Picker Input",
 		"type": "registry:ui",
@@ -201,6 +213,7 @@
 			"local:input-label",
 			"local:date-input",
 			"local:time-input",
+			"local:duration-input",
 			"local:color-picker-input",
 			"local:card",
 			"local:page-header",
