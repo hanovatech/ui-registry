@@ -439,6 +439,9 @@
                       <div class="w-40">
                         <NumberInput label="Gewicht (kg)" decimals={2} placeholder="0,00" />
                       </div>
+                      <div class="w-40">
+                        <NumberInput label="Anzahl" stepper min={0} max={10} placeholder="0" />
+                      </div>
                     </div>
 
                   {:else if component.name === 'color-picker-input'}

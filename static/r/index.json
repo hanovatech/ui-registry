@@ -3,7 +3,10 @@
 		"name": "number-input",
 		"title": "Number Input",
 		"type": "registry:ui",
-		"description": "A numeric text input with optional min/max clamping and decimal formatting.",
+		"description": "A numeric text input with optional min/max clamping and decimal formatting. Optional `stepper` shows up/down arrows (and enables ArrowUp/ArrowDown keys) that adjust the value by `step`.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
 		"registryDependencies": [
 			"input",
 			"local:input-label"
