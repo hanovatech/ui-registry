@@ -276,13 +276,22 @@
                     </div>
 
                   {:else if component.name === 'duration-input'}
-                    <div class="w-64">
-                      <DurationInput
-                        label="Duration"
-                        required
-                        presets={[15, 30, 60, 90]}
-                        hint="Try '4,5' or '4h 30m'"
-                      />
+                    <div class="flex flex-col gap-4">
+                      <div class="w-64">
+                        <DurationInput
+                          label="Duration"
+                          required
+                          presets={[15, 30, 60, 90]}
+                        />
+                      </div>
+                      <div class="w-96">
+                        <DurationInput
+                          label="Duration (inline presets)"
+                          presets={[15, 30, 60]}
+                          presetsInline
+                          hint="Try '4,5' or '4h 30m'"
+                        />
+                      </div>
                     </div>
 
                   {:else if component.name === 'date-input'}

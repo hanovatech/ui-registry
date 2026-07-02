@@ -29,6 +29,10 @@
     "november": "November",
     "december": "December",
     "required": "Required",
+    "hour": "hour",
+    "hours": "hours",
+    "minute": "minute",
+    "minutes": "minutes",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "selectPlaceholder": "Select…"
