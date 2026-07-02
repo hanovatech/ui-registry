@@ -10,6 +10,7 @@
     label?: string;
     hint?: string;
     id?: string;
+    /** Visible height in text rows. Adjust this instead of a height class. */
     rows?: number;
     maxlength?: number;
     class?: string;
@@ -23,7 +24,7 @@
     label = '',
     hint = '',
     id = crypto.randomUUID(),
-    rows,
+    rows = 3,
     maxlength,
     class: className = 'bg-background',
   }: Props = $props();
@@ -36,6 +37,7 @@
     {/if}
   {/snippet}
 
+  <!-- Override the base min-height + content-based sizing so `rows` governs height. -->
   <Textarea
     {id}
     {placeholder}
@@ -44,6 +46,6 @@
     {required}
     {rows}
     {maxlength}
-    class={className}
+    class={`min-h-0 field-sizing-fixed ${className}`}
   />
 </InputLabel>
