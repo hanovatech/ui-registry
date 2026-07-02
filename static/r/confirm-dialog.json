@@ -1,0 +1,29 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "confirm-dialog",
+	"title": "Confirm Dialog",
+	"type": "registry:block",
+	"description": "A declarative confirm/destructive dialog built on AlertDialog. Supports a `destructive` variant, a loading spinner, and does not auto-close on confirm — the caller closes via `bind:open` after its async action resolves, so a failed action keeps the dialog open.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"alert-dialog",
+		"button"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n\timport LoaderCircle from '@lucide/svelte/icons/loader-circle';\n\timport { Button } from '$lib/components/ui/button/index.js';\n\timport * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';\n\timport { t } from '$lib/stores/i18n';\n\n\tinterface Props {\n\t\topen: boolean;\n\t\ttitle: string;\n\t\tdescription?: string;\n\t\tconfirmLabel?: string;\n\t\tcancelLabel?: string;\n\t\tvariant?: 'default' | 'destructive';\n\t\tisLoading?: boolean;\n\t\tonConfirm: () => void | Promise<void>;\n\t\tonOpenChange?: (open: boolean) => void;\n\t}\n\n\tlet {\n\t\topen = $bindable(),\n\t\ttitle,\n\t\tdescription,\n\t\tconfirmLabel = $t.common.confirm,\n\t\tcancelLabel = $t.common.cancel,\n\t\tvariant = 'default',\n\t\tisLoading = false,\n\t\tonConfirm,\n\t\tonOpenChange\n\t}: Props = $props();\n\n\tfunction handleOpenChange(newOpen: boolean) {\n\t\topen = newOpen;\n\t\tonOpenChange?.(newOpen);\n\t}\n</script>\n\n<AlertDialog.Root bind:open onOpenChange={handleOpenChange}>\n\t<AlertDialog.Content>\n\t\t<AlertDialog.Header>\n\t\t\t<AlertDialog.Title>{title}</AlertDialog.Title>\n\t\t\t{#if description}\n\t\t\t\t<AlertDialog.Description>{description}</AlertDialog.Description>\n\t\t\t{/if}\n\t\t</AlertDialog.Header>\n\n\t\t<AlertDialog.Footer>\n\t\t\t<AlertDialog.Cancel disabled={isLoading}>{cancelLabel}</AlertDialog.Cancel>\n\t\t\t<!-- Plain button (not AlertDialog.Action) so it does not auto-close; the caller\n\t\t\t     closes via bind:open after its async action resolves. -->\n\t\t\t<Button\n\t\t\t\tvariant={variant === 'destructive' ? 'destructive' : 'default'}\n\t\t\t\tdisabled={isLoading}\n\t\t\t\tonclick={onConfirm}\n\t\t\t>\n\t\t\t\t{#if isLoading}\n\t\t\t\t\t<LoaderCircle class=\"size-4 animate-spin\" />\n\t\t\t\t{/if}\n\t\t\t\t{confirmLabel}\n\t\t\t</Button>\n\t\t</AlertDialog.Footer>\n\t</AlertDialog.Content>\n</AlertDialog.Root>\n",
+			"type": "registry:component",
+			"target": "registry/confirm-dialog/confirm-dialog.svelte"
+		},
+		{
+			"content": "export { default as ConfirmDialog } from './confirm-dialog.svelte';\n",
+			"type": "registry:component",
+			"target": "registry/confirm-dialog/index.ts"
+		}
+	]
+}

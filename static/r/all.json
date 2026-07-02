@@ -35,7 +35,9 @@
 		"./page-data-viewer.json",
 		"./search-command.json",
 		"./breadcrumbs.json",
-		"./card-form.json"
+		"./card-form.json",
+		"./dialog-form.json",
+		"./confirm-dialog.json"
 	],
 	"files": []
 }

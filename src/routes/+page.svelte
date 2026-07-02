@@ -14,6 +14,8 @@
   import MonthFilter from '$lib/components/registry/month-filter/month-filter.svelte';
   import Metrics from '$lib/components/registry/metrics/metrics.svelte';
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
+  import { DialogForm } from '$lib/components/registry/dialog-form/index.js';
+  import { ConfirmDialog } from '$lib/components/registry/confirm-dialog/index.js';
   import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
@@ -107,6 +109,8 @@
 
   let sheetFormOpen = $state(false);
   let sheetDetailOpen = $state(false);
+  let dialogFormOpen = $state(false);
+  let confirmOpen = $state(false);
   let dateRangeValue = $state({ start: new CalendarDate(2026, 1, 1), end: new CalendarDate(2026, 12, 31) });
 
   // search-command preview: mock async search over a static dataset
@@ -132,6 +136,8 @@
     'month-filter': true,
     'metrics': true,
     'sheet-form': true,
+    'dialog-form': true,
+    'confirm-dialog': true,
     'navigation-tabs': true,
     'json-tree': true,
     'page-data-viewer': true,
@@ -255,6 +261,22 @@
                     <SheetDetail bind:open={sheetDetailOpen} title="User Details" description="Read-only view.">
                       <p class="text-sm text-muted-foreground">Detail content goes here.</p>
                     </SheetDetail>
+
+                  {:else if component.name === 'dialog-form'}
+                    <Button variant="outline" onclick={() => (dialogFormOpen = true)}>Open Dialog Form</Button>
+                    <DialogForm bind:open={dialogFormOpen} title="Edit User" description="Update user details." onSubmit={(e) => { e.preventDefault(); dialogFormOpen = false; }}>
+                      <p class="text-sm text-muted-foreground">Form fields go here.</p>
+                    </DialogForm>
+
+                  {:else if component.name === 'confirm-dialog'}
+                    <Button variant="outline" onclick={() => (confirmOpen = true)}>Open Confirm Dialog</Button>
+                    <ConfirmDialog
+                      bind:open={confirmOpen}
+                      title="Delete user?"
+                      description="This action cannot be undone."
+                      variant="destructive"
+                      onConfirm={() => { confirmOpen = false; }}
+                    />
 
                   {:else if component.name === 'navigation-tabs'}
                     <NavigationTabs triggerClass="flex-1" tabs={[{ label: 'Overview', href: '/' }, { label: 'Analytics', href: '/?tab=analytics' }, { label: 'Settings', href: '/?tab=settings' }, { label: 'Billing', href: '/?tab=billing' }]}>

@@ -341,7 +341,9 @@
         "local:page-data-viewer",
         "local:search-command",
         "local:breadcrumbs",
-        "local:card-form"
+        "local:card-form",
+        "local:dialog-form",
+        "local:confirm-dialog"
       ],
       "files": []
     },
@@ -639,6 +641,55 @@
           "path": "src/lib/components/registry/card-form/card-form.svelte",
           "type": "registry:component",
           "target": "registry/card-form/card-form.svelte"
+        }
+      ]
+    },
+    {
+      "name": "dialog-form",
+      "type": "registry:block",
+      "title": "Dialog Form",
+      "description": "A centered modal form dialog — the Dialog analog of Sheet Form. Sticky coloured header/footer, scrollable edge-flush body, optional destructive error Alert, built-in submit/cancel buttons, and header/footer snippet overrides. Bakes in a Tooltip.Provider so tooltips (e.g. registry-input hints) work inside the portalled dialog.",
+      "registryDependencies": [
+        "dialog",
+        "tooltip",
+        "button",
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/dialog-form/dialog-form.svelte",
+          "type": "registry:component",
+          "target": "registry/dialog-form/dialog-form.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/dialog-form/index.ts",
+          "type": "registry:component",
+          "target": "registry/dialog-form/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "confirm-dialog",
+      "type": "registry:block",
+      "title": "Confirm Dialog",
+      "description": "A declarative confirm/destructive dialog built on AlertDialog. Supports a `destructive` variant, a loading spinner, and does not auto-close on confirm — the caller closes via `bind:open` after its async action resolves, so a failed action keeps the dialog open.",
+      "registryDependencies": [
+        "alert-dialog",
+        "button"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/confirm-dialog/confirm-dialog.svelte",
+          "type": "registry:component",
+          "target": "registry/confirm-dialog/confirm-dialog.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/confirm-dialog/index.ts",
+          "type": "registry:component",
+          "target": "registry/confirm-dialog/index.ts"
         }
       ]
     },

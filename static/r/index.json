@@ -231,7 +231,9 @@
 			"local:page-data-viewer",
 			"local:search-command",
 			"local:breadcrumbs",
-			"local:card-form"
+			"local:card-form",
+			"local:dialog-form",
+			"local:confirm-dialog"
 		],
 		"relativeUrl": "all.json"
 	},
@@ -410,6 +412,33 @@
 			"button"
 		],
 		"relativeUrl": "card-form.json"
+	},
+	{
+		"name": "dialog-form",
+		"title": "Dialog Form",
+		"type": "registry:block",
+		"description": "A centered modal form dialog — the Dialog analog of Sheet Form. Sticky coloured header/footer, scrollable edge-flush body, optional destructive error Alert, built-in submit/cancel buttons, and header/footer snippet overrides. Bakes in a Tooltip.Provider so tooltips (e.g. registry-input hints) work inside the portalled dialog.",
+		"registryDependencies": [
+			"dialog",
+			"tooltip",
+			"button",
+			"alert"
+		],
+		"relativeUrl": "dialog-form.json"
+	},
+	{
+		"name": "confirm-dialog",
+		"title": "Confirm Dialog",
+		"type": "registry:block",
+		"description": "A declarative confirm/destructive dialog built on AlertDialog. Supports a `destructive` variant, a loading spinner, and does not auto-close on confirm — the caller closes via `bind:open` after its async action resolves, so a failed action keeps the dialog open.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"alert-dialog",
+			"button"
+		],
+		"relativeUrl": "confirm-dialog.json"
 	},
 	{
 		"name": "i18n",
