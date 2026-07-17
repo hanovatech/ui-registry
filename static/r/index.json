@@ -229,7 +229,7 @@
 			"local:month-filter",
 			"local:metrics",
 			"local:sheet",
-			"local:navigation-tabs",
+			"local:tab-bar",
 			"local:json-tree",
 			"local:page-data-viewer",
 			"local:search-command",
@@ -349,14 +349,17 @@
 		"relativeUrl": "sheet.json"
 	},
 	{
-		"name": "navigation-tabs",
-		"title": "Navigation Tabs",
+		"name": "tab-bar",
+		"title": "Tab Bar",
 		"type": "registry:block",
-		"description": "URL-driven tabs that navigate between routes.",
-		"registryDependencies": [
-			"tabs"
+		"description": "Underline-style link tab bar for section sub-navigation. Secondary tabs collapse into an overflow \"More\" dropdown; the active one is surfaced so the current location is never hidden.",
+		"dependencies": [
+			"@lucide/svelte"
 		],
-		"relativeUrl": "navigation-tabs.json"
+		"registryDependencies": [
+			"dropdown-menu"
+		],
+		"relativeUrl": "tab-bar.json"
 	},
 	{
 		"name": "json-tree",

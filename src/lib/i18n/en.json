@@ -36,6 +36,7 @@
     "minutes": "minutes",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
-    "selectPlaceholder": "Select…"
+    "selectPlaceholder": "Select…",
+    "more": "More"
   }
 }

@@ -339,7 +339,7 @@
         "local:month-filter",
         "local:metrics",
         "local:sheet",
-        "local:navigation-tabs",
+        "local:tab-bar",
         "local:json-tree",
         "local:page-data-viewer",
         "local:search-command",
@@ -533,18 +533,21 @@
       ]
     },
     {
-      "name": "navigation-tabs",
+      "name": "tab-bar",
       "type": "registry:block",
-      "title": "Navigation Tabs",
-      "description": "URL-driven tabs that navigate between routes.",
+      "title": "Tab Bar",
+      "description": "Underline-style link tab bar for section sub-navigation. Secondary tabs collapse into an overflow \"More\" dropdown; the active one is surfaced so the current location is never hidden.",
       "registryDependencies": [
-        "tabs"
+        "dropdown-menu"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
       ],
       "files": [
         {
-          "path": "src/lib/components/registry/navigation-tabs/navigation-tabs.svelte",
+          "path": "src/lib/components/registry/tab-bar/tab-bar.svelte",
           "type": "registry:component",
-          "target": "registry/navigation-tabs/navigation-tabs.svelte"
+          "target": "registry/tab-bar/tab-bar.svelte"
         }
       ]
     },

@@ -16,7 +16,7 @@
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
   import { DialogForm } from '$lib/components/registry/dialog-form/index.js';
   import { ConfirmDialog } from '$lib/components/registry/confirm-dialog/index.js';
-  import NavigationTabs from '$lib/components/registry/navigation-tabs/navigation-tabs.svelte';
+  import TabBar from '$lib/components/registry/tab-bar/tab-bar.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
   import SearchCommand, { type SearchResult } from '$lib/components/registry/search-command/search-command.svelte';
@@ -138,7 +138,7 @@
     'sheet-form': true,
     'dialog-form': true,
     'confirm-dialog': true,
-    'navigation-tabs': true,
+    'tab-bar': true,
     'json-tree': true,
     'page-data-viewer': true,
     'search-command': true,
@@ -278,10 +278,12 @@
                       onConfirm={() => { confirmOpen = false; }}
                     />
 
-                  {:else if component.name === 'navigation-tabs'}
-                    <NavigationTabs triggerClass="flex-1" tabs={[{ label: 'Overview', href: '/' }, { label: 'Analytics', href: '/?tab=analytics' }, { label: 'Settings', href: '/?tab=settings' }, { label: 'Billing', href: '/?tab=billing' }]}>
-                      <p class="text-sm text-muted-foreground">Tab content goes here.</p>
-                    </NavigationTabs>
+                  {:else if component.name === 'tab-bar'}
+                    <TabBar
+                      label="Customer"
+                      tabs={[{ label: 'Overview', href: '/' }, { label: 'Tickets', href: '/?tab=tickets' }, { label: 'Time', href: '/?tab=time' }, { label: 'Contacts', href: '/?tab=contacts' }]}
+                      moreTabs={[{ label: 'Projects', href: '/?tab=projects' }, { label: 'Contracts', href: '/?tab=contracts' }, { label: 'Devices', href: '/?tab=devices' }]}
+                    />
 
                   {:else if component.name === 'json-tree'}
                     <JsonTree data={sampleJson} />

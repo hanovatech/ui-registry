@@ -30,7 +30,7 @@
 		"./month-filter.json",
 		"./metrics.json",
 		"./sheet.json",
-		"./navigation-tabs.json",
+		"./tab-bar.json",
 		"./json-tree.json",
 		"./page-data-viewer.json",
 		"./search-command.json",

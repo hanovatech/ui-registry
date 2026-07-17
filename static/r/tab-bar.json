@@ -1,0 +1,23 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "tab-bar",
+	"title": "Tab Bar",
+	"type": "registry:block",
+	"description": "Underline-style link tab bar for section sub-navigation. Secondary tabs collapse into an overflow \"More\" dropdown; the active one is surfaced so the current location is never hidden.",
+	"dependencies": [
+		"@lucide/svelte"
+	],
+	"devDependencies": [
+		"@lucide/svelte@^1.17.0"
+	],
+	"registryDependencies": [
+		"dropdown-menu"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\" module>\n  export interface TabBarTab {\n    label: string;\n    /** Pre-resolved href (the caller wraps paths in resolve()). */\n    href: string;\n  }\n</script>\n\n<script lang=\"ts\">\n  import { page } from '$app/state';\n  import { t } from '$lib/stores/i18n';\n  import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';\n  import ChevronDown from '@lucide/svelte/icons/chevron-down';\n\n  interface Props {\n    /** Always-visible tabs; the first entry is treated as the section root\n     *  (it matches by prefix only when no longer tab matches). */\n    tabs: TabBarTab[];\n    /** Tabs collapsed into the overflow menu. The active one is surfaced as a\n     *  visible tab so the current location is never hidden. */\n    moreTabs?: TabBarTab[];\n    /** Accessible name for the nav element. */\n    label?: string;\n    /** Label of the overflow menu trigger. */\n    moreLabel?: string;\n    class?: string;\n  }\n\n  let {\n    tabs,\n    moreTabs = [],\n    label,\n    moreLabel = $t.common.more,\n    class: className\n  }: Props = $props();\n\n  // Longest matching href wins — the section root (shortest) only matches\n  // when no sub-route does.\n  const activeHref = $derived.by(() => {\n    const path = page.url.pathname;\n    const all = [...tabs, ...moreTabs];\n    const matches = all.filter((t) => path === t.href || path.startsWith(t.href + '/'));\n    if (matches.length === 0) return tabs[0]?.href ?? '';\n    return matches.reduce((longest, t) => (t.href.length > longest.href.length ? t : longest)).href;\n  });\n\n  const activeMoreTab = $derived(moreTabs.find((t) => t.href === activeHref) ?? null);\n  const menuTabs = $derived(moreTabs.filter((t) => t.href !== activeHref));\n\n  // Keep the active tab visible when the bar overflows horizontally.\n  let nav = $state<HTMLElement | null>(null);\n  $effect(() => {\n    void activeHref;\n    nav\n      ?.querySelector('[aria-current=\"page\"]')\n      ?.scrollIntoView({ inline: 'nearest', block: 'nearest' });\n  });\n\n  const baseClass =\n    'flex shrink-0 items-center gap-1 border-b-2 px-3 py-2 text-sm whitespace-nowrap transition-colors';\n  const activeClass = 'border-primary font-medium text-foreground';\n  const inactiveClass =\n    'border-transparent text-muted-foreground hover:border-border hover:text-foreground';\n</script>\n\n<nav\n  bind:this={nav}\n  class={['flex items-center overflow-x-auto border-b', className]}\n  aria-label={label}\n>\n  {#each tabs as tab (tab.href)}\n    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- hrefs are pre-resolved by the caller -->\n    <a\n      href={tab.href}\n      aria-current={activeHref === tab.href ? 'page' : undefined}\n      class=\"{baseClass} {activeHref === tab.href ? activeClass : inactiveClass}\"\n    >\n      {tab.label}\n    </a>\n  {/each}\n\n  {#if activeMoreTab}\n    <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- hrefs are pre-resolved by the caller -->\n    <a href={activeMoreTab.href} aria-current=\"page\" class=\"{baseClass} {activeClass}\">\n      {activeMoreTab.label}\n    </a>\n  {/if}\n\n  {#if menuTabs.length > 0}\n    <DropdownMenu.Root>\n      <DropdownMenu.Trigger>\n        {#snippet child({ props })}\n          <button type=\"button\" {...props} class=\"{baseClass} {inactiveClass}\">\n            {moreLabel}\n            <ChevronDown class=\"size-3.5\" />\n          </button>\n        {/snippet}\n      </DropdownMenu.Trigger>\n      <DropdownMenu.Content align=\"start\">\n        {#each menuTabs as tab (tab.href)}\n          <DropdownMenu.Item>\n            {#snippet child({ props })}\n              <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- hrefs are pre-resolved by the caller -->\n              <a href={tab.href} {...props}>{tab.label}</a>\n            {/snippet}\n          </DropdownMenu.Item>\n        {/each}\n      </DropdownMenu.Content>\n    </DropdownMenu.Root>\n  {/if}\n</nav>\n",
+			"type": "registry:component",
+			"target": "registry/tab-bar/tab-bar.svelte"
+		}
+	]
+}
