@@ -37,6 +37,7 @@
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "selectPlaceholder": "Select…",
-    "more": "More"
+    "more": "More",
+    "perPage": "per page"
   }
 }

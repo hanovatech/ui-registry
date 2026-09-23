@@ -252,9 +252,10 @@
 		"name": "pagination",
 		"title": "Pagination",
 		"type": "registry:block",
-		"description": "URL-driven pagination with page numbers, navigation, and total count.",
+		"description": "URL-driven pagination with page numbers, navigation, total count, and an optional page-size select.",
 		"registryDependencies": [
-			"pagination"
+			"pagination",
+			"select"
 		],
 		"relativeUrl": "pagination.json"
 	},

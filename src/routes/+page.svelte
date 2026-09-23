@@ -222,7 +222,7 @@
                     <PageHeader title="Dashboard" description="Overview of your account activity." icon="📊" />
 
                   {:else if component.name === 'pagination'}
-                    <Pagination total={30} perPage={10} />
+                    <Pagination total={120} perPage={20} pageSizeOptions={[10, 20, 50, 100]} />
 
                   {:else if component.name === 'search-filter'}
                     <SearchFilter />
