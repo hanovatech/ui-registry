@@ -37,7 +37,8 @@
 		"./breadcrumbs.json",
 		"./card-form.json",
 		"./dialog-form.json",
-		"./confirm-dialog.json"
+		"./confirm-dialog.json",
+		"./user-avatar.json"
 	],
 	"files": []
 }

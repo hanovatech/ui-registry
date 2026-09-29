@@ -1,0 +1,27 @@
+{
+	"$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+	"name": "user-avatar",
+	"title": "User Avatar",
+	"type": "registry:block",
+	"description": "Avatar for a person built on the shadcn Avatar. Shows a profile picture when `src` is given, otherwise up to two initials on a background colour derived deterministically from `seed` (user id, email) — the same person always gets the same colour. Ships the pure `avatarInitials()` / `avatarColor()` helpers; `children` replaces the initials (e.g. an icon for a bot), `fallbackClass` overrides the colour.",
+	"registryDependencies": [
+		"avatar"
+	],
+	"files": [
+		{
+			"content": "<script lang=\"ts\">\n  import type { Snippet } from 'svelte';\n  import * as Avatar from '$lib/components/ui/avatar/index.js';\n  import { avatarColor, avatarInitials } from './avatar.js';\n\n  // Avatar for a person: shows `src` when given and loadable, otherwise a\n  // letter avatar whose background colour is derived from `seed` — so people\n  // are easy to tell apart and keep their colour across pages and renames.\n  interface Props {\n    name?: string | null;\n    email?: string | null;\n    /** Profile picture URL. The initials stay as fallback while it loads or\n     *  if it fails. */\n    src?: string | null;\n    /** Stable identity for the colour (e.g. user id); defaults to email, then name. */\n    seed?: string | null;\n    size?: 'sm' | 'default' | 'lg';\n    class?: string;\n    /** Extra classes for the fallback — a `bg-*` here overrides the generated colour. */\n    fallbackClass?: string;\n    /** Replaces the initials, e.g. an icon for non-human authors. */\n    children?: Snippet;\n  }\n\n  let {\n    name,\n    email,\n    src,\n    seed,\n    size = 'default',\n    class: className,\n    fallbackClass,\n    children\n  }: Props = $props();\n\n  const initials = $derived(avatarInitials(name, email));\n  const color = $derived(avatarColor(seed ?? email ?? name ?? ''));\n  const label = $derived(name || email || undefined);\n</script>\n\n<Avatar.Root {size} class={className} title={label}>\n  {#if src}\n    <Avatar.Image {src} alt={label ?? ''} class=\"object-cover\" />\n  {/if}\n  <!-- The fallback's own cn() runs tailwind-merge, so a bg-* in fallbackClass\n       wins over the generated colour. -->\n  <Avatar.Fallback class={['font-medium text-white', color, fallbackClass].filter(Boolean).join(' ')}>\n    {#if children}\n      {@render children()}\n    {:else}\n      {initials}\n    {/if}\n  </Avatar.Fallback>\n</Avatar.Root>\n",
+			"type": "registry:component",
+			"target": "registry/user-avatar/user-avatar.svelte"
+		},
+		{
+			"content": "/** Initials + background colour for the letter avatar shown when a person has\n *  no profile picture. Pure and isomorphic — the colour is derived from a\n *  stable seed (user id, email) so the same person keeps the same colour on\n *  every page and across renames. */\n\n/** Up to two letters: first letter of the first and last word. Words that\n *  start with punctuation (`(Support)`) contribute their first letter or digit.\n *  Falls back to the email's first letter, then to '?' — an empty avatar would\n *  read as a broken image. */\nexport function avatarInitials(name: string | null | undefined, email?: string | null): string {\n  const words = (name ?? '')\n    .trim()\n    .split(/\\s+/)\n    .map((w) => w.match(/[\\p{L}\\p{N}]/u)?.[0])\n    .filter((c): c is string => Boolean(c));\n\n  const letters = words.length > 1 ? [words[0], words[words.length - 1]] : words;\n  if (letters.length > 0) return letters.join('').toLocaleUpperCase();\n\n  const fromEmail = (email ?? '').trim().match(/[\\p{L}\\p{N}]/u)?.[0];\n  return fromEmail ? fromEmail.toLocaleUpperCase() : '?';\n}\n\n/** Solid fills that all carry white text with sufficient contrast, in both\n *  themes. Literal class strings so Tailwind picks them up. */\nexport const AVATAR_COLORS = [\n  'bg-red-600',\n  'bg-orange-600',\n  'bg-amber-700',\n  'bg-lime-700',\n  'bg-green-600',\n  'bg-emerald-600',\n  'bg-teal-600',\n  'bg-cyan-700',\n  'bg-sky-600',\n  'bg-blue-600',\n  'bg-indigo-600',\n  'bg-violet-600',\n  'bg-purple-600',\n  'bg-fuchsia-600',\n  'bg-pink-600',\n  'bg-rose-600'\n] as const;\n\nexport type AvatarColor = (typeof AVATAR_COLORS)[number];\n\n/** Deterministic palette pick (FNV-1a over the seed). Seeds are normalised\n *  case-insensitively so `Max@Firma.de` and `max@firma.de` match. */\nexport function avatarColor(seed: string): AvatarColor {\n  let hash = 0x811c9dc5;\n  for (const ch of seed.trim().toLowerCase()) {\n    hash ^= ch.codePointAt(0)!;\n    hash = Math.imul(hash, 0x01000193);\n  }\n  return AVATAR_COLORS[(hash >>> 0) % AVATAR_COLORS.length];\n}\n",
+			"type": "registry:component",
+			"target": "registry/user-avatar/avatar.ts"
+		},
+		{
+			"content": "export { default as UserAvatar } from './user-avatar.svelte';\nexport { avatarInitials, avatarColor, AVATAR_COLORS, type AvatarColor } from './avatar.js';\n",
+			"type": "registry:component",
+			"target": "registry/user-avatar/index.ts"
+		}
+	]
+}

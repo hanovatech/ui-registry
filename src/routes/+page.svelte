@@ -16,6 +16,7 @@
   import { SheetForm, SheetFormSection, SheetDetail } from '$lib/components/registry/sheet/index.js';
   import { DialogForm } from '$lib/components/registry/dialog-form/index.js';
   import { ConfirmDialog } from '$lib/components/registry/confirm-dialog/index.js';
+  import { UserAvatar } from '$lib/components/registry/user-avatar/index.js';
   import TabBar from '$lib/components/registry/tab-bar/tab-bar.svelte';
   import JsonTree from '$lib/components/registry/json-tree/json-tree.svelte';
   import PageDataViewer from '$lib/components/registry/page-data-viewer/page-data-viewer.svelte';
@@ -138,6 +139,7 @@
     'sheet-form': true,
     'dialog-form': true,
     'confirm-dialog': true,
+    'user-avatar': true,
     'tab-bar': true,
     'json-tree': true,
     'page-data-viewer': true,
@@ -277,6 +279,18 @@
                       variant="destructive"
                       onConfirm={() => { confirmOpen = false; }}
                     />
+
+                  {:else if component.name === 'user-avatar'}
+                    <div class="flex flex-wrap items-center gap-3">
+                      <UserAvatar name="Anna Schmidt" seed="user-1" size="lg" />
+                      <UserAvatar name="Max Peter Mustermann" seed="user-2" />
+                      <UserAvatar name="Jonas Weber" seed="user-3" />
+                      <UserAvatar email="support@example.com" />
+                      <UserAvatar name="Lea Köhler" seed="user-4" size="sm" />
+                      <UserAvatar name="Bot" size="sm" fallbackClass="bg-neutral-500">
+                        <span class="text-[10px]">AI</span>
+                      </UserAvatar>
+                    </div>
 
                   {:else if component.name === 'tab-bar'}
                     <TabBar

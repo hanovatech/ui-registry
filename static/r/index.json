@@ -199,6 +199,16 @@
 		"relativeUrl": "card.json"
 	},
 	{
+		"name": "user-avatar",
+		"title": "User Avatar",
+		"type": "registry:block",
+		"description": "Avatar for a person built on the shadcn Avatar. Shows a profile picture when `src` is given, otherwise up to two initials on a background colour derived deterministically from `seed` (user id, email) — the same person always gets the same colour. Ships the pure `avatarInitials()` / `avatarColor()` helpers; `children` replaces the initials (e.g. an icon for a bot), `fallbackClass` overrides the colour.",
+		"registryDependencies": [
+			"avatar"
+		],
+		"relativeUrl": "user-avatar.json"
+	},
+	{
 		"name": "all",
 		"title": "All",
 		"type": "registry:block",
@@ -236,7 +246,8 @@
 			"local:breadcrumbs",
 			"local:card-form",
 			"local:dialog-form",
-			"local:confirm-dialog"
+			"local:confirm-dialog",
+			"local:user-avatar"
 		],
 		"relativeUrl": "all.json"
 	},
