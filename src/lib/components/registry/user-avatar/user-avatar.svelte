@@ -16,7 +16,9 @@
     seed?: string | null;
     size?: 'sm' | 'default' | 'lg';
     class?: string;
-    /** Extra classes for the fallback — a `bg-*` here overrides the generated colour. */
+    /** Extra classes for the fallback — a `bg-*` here overrides the generated
+     *  colour, a `text-*` the initials' size (needed when `class` enlarges the
+     *  circle beyond the `lg` size). */
     fallbackClass?: string;
     /** Replaces the initials, e.g. an icon for non-human authors. */
     children?: Snippet;
@@ -38,17 +40,24 @@
   const label = $derived(name || email || undefined);
 </script>
 
-<Avatar.Root {size} class={className} title={label}>
-  {#if src}
-    <Avatar.Image {src} alt={label ?? ''} class="object-cover" />
-  {/if}
-  <!-- The fallback's own cn() runs tailwind-merge, so a bg-* in fallbackClass
-       wins over the generated colour. -->
-  <Avatar.Fallback class={['font-medium text-white', color, fallbackClass].filter(Boolean).join(' ')}>
-    {#if children}
-      {@render children()}
-    {:else}
-      {initials}
+<!-- Keyed on src: bits-ui keeps its loading status across prop changes, so
+     removing a loaded picture would otherwise hide the fallback too and leave
+     an empty circle until the next remount. -->
+{#key src}
+  <Avatar.Root {size} class={className} title={label}>
+    {#if src}
+      <Avatar.Image {src} alt={label ?? ''} class="object-cover" />
     {/if}
-  </Avatar.Fallback>
-</Avatar.Root>
+    <!-- The fallback's own cn() runs tailwind-merge, so a bg-* or text-* in
+         fallbackClass wins over the generated colour and the default size. -->
+    <Avatar.Fallback
+      class={['font-medium text-white', color, fallbackClass].filter(Boolean).join(' ')}
+    >
+      {#if children}
+        {@render children()}
+      {:else}
+        {initials}
+      {/if}
+    </Avatar.Fallback>
+  </Avatar.Root>
+{/key}
