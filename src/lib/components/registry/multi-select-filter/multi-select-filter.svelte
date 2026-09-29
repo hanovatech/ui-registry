@@ -16,7 +16,7 @@
     /** URL search param this filter writes, as a comma-separated list (`?status=OPEN,PENDING`). */
     key: string;
     options: Option[];
-    /** Trigger text while nothing is selected, and the prefix of the count once several are. */
+    /** Trigger text while nothing is selected; otherwise the selected labels are shown. */
     placeholder?: string;
     label?: string;
     class?: string;
@@ -92,17 +92,17 @@
       aria-label={label || placeholder || undefined}
       class="border-input dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 flex h-8 items-center gap-1.5 rounded-lg border bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:ring-3 {className}"
     >
-      {#if selected.length === 1}
-        <span class="truncate">{selected[0].label}</span>
-      {:else if selected.length > 1}
-        <span class="truncate">{placeholder || selected[0].label}</span>
-        <span class="bg-primary text-primary-foreground rounded-full px-1.5 text-xs leading-5 font-medium tabular-nums">
-          {placeholder ? selected.length : `+${selected.length - 1}`}
-        </span>
+      {#if selected.length > 0}
+        <span class="min-w-0 truncate">{selected.map((o) => o.label).join(', ')}</span>
+        {#if selected.length > 1}
+          <span class="bg-primary text-primary-foreground ml-auto rounded-full px-1.5 text-xs leading-5 font-medium tabular-nums">
+            {selected.length}
+          </span>
+        {/if}
       {:else}
         <span class="truncate">{placeholder}</span>
       {/if}
-      <ChevronDownIcon class="text-muted-foreground pointer-events-none ml-auto size-4 shrink-0" />
+      <ChevronDownIcon class="text-muted-foreground pointer-events-none size-4 shrink-0 {selected.length > 1 ? '' : 'ml-auto'}" />
     </Popover.Trigger>
     <Popover.Content class="w-(--bits-popover-anchor-width) min-w-56 gap-0 p-0" align="start">
       <Command.Root shouldFilter={false}>

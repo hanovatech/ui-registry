@@ -258,13 +258,13 @@
 
                   {:else if component.name === 'select-filter'}
                     <div class="flex flex-wrap items-end gap-4">
-                      <SelectFilter key="status2" label="Status" options={selectOptions} placeholder="Status" />
-                      <SelectFilter key="status" options={selectOptions} placeholder="Status" />
+                      <SelectFilter key="status2" label="Status" options={selectOptions} placeholder="Alle" />
+                      <SelectFilter key="status" options={selectOptions} placeholder="Alle" />
                     </div>
 
                   {:else if component.name === 'multi-select-filter'}
                     <div class="flex flex-wrap items-end gap-4">
-                      <MultiSelectFilter key="ticketStatus" label="Status" options={ticketStatusOptions} placeholder="Status" />
+                      <MultiSelectFilter key="ticketStatus" label="Status" options={ticketStatusOptions} placeholder="Alle" />
                       <MultiSelectFilter key="assignees" label="Bearbeiter (mit Suche)" options={userOptions} placeholder="Alle Bearbeiter" />
                     </div>
                     <p class="mt-3 text-xs text-muted-foreground">URL: <code>{page.url.search || '–'}</code></p>
