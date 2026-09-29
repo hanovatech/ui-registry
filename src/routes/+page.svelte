@@ -30,6 +30,8 @@
   import SelectInput from '$lib/components/registry/select-input/select-input.svelte';
   import MultiSelectInput from '$lib/components/registry/multi-select-input/multi-select-input.svelte';
   import MultiSelectFilter from '$lib/components/registry/multi-select-filter/multi-select-filter.svelte';
+  import { ComboboxInput, type ComboboxOption } from '$lib/components/registry/combobox-input/index.js';
+  import ComboboxFilter from '$lib/components/registry/combobox-filter/combobox-filter.svelte';
   import TextareaInput from '$lib/components/registry/textarea-input/textarea-input.svelte';
   import EmailInput from '$lib/components/registry/email-input/email-input.svelte';
   import TextInput from '$lib/components/registry/text-input/text-input.svelte';
@@ -42,6 +44,7 @@
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
   import * as Card from '$lib/components/ui/card/index.js';
+  import * as Command from '$lib/components/ui/command/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
   import { CalendarDate } from '@internationalized/date';
 
@@ -117,6 +120,29 @@
   ];
 
   let multiCategories = $state<string[]>(['hardware', 'network']);
+
+  // combobox previews: a mock server search over customers, with an
+  // "internal" flag rendered through the item/selected snippets.
+  interface CustomerOption extends ComboboxOption {
+    internal?: boolean;
+  }
+  const customerDataset: CustomerOption[] = [
+    { value: 'c0', label: 'HanovaTech (intern)', internal: true },
+    { value: 'c1', label: 'Acme Corporation', description: 'Hannover' },
+    { value: 'c2', label: 'Globex GmbH', description: 'Berlin' },
+    { value: 'c3', label: 'Müller & Söhne GmbH', description: 'Hamburg' },
+    { value: 'c4', label: 'TechVenture Solutions GmbH', description: 'München' },
+    { value: 'c5', label: 'Initech AG', description: 'Köln' },
+  ];
+  async function mockCustomerSearch(query: string): Promise<CustomerOption[]> {
+    await new Promise((r) => setTimeout(r, 300));
+    const q = query.toLowerCase();
+    return customerDataset.filter((c) => c.label.toLowerCase().includes(q)).slice(0, 4);
+  }
+  let comboCustomer = $state('c3');
+  let comboContact = $state('');
+  let pendingEmail = $state('');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let multiUsers = $state<string[]>([]);
 
   const buttonGroupOptions = [
@@ -158,6 +184,7 @@
     'search-filter': true,
     'select-filter': true,
     'multi-select-filter': true,
+    'combobox-filter': true,
     'button-group-filter': true,
     'date-range-filter': true,
     'month-filter': true,
@@ -182,6 +209,7 @@
     'textarea-input': true,
     'select-input': true,
     'multi-select-input': true,
+    'combobox-input': true,
     'currency-input': true,
     'number-input': true,
     'color-picker-input': true,
@@ -268,6 +296,23 @@
                       <MultiSelectFilter key="assignees" label="Bearbeiter (mit Suche)" options={userOptions} placeholder="Alle Bearbeiter" />
                     </div>
                     <p class="mt-3 text-xs text-muted-foreground">URL: <code>{page.url.search || '–'}</code></p>
+
+                  {:else if component.name === 'combobox-filter'}
+                    <div class="flex flex-wrap items-end gap-4">
+                      <ComboboxFilter
+                        key="assignee"
+                        label="Bearbeiter"
+                        placeholder="Alle"
+                        options={[{ value: '', label: 'Alle' }, { value: '__none__', label: 'Nicht zugewiesen' }, ...userOptions]}
+                      />
+                      <ComboboxFilter
+                        key="customer"
+                        label="Kunde (Server-Suche)"
+                        placeholder="Alle"
+                        options={[{ value: '', label: 'Alle' }, ...customerDataset.slice(1, 3)]}
+                        search={mockCustomerSearch}
+                      />
+                    </div>
 
                   {:else if component.name === 'button-group-filter'}
                     <ButtonGroupFilter key="type" options={buttonGroupOptions} defaultValue="all" />
@@ -500,6 +545,66 @@
                       </div>
                       <div class="w-72">
                         <MultiSelectInput label="Deaktiviert" disabled value={['OPEN', 'WAITING']} options={ticketStatusOptions} />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'combobox-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-72">
+                        <ComboboxInput
+                          label="Kunde"
+                          required
+                          hint="Server-Suche mit Snippets für das Intern-Badge."
+                          placeholder="Kunde wählen…"
+                          search={mockCustomerSearch}
+                          selectedLabel={comboCustomer === 'c3' ? 'Müller & Söhne GmbH' : ''}
+                          bind:value={comboCustomer}
+                        >
+                          {#snippet item(option)}
+                            <span class="min-w-0 flex-1 truncate">{option.label}</span>
+                            {#if option.internal}
+                              <span class="rounded border px-1.5 text-xs">Intern</span>
+                            {/if}
+                          {/snippet}
+                        </ComboboxInput>
+                        <p class="mt-2 text-xs text-muted-foreground">Wert: <code>{comboCustomer || '–'}</code></p>
+                      </div>
+                      <div class="w-72">
+                        <ComboboxInput
+                          label="Kontakt"
+                          hint="Lokale Optionen; eine E-Mail-Adresse bietet „neu anlegen“ an."
+                          placeholder="Kontakt wählen…"
+                          options={userOptions}
+                          filled={!!pendingEmail}
+                          bind:value={comboContact}
+                          onValueChange={() => (pendingEmail = '')}
+                        >
+                          {#snippet selected(option)}
+                            <span class="min-w-0 truncate">{option?.label ?? `${pendingEmail} (neu)`}</span>
+                          {/snippet}
+                          {#snippet extra({ query, close })}
+                            {#if emailPattern.test(query)}
+                              <Command.Group>
+                                <Command.Item
+                                  value={`create:${query}`}
+                                  onSelect={() => {
+                                    pendingEmail = query;
+                                    comboContact = '';
+                                    close();
+                                  }}
+                                >
+                                  „{query}“ als neuen Kontakt anlegen
+                                </Command.Item>
+                              </Command.Group>
+                            {/if}
+                          {/snippet}
+                        </ComboboxInput>
+                        <p class="mt-2 text-xs text-muted-foreground">
+                          Wert: <code>{comboContact || '–'}</code> · Neu: <code>{pendingEmail || '–'}</code>
+                        </p>
+                      </div>
+                      <div class="w-72">
+                        <ComboboxInput label="Deaktiviert" disabled value="u2" options={userOptions} />
                       </div>
                     </div>
 

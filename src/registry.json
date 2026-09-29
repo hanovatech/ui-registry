@@ -156,6 +156,37 @@
       ]
     },
     {
+      "name": "combobox-input",
+      "type": "registry:ui",
+      "title": "Combobox Input",
+      "description": "A searchable single-select for forms with label, clear button and optional debounced server search (`search(query)`, `''` = initial list). Snippets customise list rows (`item`), the trigger (`selected`) and add actions after the results (`extra`, e.g. \"create …\").",
+      "registryDependencies": [
+        "popover",
+        "command",
+        "local:input-label"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/combobox-input/combobox-input.svelte",
+          "type": "registry:component",
+          "target": "registry/combobox-input/combobox-input.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/combobox-input/types.ts",
+          "type": "registry:component",
+          "target": "registry/combobox-input/types.ts"
+        },
+        {
+          "path": "src/lib/components/registry/combobox-input/index.ts",
+          "type": "registry:component",
+          "target": "registry/combobox-input/index.ts"
+        }
+      ]
+    },
+    {
       "name": "switch-input",
       "type": "registry:ui",
       "title": "Switch Input",
@@ -369,6 +400,7 @@
         "local:textarea-input",
         "local:select-input",
         "local:multi-select-input",
+        "local:combobox-input",
         "local:switch-input",
         "local:url-input",
         "local:text-input",
@@ -383,6 +415,7 @@
         "local:search-filter",
         "local:select-filter",
         "local:multi-select-filter",
+        "local:combobox-filter",
         "local:button-group-filter",
         "local:date-range-filter",
         "local:month-filter",
@@ -483,6 +516,26 @@
           "path": "src/lib/components/registry/multi-select-filter/multi-select-filter.svelte",
           "type": "registry:component",
           "target": "registry/multi-select-filter/multi-select-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "combobox-filter",
+      "type": "registry:block",
+      "title": "Combobox Filter",
+      "description": "A searchable single-select filter that syncs its value to a URL search param, with optional server search for lists too long to preload.",
+      "registryDependencies": [
+        "popover",
+        "command"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/combobox-filter/combobox-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/combobox-filter/combobox-filter.svelte"
         }
       ]
     },

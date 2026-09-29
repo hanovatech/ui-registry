@@ -104,6 +104,21 @@
 		"relativeUrl": "multi-select-input.json"
 	},
 	{
+		"name": "combobox-input",
+		"title": "Combobox Input",
+		"type": "registry:ui",
+		"description": "A searchable single-select for forms with label, clear button and optional debounced server search (`search(query)`, `''` = initial list). Snippets customise list rows (`item`), the trigger (`selected`) and add actions after the results (`extra`, e.g. \"create …\").",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"popover",
+			"command",
+			"local:input-label"
+		],
+		"relativeUrl": "combobox-input.json"
+	},
+	{
 		"name": "switch-input",
 		"title": "Switch Input",
 		"type": "registry:ui",
@@ -237,6 +252,7 @@
 			"local:textarea-input",
 			"local:select-input",
 			"local:multi-select-input",
+			"local:combobox-input",
 			"local:switch-input",
 			"local:url-input",
 			"local:text-input",
@@ -251,6 +267,7 @@
 			"local:search-filter",
 			"local:select-filter",
 			"local:multi-select-filter",
+			"local:combobox-filter",
 			"local:button-group-filter",
 			"local:date-range-filter",
 			"local:month-filter",
@@ -323,6 +340,20 @@
 			"command"
 		],
 		"relativeUrl": "multi-select-filter.json"
+	},
+	{
+		"name": "combobox-filter",
+		"title": "Combobox Filter",
+		"type": "registry:block",
+		"description": "A searchable single-select filter that syncs its value to a URL search param, with optional server search for lists too long to preload.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"popover",
+			"command"
+		],
+		"relativeUrl": "combobox-filter.json"
 	},
 	{
 		"name": "button-group-filter",
