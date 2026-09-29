@@ -89,6 +89,21 @@
 		"relativeUrl": "select-input.json"
 	},
 	{
+		"name": "multi-select-input",
+		"title": "Multi Select Input",
+		"type": "registry:ui",
+		"description": "A form multi-select with label, chips in the trigger, optional search, select-all and clear, bound to a string array.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"popover",
+			"command",
+			"local:input-label"
+		],
+		"relativeUrl": "multi-select-input.json"
+	},
+	{
 		"name": "switch-input",
 		"title": "Switch Input",
 		"type": "registry:ui",
@@ -221,6 +236,7 @@
 			"local:password-input",
 			"local:textarea-input",
 			"local:select-input",
+			"local:multi-select-input",
 			"local:switch-input",
 			"local:url-input",
 			"local:text-input",
@@ -234,6 +250,7 @@
 			"local:pagination",
 			"local:search-filter",
 			"local:select-filter",
+			"local:multi-select-filter",
 			"local:button-group-filter",
 			"local:date-range-filter",
 			"local:month-filter",
@@ -292,6 +309,20 @@
 			"select"
 		],
 		"relativeUrl": "select-filter.json"
+	},
+	{
+		"name": "multi-select-filter",
+		"title": "Multi Select Filter",
+		"type": "registry:block",
+		"description": "A multi-select dropdown that syncs its values to a comma-separated URL search param.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"popover",
+			"command"
+		],
+		"relativeUrl": "multi-select-filter.json"
 	},
 	{
 		"name": "button-group-filter",

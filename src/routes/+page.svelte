@@ -28,6 +28,8 @@
   import NumberInput from '$lib/components/registry/number-input/number-input.svelte';
   import CurrencyInput from '$lib/components/registry/currency-input/currency-input.svelte';
   import SelectInput from '$lib/components/registry/select-input/select-input.svelte';
+  import MultiSelectInput from '$lib/components/registry/multi-select-input/multi-select-input.svelte';
+  import MultiSelectFilter from '$lib/components/registry/multi-select-filter/multi-select-filter.svelte';
   import TextareaInput from '$lib/components/registry/textarea-input/textarea-input.svelte';
   import EmailInput from '$lib/components/registry/email-input/email-input.svelte';
   import TextInput from '$lib/components/registry/text-input/text-input.svelte';
@@ -94,6 +96,29 @@
     { value: 'inactive', label: 'Inactive' },
   ];
 
+  const ticketStatusOptions = [
+    { value: 'OPEN', label: 'Offen' },
+    { value: 'IN_PROGRESS', label: 'In Bearbeitung' },
+    { value: 'WAITING', label: 'Wartet auf Kunde' },
+    { value: 'RESOLVED', label: 'Gelöst' },
+    { value: 'CLOSED', label: 'Geschlossen' },
+  ];
+
+  const userOptions = [
+    { value: 'u1', label: 'Anna Becker', description: 'anna.becker@example.com' },
+    { value: 'u2', label: 'Ben Schulz', description: 'ben.schulz@example.com' },
+    { value: 'u3', label: 'Clara Wagner', description: 'clara.wagner@example.com' },
+    { value: 'u4', label: 'David Hoffmann', description: 'david.hoffmann@example.com' },
+    { value: 'u5', label: 'Eva Richter', description: 'eva.richter@example.com' },
+    { value: 'u6', label: 'Felix Klein', description: 'felix.klein@example.com' },
+    { value: 'u7', label: 'Greta Wolf', description: 'greta.wolf@example.com' },
+    { value: 'u8', label: 'Hannes Neumann', description: 'hannes.neumann@example.com' },
+    { value: 'u9', label: 'Ida Schwarz', description: 'ida.schwarz@example.com' },
+  ];
+
+  let multiCategories = $state<string[]>(['hardware', 'network']);
+  let multiUsers = $state<string[]>([]);
+
   const buttonGroupOptions = [
     { value: 'all', label: 'All' },
     { value: 'open', label: 'Open' },
@@ -132,6 +157,7 @@
     'pagination': true,
     'search-filter': true,
     'select-filter': true,
+    'multi-select-filter': true,
     'button-group-filter': true,
     'date-range-filter': true,
     'month-filter': true,
@@ -155,6 +181,7 @@
     'text-input': true,
     'textarea-input': true,
     'select-input': true,
+    'multi-select-input': true,
     'currency-input': true,
     'number-input': true,
     'color-picker-input': true,
@@ -234,6 +261,13 @@
                       <SelectFilter key="status2" label="Status" options={selectOptions} placeholder="Status" />
                       <SelectFilter key="status" options={selectOptions} placeholder="Status" />
                     </div>
+
+                  {:else if component.name === 'multi-select-filter'}
+                    <div class="flex flex-wrap items-end gap-4">
+                      <MultiSelectFilter key="ticketStatus" label="Status" options={ticketStatusOptions} placeholder="Status" />
+                      <MultiSelectFilter key="assignees" label="Bearbeiter (mit Suche)" options={userOptions} placeholder="Alle Bearbeiter" />
+                    </div>
+                    <p class="mt-3 text-xs text-muted-foreground">URL: <code>{page.url.search || '–'}</code></p>
 
                   {:else if component.name === 'button-group-filter'}
                     <ButtonGroupFilter key="type" options={buttonGroupOptions} defaultValue="all" />
@@ -434,6 +468,38 @@
                             { value: 'service', label: 'Service' },
                           ]}
                         />
+                      </div>
+                    </div>
+
+                  {:else if component.name === 'multi-select-input'}
+                    <div class="flex flex-wrap gap-6">
+                      <div class="w-72">
+                        <MultiSelectInput
+                          label="Kategorien"
+                          required
+                          bind:value={multiCategories}
+                          options={[
+                            { value: 'hardware', label: 'Hardware' },
+                            { value: 'software', label: 'Software' },
+                            { value: 'network', label: 'Netzwerk' },
+                            { value: 'security', label: 'Sicherheit' },
+                            { value: 'service', label: 'Service' },
+                          ]}
+                        />
+                        <p class="mt-2 text-xs text-muted-foreground">Wert: <code>{JSON.stringify(multiCategories)}</code></p>
+                      </div>
+                      <div class="w-72">
+                        <MultiSelectInput
+                          label="Bearbeiter"
+                          hint="Ab 8 Optionen erscheint automatisch eine Suche."
+                          placeholder="Bearbeiter wählen…"
+                          bind:value={multiUsers}
+                          options={userOptions}
+                        />
+                        <p class="mt-2 text-xs text-muted-foreground">Wert: <code>{JSON.stringify(multiUsers)}</code></p>
+                      </div>
+                      <div class="w-72">
+                        <MultiSelectInput label="Deaktiviert" disabled value={['OPEN', 'WAITING']} options={ticketStatusOptions} />
                       </div>
                     </div>
 

@@ -135,6 +135,27 @@
       ]
     },
     {
+      "name": "multi-select-input",
+      "type": "registry:ui",
+      "title": "Multi Select Input",
+      "description": "A form multi-select with label, chips in the trigger, optional search, select-all and clear, bound to a string array.",
+      "registryDependencies": [
+        "popover",
+        "command",
+        "local:input-label"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/multi-select-input/multi-select-input.svelte",
+          "type": "registry:component",
+          "target": "registry/multi-select-input/multi-select-input.svelte"
+        }
+      ]
+    },
+    {
       "name": "switch-input",
       "type": "registry:ui",
       "title": "Switch Input",
@@ -347,6 +368,7 @@
         "local:password-input",
         "local:textarea-input",
         "local:select-input",
+        "local:multi-select-input",
         "local:switch-input",
         "local:url-input",
         "local:text-input",
@@ -360,6 +382,7 @@
         "local:pagination",
         "local:search-filter",
         "local:select-filter",
+        "local:multi-select-filter",
         "local:button-group-filter",
         "local:date-range-filter",
         "local:month-filter",
@@ -440,6 +463,26 @@
           "path": "src/lib/components/registry/select-filter/select-filter.svelte",
           "type": "registry:component",
           "target": "registry/select-filter/select-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "multi-select-filter",
+      "type": "registry:block",
+      "title": "Multi Select Filter",
+      "description": "A multi-select dropdown that syncs its values to a comma-separated URL search param.",
+      "registryDependencies": [
+        "popover",
+        "command"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/multi-select-filter/multi-select-filter.svelte",
+          "type": "registry:component",
+          "target": "registry/multi-select-filter/multi-select-filter.svelte"
         }
       ]
     },
