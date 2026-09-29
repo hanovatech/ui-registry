@@ -3,6 +3,8 @@ export interface ComboboxOption {
   label: string;
   /** Secondary line under the label in the list. */
   description?: string;
+  /** Heading of the group this option is listed under; groups keep first-seen order. */
+  group?: string;
 }
 
 /**

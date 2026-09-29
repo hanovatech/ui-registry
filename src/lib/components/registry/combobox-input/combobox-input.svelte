@@ -106,6 +106,18 @@
     );
   });
 
+  // Options with a `group` are listed under that heading, in first-seen order;
+  // without any group there is a single unnamed group.
+  const groups = $derived.by(() => {
+    const byName: { heading: string | undefined; options: T[] }[] = [];
+    for (const option of results) {
+      const existing = byName.find((g) => g.heading === option.group);
+      if (existing) existing.options.push(option);
+      else byName.push({ heading: option.group, options: [option] });
+    }
+    return byName;
+  });
+
   const currentOption = $derived.by((): T | null => {
     if (!value) return null;
     if (picked?.value === value) return picked;
@@ -259,26 +271,28 @@
                 {initialFromSearch && !query.trim() ? startTypingLabel : $t.common.noResults}
               </Command.Empty>
             {:else}
-              <Command.Group>
-                {#each results as option (option.value)}
-                  <Command.Item
-                    value={option.value}
-                    onSelect={() => select(option)}
-                    data-checked={option.value === value}
-                  >
-                    {#if item}
-                      {@render item(option)}
-                    {:else}
-                      <span class="flex min-w-0 flex-1 flex-col">
-                        <span class="truncate">{option.label}</span>
-                        {#if option.description}
-                          <span class="text-muted-foreground truncate text-xs">{option.description}</span>
-                        {/if}
-                      </span>
-                    {/if}
-                  </Command.Item>
-                {/each}
-              </Command.Group>
+              {#each groups as group (group.heading ?? '')}
+                <Command.Group heading={group.heading}>
+                  {#each group.options as option (option.value)}
+                    <Command.Item
+                      value={option.value}
+                      onSelect={() => select(option)}
+                      data-checked={option.value === value}
+                    >
+                      {#if item}
+                        {@render item(option)}
+                      {:else}
+                        <span class="flex min-w-0 flex-1 flex-col">
+                          <span class="truncate">{option.label}</span>
+                          {#if option.description}
+                            <span class="text-muted-foreground truncate text-xs">{option.description}</span>
+                          {/if}
+                        </span>
+                      {/if}
+                    </Command.Item>
+                  {/each}
+                </Command.Group>
+              {/each}
             {/if}
             {#if extra}
               {@render extra({ query: query.trim(), results, close })}
