@@ -579,8 +579,8 @@
                           bind:value={comboContact}
                           onValueChange={() => (pendingEmail = '')}
                         >
-                          {#snippet selected(option)}
-                            <span class="min-w-0 truncate">{option?.label ?? `${pendingEmail} (neu)`}</span>
+                          {#snippet selected(option, label)}
+                            <span class="min-w-0 truncate">{option ? label : `${pendingEmail} (neu)`}</span>
                           {/snippet}
                           {#snippet extra({ query, close })}
                             {#if emailPattern.test(query)}

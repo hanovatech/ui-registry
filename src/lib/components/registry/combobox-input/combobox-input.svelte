@@ -31,6 +31,8 @@
     onValueChange?: (value: string, option: T | null) => void;
     placeholder?: string;
     searchPlaceholder?: string;
+    /** Shown while `search` provides no initial list and nothing has been typed yet. */
+    startTypingLabel?: string;
     disabled?: boolean;
     required?: boolean;
     label?: string;
@@ -43,10 +45,13 @@
     filled?: boolean;
     /** Custom list row. Defaults to label plus description. */
     item?: Snippet<[T]>;
-    /** Custom trigger content for the current selection (`null` = the option isn't loaded). */
-    selected?: Snippet<[T | null]>;
+    /**
+     * Custom trigger content for the current selection. Gets the option (`null`
+     * when it isn't loaded) and the resolved label (`''` while unknown).
+     */
+    selected?: Snippet<[T | null, string]>;
     /** Extra entries after the results, e.g. a "create …" action for the typed query. */
-    extra?: Snippet<[{ query: string; close: () => void }]>;
+    extra?: Snippet<[{ query: string; results: T[]; close: () => void }]>;
   }
 
   let {
@@ -58,6 +63,7 @@
     onValueChange,
     placeholder = $t.common.selectPlaceholder,
     searchPlaceholder = $t.common.searchPlaceholder,
+    startTypingLabel = $t.common.startTyping,
     disabled = false,
     required = false,
     label = '',
@@ -121,10 +127,13 @@
     if (!value || currentOption || selectedLabel || !resolveLabel) return;
     if (resolved?.value === value) return;
     const target = value;
-    void resolveLabel(target).then((name) => {
-      // Drop the answer if the value moved on meanwhile.
-      if (name && value === target) resolved = { value: target, label: name };
-    });
+    void resolveLabel(target)
+      .catch(() => null)
+      .then((name) => {
+        // Drop the answer if the value moved on meanwhile. An unknown value still
+        // counts as resolved (empty label), so the trigger stops showing "loading".
+        if (value === target) resolved = { value: target, label: name ?? '' };
+      });
   });
 
   let initialLoading = $state(false);
@@ -206,10 +215,10 @@
         class="border-input dark:bg-input/30 dark:hover:bg-input/50 focus-visible:border-ring focus-visible:ring-ring/50 flex h-8 w-full items-center gap-1.5 rounded-lg border bg-transparent py-2 pl-2.5 text-left text-sm transition-colors outline-none select-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 {showClear ? 'pr-12' : 'pr-8'}"
       >
         {#if selected && hasValue}
-          <span class="flex min-w-0 flex-1 items-center gap-1.5">{@render selected(currentOption)}</span>
+          <span class="flex min-w-0 flex-1 items-center gap-1.5">{@render selected(currentOption, displayLabel)}</span>
         {:else if hasValue && displayLabel}
           <span class="min-w-0 flex-1 truncate">{displayLabel}</span>
-        {:else if value && resolveLabel}
+        {:else if value && resolveLabel && resolved?.value !== value}
           <span class="text-muted-foreground min-w-0 flex-1 truncate">{$t.common.loading}</span>
         {:else}
           <span class="text-muted-foreground min-w-0 flex-1 truncate">{placeholder}</span>
@@ -247,7 +256,7 @@
           {:else}
             {#if results.length === 0}
               <Command.Empty>
-                {initialFromSearch && !query.trim() ? $t.common.startTyping : $t.common.noResults}
+                {initialFromSearch && !query.trim() ? startTypingLabel : $t.common.noResults}
               </Command.Empty>
             {:else}
               <Command.Group>
@@ -272,7 +281,7 @@
               </Command.Group>
             {/if}
             {#if extra}
-              {@render extra({ query: query.trim(), close })}
+              {@render extra({ query: query.trim(), results, close })}
             {/if}
           {/if}
         </Command.List>
