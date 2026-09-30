@@ -108,8 +108,11 @@
     {/if}
     <!-- Toggle and reset form one tight cluster; the non-filter actions sit
          apart from it behind a hairline so the two groups read as distinct.
-         Button sizes match the h-8 inputs and filter triggers. -->
-    <div class="flex shrink-0 items-center gap-3 lg:ml-auto">
+         Button sizes match the h-8 inputs and filter triggers. Below the
+         desktop breakpoint the cluster may wrap, so a wide actions group
+         (e.g. a layout switch) drops to its own line instead of being pushed
+         off-screen; the hairline only makes sense in-line and hides there. -->
+    <div class="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 lg:ml-auto">
       {#if secondary || activeCount > 0}
         <div class="flex items-center gap-0.5">
           {#if secondary}
@@ -149,7 +152,7 @@
       {/if}
       {#if actions}
         {#if secondary || activeCount > 0}
-          <Separator orientation="vertical" class="!h-6" />
+          <Separator orientation="vertical" class="hidden !h-6 lg:block" />
         {/if}
         {@render actions()}
       {/if}
