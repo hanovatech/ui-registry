@@ -51,7 +51,7 @@
     secondaryKeys = [],
     search,
     primary,
-    primaryClass = 'flex flex-wrap gap-2 [&>*]:w-full sm:[&>*]:w-44',
+    primaryClass = 'flex shrink-0 flex-wrap gap-2 [&>*]:w-full sm:[&>*]:w-44',
     secondary,
     actions
   }: Props = $props();
@@ -87,9 +87,10 @@
       {/if}
     </div>
   {/if}
-  <!-- The search box takes whatever is left but never less than a readable
-       width — when the toggle, reset and actions crowd the row, the actions
-       cluster wraps onto a second line instead. Whether the primary filters
+  <!-- The search box is the only item that flexes: it takes whatever is left
+       but never less than a readable width. Filters and the actions cluster
+       keep their size (shrink-0) — when the row is too narrow the cluster
+       wraps onto a second line instead of being squeezed. Whether the primary filters
        carry labels is the page's call (tickets: none, the empty state names
        the type; reports: labelled), so the row aligns to the bottom edge —
        identical to centered without labels, and with labels the controls
@@ -106,7 +107,7 @@
     <!-- Toggle and reset form one tight cluster; the non-filter actions sit
          apart from it behind a hairline so the two groups read as distinct.
          Button sizes match the h-8 inputs and filter triggers. -->
-    <div class="flex items-center gap-3 lg:ml-auto">
+    <div class="flex shrink-0 items-center gap-3 lg:ml-auto">
       {#if secondary || activeCount > 0}
         <div class="flex items-center gap-0.5">
           {#if secondary}
