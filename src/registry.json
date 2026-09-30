@@ -429,7 +429,8 @@
         "local:card-form",
         "local:dialog-form",
         "local:confirm-dialog",
-        "local:user-avatar"
+        "local:user-avatar",
+        "local:filter-bar"
       ],
       "files": []
     },
@@ -536,6 +537,28 @@
           "path": "src/lib/components/registry/combobox-filter/combobox-filter.svelte",
           "type": "registry:component",
           "target": "registry/combobox-filter/combobox-filter.svelte"
+        }
+      ]
+    },
+    {
+      "name": "filter-bar",
+      "type": "registry:block",
+      "title": "Filter Bar",
+      "description": "A grey card framing a list's URL-param filters: search, always-visible primary filters, on-demand secondary filters behind a toggle with an active count, and a reset-all button.",
+      "registryDependencies": [
+        "button",
+        "badge",
+        "tooltip",
+        "separator"
+      ],
+      "dependencies": [
+        "@lucide/svelte"
+      ],
+      "files": [
+        {
+          "path": "src/lib/components/registry/filter-bar/filter-bar.svelte",
+          "type": "registry:component",
+          "target": "registry/filter-bar/filter-bar.svelte"
         }
       ]
     },

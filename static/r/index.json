@@ -281,7 +281,8 @@
 			"local:card-form",
 			"local:dialog-form",
 			"local:confirm-dialog",
-			"local:user-avatar"
+			"local:user-avatar",
+			"local:filter-bar"
 		],
 		"relativeUrl": "all.json"
 	},
@@ -354,6 +355,22 @@
 			"command"
 		],
 		"relativeUrl": "combobox-filter.json"
+	},
+	{
+		"name": "filter-bar",
+		"title": "Filter Bar",
+		"type": "registry:block",
+		"description": "A grey card framing a list's URL-param filters: search, always-visible primary filters, on-demand secondary filters behind a toggle with an active count, and a reset-all button.",
+		"dependencies": [
+			"@lucide/svelte"
+		],
+		"registryDependencies": [
+			"button",
+			"badge",
+			"tooltip",
+			"separator"
+		],
+		"relativeUrl": "filter-bar.json"
 	},
 	{
 		"name": "button-group-filter",

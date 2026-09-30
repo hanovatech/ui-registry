@@ -32,6 +32,7 @@
   import MultiSelectFilter from '$lib/components/registry/multi-select-filter/multi-select-filter.svelte';
   import { ComboboxInput, type ComboboxOption } from '$lib/components/registry/combobox-input/index.js';
   import ComboboxFilter from '$lib/components/registry/combobox-filter/combobox-filter.svelte';
+  import FilterBar from '$lib/components/registry/filter-bar/filter-bar.svelte';
   import TextareaInput from '$lib/components/registry/textarea-input/textarea-input.svelte';
   import EmailInput from '$lib/components/registry/email-input/email-input.svelte';
   import TextInput from '$lib/components/registry/text-input/text-input.svelte';
@@ -185,6 +186,7 @@
     'select-filter': true,
     'multi-select-filter': true,
     'combobox-filter': true,
+    'filter-bar': true,
     'button-group-filter': true,
     'date-range-filter': true,
     'month-filter': true,
@@ -313,6 +315,37 @@
                         search={mockCustomerSearch}
                       />
                     </div>
+
+                  {:else if component.name === 'filter-bar'}
+                    <FilterBar
+                      keys={['search', 'fbStatus', 'fbCustomer', 'fbAssignee', 'fbPriority']}
+                      secondaryKeys={['fbAssignee', 'fbPriority']}
+                    >
+                      {#snippet search()}
+                        <SearchFilter resetOtherFilters={false} />
+                      {/snippet}
+                      {#snippet primary()}
+                        <MultiSelectFilter key="fbStatus" options={ticketStatusOptions} placeholder="Alle Status" />
+                        <ComboboxFilter
+                          key="fbCustomer"
+                          placeholder="Alle Kunden"
+                          options={[{ value: '', label: 'Alle Kunden' }, ...customerDataset.slice(1, 4)]}
+                        />
+                      {/snippet}
+                      {#snippet secondary()}
+                        <ComboboxFilter
+                          key="fbAssignee"
+                          label="Bearbeiter"
+                          placeholder="Alle"
+                          options={[{ value: '', label: 'Alle' }, ...userOptions]}
+                        />
+                        <SelectFilter key="fbPriority" label="Priorität" options={selectOptions} placeholder="Alle" />
+                      {/snippet}
+                      {#snippet actions()}
+                        <ButtonGroupFilter key="fbLayout" options={buttonGroupOptions} defaultValue="all" />
+                      {/snippet}
+                    </FilterBar>
+                    <p class="mt-3 text-xs text-muted-foreground">URL: <code>{page.url.search || '–'}</code></p>
 
                   {:else if component.name === 'button-group-filter'}
                     <ButtonGroupFilter key="type" options={buttonGroupOptions} defaultValue="all" />

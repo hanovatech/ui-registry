@@ -39,6 +39,9 @@
     "selectPlaceholder": "Select…",
     "selectAll": "Select all",
     "more": "More",
-    "perPage": "per page"
+    "perPage": "per page",
+    "moreFilters": "More filters",
+    "fewerFilters": "Fewer filters",
+    "resetFilters": "Reset filters"
   }
 }

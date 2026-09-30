@@ -42,7 +42,8 @@
 		"./card-form.json",
 		"./dialog-form.json",
 		"./confirm-dialog.json",
-		"./user-avatar.json"
+		"./user-avatar.json",
+		"./filter-bar.json"
 	],
 	"files": []
 }
