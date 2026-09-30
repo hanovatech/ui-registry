@@ -31,6 +31,13 @@
     search?: Snippet;
     /** Filters that stay visible next to the search box. */
     primary?: Snippet;
+    /**
+     * Layout of the primary row. The default gives every filter a fixed width
+     * so unlabelled list filters line up; pass your own (e.g. a flex row with
+     * `items-end`) when the filters size themselves, as labelled report
+     * filters wrapped in `InputLabel` do.
+     */
+    primaryClass?: string;
     /** Filters behind the "more filters" toggle. */
     secondary?: Snippet;
     /** Right-aligned controls that aren't filters (e.g. a layout switch). */
@@ -44,6 +51,7 @@
     secondaryKeys = [],
     search,
     primary,
+    primaryClass = 'flex flex-wrap gap-2 [&>*]:w-full sm:[&>*]:w-44',
     secondary,
     actions
   }: Props = $props();
@@ -91,9 +99,9 @@
       <div class="min-w-48 flex-1 [&>div]:!w-full">{@render search()}</div>
     {/if}
     {#if primary}
-      <!-- Fixed widths here — this row shares its space with the search box;
-           the registry filters fill them with `w-full`. -->
-      <div class="flex flex-wrap gap-2 [&>*]:w-full sm:[&>*]:w-44">{@render primary()}</div>
+      <!-- Fixed widths by default — this row shares its space with the search
+           box; the registry filters fill them with `w-full`. -->
+      <div class={primaryClass}>{@render primary()}</div>
     {/if}
     <!-- Toggle and reset form one tight cluster; the non-filter actions sit
          apart from it behind a hairline so the two groups read as distinct.
