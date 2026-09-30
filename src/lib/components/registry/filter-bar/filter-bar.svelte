@@ -99,7 +99,7 @@
        still share one line while only the labels rise above it. -->
   <div class="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:items-end">
     {#if search}
-      <div class="min-w-48 flex-1 lg:max-w-xl [&>div]:!w-full">{@render search()}</div>
+      <div class="min-w-48 flex-1 lg:max-w-sm [&>div]:!w-full">{@render search()}</div>
     {/if}
     {#if primary}
       <!-- Fixed widths by default — this row shares its space with the search
