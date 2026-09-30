@@ -87,17 +87,19 @@
       {/if}
     </div>
   {/if}
-  <!-- The search box is the only item that flexes: it takes whatever is left
-       but never less than a readable width. Filters and the actions cluster
-       keep their size (shrink-0) — when the row is too narrow the cluster
-       wraps onto a second line instead of being squeezed. Whether the primary filters
+  <!-- The search box is the only item that flexes: it takes what is left, but
+       never less than a readable width and never more than a search box needs —
+       beyond that the spare room goes between the filters and the actions
+       cluster, so the toggle is not glued to the last filter. Filters and the
+       cluster keep their size (shrink-0); when the row is too narrow the
+       cluster wraps onto a second line instead of being squeezed. Whether the primary filters
        carry labels is the page's call (tickets: none, the empty state names
        the type; reports: labelled), so the row aligns to the bottom edge —
        identical to centered without labels, and with labels the controls
        still share one line while only the labels rise above it. -->
   <div class="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:items-end">
     {#if search}
-      <div class="min-w-48 flex-1 [&>div]:!w-full">{@render search()}</div>
+      <div class="min-w-48 flex-1 lg:max-w-xl [&>div]:!w-full">{@render search()}</div>
     {/if}
     {#if primary}
       <!-- Fixed widths by default — this row shares its space with the search
