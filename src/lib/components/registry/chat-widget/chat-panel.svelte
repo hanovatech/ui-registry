@@ -431,6 +431,38 @@
 		if (autofocus) focus();
 	});
 
+	// Fade on the suggestion strip, only on an edge with more to scroll to,
+	// and only as wide as that remaining distance (up to 32px) — so it grows
+	// in as you scroll and is gone at either end. Measured here instead of
+	// `scroll-fade-x`: that needs scroll-driven animations (missing in older
+	// Safari and in Firefox, where both edges stay faded), and its reveal
+	// range is longer than this short strip ever scrolls.
+	const FADE_MAX = 32;
+	let fade = $state({ start: 0, end: 0 });
+
+	function trackFade(node: HTMLElement) {
+		const update = () => {
+			const max = node.scrollWidth - node.clientWidth;
+			const position = Math.abs(node.scrollLeft);
+			fade = {
+				start: Math.min(position, FADE_MAX),
+				end: Math.min(Math.max(max - position, 0), FADE_MAX)
+			};
+		};
+		update();
+		node.addEventListener('scroll', update, { passive: true });
+		const observer = new ResizeObserver(update);
+		observer.observe(node);
+		return () => {
+			node.removeEventListener('scroll', update);
+			observer.disconnect();
+		};
+	}
+
+	const fadeMask = $derived(
+		`linear-gradient(to right, transparent 0, #000 ${fade.start}px, #000 calc(100% - ${fade.end}px), transparent 100%)`
+	);
+
 	function enter(node: Element) {
 		return fly(node, { y: 8, duration: prefersReducedMotion.current ? 0 : 200 });
 	}
@@ -690,7 +722,12 @@
 			]}
 		>
 			{#if messages.length === 0 && suggestions.length > 0}
-				<div class="flex scroll-fade-x scrollbar-none gap-2 overflow-x-auto overscroll-x-contain">
+				<div
+					{@attach trackFade}
+					style:mask-image={fadeMask}
+					style:-webkit-mask-image={fadeMask}
+					class="flex scrollbar-none gap-2 overflow-x-auto overscroll-x-contain"
+				>
 					{#each suggestions as suggestion, i (i)}
 						<Button
 							variant="outline"
