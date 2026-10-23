@@ -41,6 +41,7 @@
   import PasswordInput from '$lib/components/registry/password-input/password-input.svelte';
   import SwitchInput from '$lib/components/registry/switch-input/switch-input.svelte';
   import CardForm from '$lib/components/registry/card-form/card-form.svelte';
+  import { ChatWidget, ChatPanel, ChatError, createLinkifier, type ChatTransport } from '$lib/components/registry/chat-widget/index.js';
   import { Input } from '$lib/components/ui/input/index.js';
   import { buildBreadcrumbs } from '$lib/components/registry/breadcrumbs/index.js';
   import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
@@ -164,6 +165,30 @@
   let sheetDetailOpen = $state(false);
   let dialogFormOpen = $state(false);
   let confirmOpen = $state(false);
+  let chatWidgetOpen = $state(false);
+
+  // Demo transport: streams a canned reply word by word instead of calling a model.
+  const chatReplies: Record<string, string> = {
+    'What can you help with?': 'I answer questions about our services and point you to the right page — for example /services or /contact. You can also write to hello@example.com.',
+    'How do I install this?': 'Run the shadcn-svelte CLI with this item\'s URL. It pulls in Message Scroller, Message, Bubble, Marker and Input Group for you.',
+  };
+  const demoTransport: ChatTransport = async function* (messages, { signal }) {
+    const question = messages.at(-1)?.content ?? '';
+    if (question === chatErrorPrompt) {
+      await new Promise((r) => setTimeout(r, 400));
+      throw new ChatError('The assistant is busy right now. Please try again in a moment.');
+    }
+    const reply = chatReplies[question] ?? `You asked: "${question}". This demo only streams canned replies — wire up createSseTransport() to talk to a real model.`;
+    await new Promise((r) => setTimeout(r, 600));
+    for (const word of reply.split(/(?<= )/)) {
+      if (signal.aborted) return;
+      await new Promise((r) => setTimeout(r, 40));
+      yield word;
+    }
+  };
+  const chatErrorPrompt = 'Simulate an error';
+  const chatSuggestions = [...Object.keys(chatReplies), chatErrorPrompt];
+  const chatLinkify = createLinkifier({ paths: ['/services', '/contact'], emailDomains: ['example.com'] });
   let dateRangeValue = $state({ start: new CalendarDate(2026, 1, 1), end: new CalendarDate(2026, 12, 31) });
 
   // search-command preview: mock async search over a static dataset
@@ -217,6 +242,7 @@
     'color-picker-input': true,
     'breadcrumbs': true,
     'card-form': true,
+    'chat-widget': true,
   };
 </script>
 
@@ -699,6 +725,45 @@
                         <Input id="cf-name" placeholder="Acme Inc." />
                       </div>
                     </CardForm>
+
+                  {:else if component.name === 'chat-widget'}
+                    <div class="space-y-4">
+                      <div class="h-[460px] overflow-hidden rounded-xl border">
+                        <ChatPanel
+                          transport={demoTransport}
+                          title="Assistant"
+                          subtitle="Usually replies instantly"
+                          suggestions={chatSuggestions}
+                          linkify={chatLinkify}
+                          maxTurns={4}
+                        >
+                          {#snippet intro()}
+                            <p>Hi! Ask me anything about our services. Replies can contain mistakes — please don't share anything confidential.</p>
+                          {/snippet}
+                        </ChatPanel>
+                      </div>
+                      <Button variant="outline" onclick={() => (chatWidgetOpen = true)}>Open floating widget</Button>
+                      <ChatWidget
+                        bind:open={chatWidgetOpen}
+                        transport={demoTransport}
+                        title="Assistant"
+                        subtitle="Our AI assistant"
+                        storageKey="registry-demo-chat"
+                        accentClass="bg-linear-to-br from-violet-600 to-blue-600 text-white"
+                        headerClass="border-b-0 bg-linear-to-br from-violet-600 to-blue-600 text-white"
+                        avatarClass="bg-white/15 text-white"
+                        requireConsent
+                        provider={{ name: 'Mistral AI', model: 'mistral-medium-latest', location: 'Paris, France' }}
+                        privacyUrl="/"
+                        contactUrl="/"
+                        suggestions={chatSuggestions}
+                        linkify={chatLinkify}
+                      >
+                        {#snippet intro()}
+                          <p>Ask me anything about our services.</p>
+                        {/snippet}
+                      </ChatWidget>
+                    </div>
 
                   {/if}
                   </div>

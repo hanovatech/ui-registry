@@ -43,7 +43,8 @@
 		"./dialog-form.json",
 		"./confirm-dialog.json",
 		"./user-avatar.json",
-		"./filter-bar.json"
+		"./filter-bar.json",
+		"./chat-widget.json"
 	],
 	"files": []
 }

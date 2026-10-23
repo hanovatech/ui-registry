@@ -42,6 +42,26 @@
     "perPage": "per page",
     "moreFilters": "More filters",
     "fewerFilters": "Fewer filters",
-    "resetFilters": "Reset filters"
+    "resetFilters": "Reset filters",
+    "chatOpen": "Open chat",
+    "chatClose": "Close chat",
+    "chatResize": "Resize chat window",
+    "chatReset": "New conversation",
+    "chatPlaceholder": "Type your message…",
+    "chatInputLabel": "Message",
+    "chatSend": "Send message",
+    "chatStop": "Stop reply",
+    "chatTyping": "Typing…",
+    "chatRetry": "Try again",
+    "chatScrollToEnd": "Jump to latest message",
+    "chatConsentAccept": "Agree and start chat",
+    "chatConsentFrom": "Replies from",
+    "chatConsentNotice": "Your messages are sent to {provider} for processing. Replies can contain mistakes — please don't share anything confidential.",
+    "chatConsentProviderFallback": "an AI provider",
+    "chatConsentPrivacy": "Privacy policy",
+    "chatConsentAlternative": "Prefer not to use AI?",
+    "chatConsentContact": "Write to us instead",
+    "chatError": "The assistant is not available right now. Please try again later.",
+    "chatLimitReached": "This conversation has reached its limit."
   }
 }
