@@ -194,6 +194,16 @@
 		if (event.key === 'Escape' && open && !event.defaultPrevented) open = false;
 	}
 
+	/**
+	 * Opens the chat and sends a question as if the visitor had typed it — e.g.
+	 * from a "ask about this" link elsewhere on the page.
+	 */
+	export async function ask(text: string) {
+		open = true;
+		await tick();
+		panel?.ask(text);
+	}
+
 	// Into the panel on every open — also when it reopens during the closing
 	// transition, which reverses it instead of mounting a fresh panel.
 	//

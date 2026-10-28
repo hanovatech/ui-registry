@@ -23,6 +23,13 @@ export class ChatError extends Error {
 }
 
 /**
+ * What a reply stream delivers: text, or a short status shown while no text has
+ * arrived yet — e.g. `{ status: 'Searching the docs…' }` while the model looks
+ * something up. A status replaces the typing label until the first text.
+ */
+export type ChatChunk = string | { status: string };
+
+/**
  * Streams the assistant's reply to the conversation so far, chunk by chunk.
  * Throw a `ChatError` to show its message in the thread. The signal aborts
  * when the visitor stops the reply, resets the conversation or closes the panel.
@@ -30,7 +37,7 @@ export class ChatError extends Error {
 export type ChatTransport = (
 	messages: ChatMessage[],
 	options: { signal: AbortSignal }
-) => AsyncIterable<string>;
+) => AsyncIterable<ChatChunk>;
 
 export type ChatSegment =
 	| { type: 'text'; value: string }
@@ -100,11 +107,12 @@ export interface SseTransportOptions {
 	/** Request body. Defaults to `{ messages: [{ role, content }] }`. */
 	body?: (messages: ChatMessage[]) => unknown;
 	/**
-	 * Turns one parsed event into a text chunk. Return nothing to skip the
-	 * event; throw a `ChatError` to end the reply with that message. Defaults
-	 * to `{ type: 'text', text }` and `{ type: 'error', message }`.
+	 * Turns one parsed event into a chunk. Return nothing to skip the event;
+	 * throw a `ChatError` to end the reply with that message. Defaults to
+	 * `{ type: 'text', text }`, `{ type: 'status', text }` and
+	 * `{ type: 'error', message }`.
 	 */
-	parse?: (event: any) => string | void;
+	parse?: (event: any) => ChatChunk | void;
 	/** Picks the visitor-facing message from a JSON error response. Defaults to `message` or `error`. */
 	errorMessage?: (body: any) => string | undefined;
 }
@@ -113,8 +121,9 @@ function defaultBody(messages: ChatMessage[]) {
 	return { messages: messages.map(({ role, content }) => ({ role, content })) };
 }
 
-function defaultParse(event: any): string | void {
+function defaultParse(event: any): ChatChunk | void {
 	if (event?.type === 'text' && typeof event.text === 'string') return event.text;
+	if (event?.type === 'status' && typeof event.text === 'string') return { status: event.text };
 	if (event?.type === 'error') {
 		if (typeof event.message === 'string' && event.message) throw new ChatError(event.message);
 		throw new Error('Error event without message');

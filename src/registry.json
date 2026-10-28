@@ -390,7 +390,7 @@
       "name": "chat-widget",
       "type": "registry:block",
       "title": "Chat Widget",
-      "description": "Website chat built on the shadcn-svelte chat primitives (Message Scroller, Message, Bubble, Marker, Input Group). `ChatWidget` is a floating launcher that opens a non-modal, resizable window (full visible screen on phones, keyboard-aware via visualViewport); `ChatPanel` is the same conversation for embedding in a page. Streams replies through a pluggable `transport` — `createSseTransport()` POSTs to an endpoint and reads server-sent events — with stop, retry, reset, suggestions, a turn limit (only `ChatError` messages reach the visitor, anything else shows a translated fallback) and an optional prebuilt consent step (`requireConsent`: provider, logo and model badge, privacy link, a way out without AI; every part replaceable, `consented` bindable for a consent manager, or replace it entirely with `consentScreen`). `messages`, `draft` and `consented` are bindable; `onSend`, `onReply`, `onError` hooks. Customisable via `accentClass` (gradients too) and per-element classes, icon/header/message snippets, a fully custom `launcher` snippet (or `launcherAnimated={false}`), bubble variants, `position` and default size. Replies are plain text; `createLinkifier()` turns only allowlisted paths, email domains or URLs into links.",
+      "description": "Website chat built on the shadcn-svelte chat primitives (Message Scroller, Message, Bubble, Marker, Input Group). `ChatWidget` is a floating launcher that opens a non-modal, resizable window (full visible screen on phones, keyboard-aware via visualViewport); `ChatPanel` is the same conversation for embedding in a page. Streams replies through a pluggable `transport` — `createSseTransport()` POSTs to an endpoint and reads server-sent events — with stop, retry, reset, suggestions, a turn limit (only `ChatError` messages reach the visitor, anything else shows a translated fallback) and an optional prebuilt consent step (`requireConsent`: provider, logo and model badge, privacy link, a way out without AI; every part replaceable, `consented` bindable for a consent manager, or replace it entirely with `consentScreen`). `messages`, `draft` and `consented` are bindable; `onSend`, `onReply`, `onError` hooks. Customisable via `accentClass` (gradients too) and per-element classes, icon/header/message snippets, a fully custom `launcher` snippet (or `launcherAnimated={false}`), bubble variants, `position` and default size. Replies are plain text by default — `createLinkifier()` turns only allowlisted paths, email domains or URLs into links — or HTML via `renderHtml` (e.g. markdown; `settlePartialMarkdown()` hides half-arrived syntax while streaming). `reveal=\"flow\"` paces a reply word by word at reading speed, uncovers each word left to right and grows the bubble smoothly; `followReply={false}` keeps the question at the top instead of scrolling after the reply. Transports may yield `{ status }` chunks (e.g. \"Searching the docs…\") shown in place of the typing label, and `ask(text)` on the widget or panel sends a question from outside the chat.",
       "docs": "Needs `shadcn-svelte` >= 1.7 imported in your global CSS (`@import \"shadcn-svelte/tailwind.css\"`) for the scroll-fade and scrollbar utilities the chat primitives use. Add the `chat*` labels (see the registry's en.json) under `common` in your translation files.",
       "registryDependencies": [
         "button",
@@ -425,6 +425,26 @@
           "path": "src/lib/components/registry/chat-widget/index.ts",
           "type": "registry:component",
           "target": "registry/chat-widget/index.ts"
+        },
+        {
+          "path": "src/lib/components/registry/chat-widget/reveal.ts",
+          "type": "registry:component",
+          "target": "registry/chat-widget/reveal.ts"
+        },
+        {
+          "path": "src/lib/components/registry/chat-widget/partial-markdown.ts",
+          "type": "registry:component",
+          "target": "registry/chat-widget/partial-markdown.ts"
+        },
+        {
+          "path": "src/lib/components/registry/chat-widget/flow-text.svelte",
+          "type": "registry:component",
+          "target": "registry/chat-widget/flow-text.svelte"
+        },
+        {
+          "path": "src/lib/components/registry/chat-widget/grow-height.svelte",
+          "type": "registry:component",
+          "target": "registry/chat-widget/grow-height.svelte"
         }
       ]
     },

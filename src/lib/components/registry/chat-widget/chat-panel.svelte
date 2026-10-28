@@ -19,6 +19,9 @@
 	import { t } from '$lib/stores/i18n';
 	import type { BubbleVariant } from '$lib/components/ui/bubble/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import FlowText from './flow-text.svelte';
+	import GrowHeight from './grow-height.svelte';
+	import { revealPaced } from './reveal.js';
 	import {
 		ChatError,
 		chatId,
@@ -51,8 +54,27 @@
 		placeholder?: string;
 		/** Prefix for the consent flag in `sessionStorage`. */
 		storageKey?: string;
-		/** Splits replies into text and links. Replies are never rendered as HTML. */
+		/** Splits replies into text and links. Ignored when `renderHtml` is set. */
 		linkify?: ChatLinkify;
+		/**
+		 * Renders a reply as HTML instead of plain text — e.g. markdown. The
+		 * result goes into `{@html}`, so sanitise it. `streaming` is true while
+		 * the reply grows (see `settlePartialMarkdown()` for half-arrived markdown).
+		 */
+		renderHtml?: (content: string, streaming: boolean) => string;
+		/** Classes for a reply rendered via `renderHtml`, e.g. `prose prose-sm`. */
+		htmlClass?: string;
+		/**
+		 * `instant` shows chunks as they arrive. `flow` reveals the reply word by
+		 * word at reading pace, uncovers each word from left to right and lets
+		 * the bubble grow smoothly with it.
+		 */
+		reveal?: 'instant' | 'flow';
+		/**
+		 * Keep scrolling with the reply as it grows. Off: the question stays at
+		 * the top where the visitor reads, and the reply flows in below it.
+		 */
+		followReply?: boolean;
 		/** Focus the next step (consent button or input) when mounted. */
 		autofocus?: boolean;
 		/** Shows a close button in the header. */
@@ -174,6 +196,10 @@
 		placeholder = $t.common.chatPlaceholder,
 		storageKey = 'chat-widget',
 		linkify = (text) => [{ type: 'text', value: text }],
+		renderHtml,
+		htmlClass,
+		reveal = 'instant',
+		followReply = true,
 		autofocus = false,
 		onClose,
 		onSend,
@@ -271,6 +297,8 @@
 
 	let busy = $state(false);
 	let error = $state<string | null>(null);
+	/** A status from the stream (e.g. "Searching the docs…") until text arrives. */
+	let status = $state<string | null>(null);
 	let root = $state<HTMLElement | null>(null);
 	let gate = $state<HTMLElement | null>(null);
 	let form = $state<HTMLFormElement | null>(null);
@@ -351,8 +379,15 @@
 		refocus();
 
 		try {
-			for await (const chunk of transport(history, { signal: current.signal })) {
+			const stream = transport(history, { signal: current.signal });
+			const chunks = reveal === 'flow' ? revealPaced(stream, current.signal) : stream;
+			for await (const chunk of chunks) {
 				if (current.signal.aborted) break;
+				if (typeof chunk !== 'string') {
+					status = chunk.status;
+					continue;
+				}
+				status = null;
 				reply.content += chunk;
 				messages = messages.map((m) => (m.id === reply.id ? { ...reply } : m));
 			}
@@ -367,6 +402,7 @@
 		} finally {
 			if (controller === current) {
 				busy = false;
+				status = null;
 				controller = undefined;
 				refocus();
 			}
@@ -381,6 +417,7 @@
 		controller?.abort();
 		controller = undefined;
 		busy = false;
+		status = null;
 		// Same for a reply that hadn't started: no empty bubble in the meantime.
 		const last = messages.at(-1);
 		if (last?.role === 'assistant' && !last.content) messages = messages.slice(0, -1);
@@ -417,6 +454,11 @@
 
 	// Closing the panel unmounts it — stop paying for tokens nobody reads.
 	$effect(() => () => controller?.abort());
+
+	/** Sends a question as if the visitor had typed it — e.g. from a page outside the chat. */
+	export function ask(text: string) {
+		send(text);
+	}
 
 	/** Focuses the next step: the consent button, or the input after it. */
 	export function focus() {
@@ -463,6 +505,24 @@
 		`linear-gradient(to right, transparent 0, #000 ${fade.start}px, #000 calc(100% - ${fade.end}px), transparent 100%)`
 	);
 
+	function escapeHtml(value: string) {
+		return value.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+	}
+
+	// Plain-text replies for `reveal="flow"`: the linkified text as HTML, so
+	// `FlowText` can uncover its words like any rendered reply.
+	function plainHtml(content: string) {
+		return linkify(content)
+			.map((segment) => {
+				if (segment.type !== 'link') return escapeHtml(segment.value);
+				const external = segment.href.startsWith('http')
+					? ' target="_blank" rel="noopener noreferrer"'
+					: '';
+				return `<a href="${escapeHtml(segment.href)}" class="font-medium underline underline-offset-2"${external}>${escapeHtml(segment.value)}</a>`;
+			})
+			.join('');
+	}
+
 	function enter(node: Element) {
 		return fly(node, { y: 8, duration: prefersReducedMotion.current ? 0 : 200 });
 	}
@@ -481,6 +541,22 @@
 	{/each}
 {/snippet}
 
+{#snippet replyBody(message: ChatMessage)}
+	{@const streaming = busy && message.id === lastId}
+	{#if renderHtml || reveal === 'flow'}
+		{@const html = renderHtml ? renderHtml(message.content, streaming) : plainHtml(message.content)}
+		{#if reveal === 'flow'}
+			<GrowHeight>
+				<FlowText {html} animate={streaming} class={renderHtml ? htmlClass : 'whitespace-pre-wrap'} />
+			</GrowHeight>
+		{:else}
+			<FlowText {html} animate={false} class={htmlClass} />
+		{/if}
+	{:else}
+		{@render text(message.content)}
+	{/if}
+{/snippet}
+
 {#snippet bubble(message: ChatMessage)}
 	{@const user = message.role === 'user'}
 	{@const custom = user ? (userBubbleClass ?? accentClass) : assistantBubbleClass}
@@ -493,15 +569,15 @@
 					<div
 						{...props}
 						data-slot="chat-bubble-content"
-						class={[props.class as string, 'whitespace-pre-wrap', custom]}
+						class={[props.class as string, (user || !renderHtml) && 'whitespace-pre-wrap', custom]}
 					>
-						{#if user}{message.content}{:else}{@render text(message.content)}{/if}
+						{#if user}{message.content}{:else}{@render replyBody(message)}{/if}
 					</div>
 				{/snippet}
 			</Bubble.Content>
 		{:else}
-			<Bubble.Content class="whitespace-pre-wrap">
-				{#if user}{message.content}{:else}{@render text(message.content)}{/if}
+			<Bubble.Content class={user || !renderHtml ? 'whitespace-pre-wrap' : undefined}>
+				{#if user}{message.content}{:else}{@render replyBody(message)}{/if}
 			</Bubble.Content>
 		{/if}
 	</Bubble.Root>
@@ -629,7 +705,7 @@
 			{/if}
 		</div>
 	{:else}
-		<MessageScroller.Provider autoScroll>
+		<MessageScroller.Provider autoScroll={followReply}>
 			<div class="relative min-h-0 flex-1">
 				{#if messages.length === 0}
 					<div class="flex h-full flex-col justify-end gap-3 overflow-y-auto overscroll-contain p-4 text-sm text-muted-foreground">
@@ -651,8 +727,8 @@
 													{@render typing()}
 												{:else}
 													<Marker.Root role="status">
-														<Marker.Icon><Spinner role="presentation" aria-label={typingLabel} /></Marker.Icon>
-														<Marker.Content>{typingLabel}</Marker.Content>
+														<Marker.Icon><Spinner role="presentation" aria-label={status ?? typingLabel} /></Marker.Icon>
+														<Marker.Content>{status ?? typingLabel}</Marker.Content>
 													</Marker.Root>
 												{/if}
 											{:else if renderMessage}
