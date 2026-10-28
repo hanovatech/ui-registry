@@ -410,7 +410,7 @@
 		"name": "date-range-filter",
 		"title": "Date Range Filter",
 		"type": "registry:block",
-		"description": "A date range picker with optional year navigation that syncs to URL params.",
+		"description": "A date range picker that syncs to URL params, with optional arrows that step a full year, month, or calendar week (shown as its ISO week number).",
 		"dependencies": [
 			"@internationalized/date",
 			"@lucide/svelte"

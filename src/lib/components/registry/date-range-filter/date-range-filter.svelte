@@ -17,6 +17,7 @@
     pickDateRangeLabel?: string;
     clearLabel?: string;
     applyLabel?: string;
+    calendarWeekLabel?: string;
   }
 
   let {
@@ -24,7 +25,8 @@
     showYearNavigation = false,
     pickDateRangeLabel = $t.common.pickDateRange,
     clearLabel = $t.common.clear,
-    applyLabel = $t.common.apply
+    applyLabel = $t.common.apply,
+    calendarWeekLabel = $t.common.calendarWeek
   }: Props = $props();
 
   const monthNames = $derived([
@@ -50,9 +52,30 @@
     return value.end.day === lastDay;
   });
 
+  // Day of the week with Monday = 0, independent of the browser's locale.
+  function isoWeekday(d: DateValue): number {
+    return (new Date(Date.UTC(d.year, d.month - 1, d.day)).getUTCDay() + 6) % 7;
+  }
+
+  // ISO 8601 week number: a week belongs to the year its Thursday falls in.
+  function isoWeekNumber(monday: DateValue): number {
+    const thursday = monday.add({ days: 3 });
+    const dayMs = 24 * 60 * 60 * 1000;
+    const offset =
+      (Date.UTC(thursday.year, thursday.month - 1, thursday.day) - Date.UTC(thursday.year, 0, 1)) /
+      dayMs;
+    return Math.floor(offset / 7) + 1;
+  }
+
+  // A full calendar week, Monday through Sunday.
+  const isFullWeek = $derived.by(() => {
+    if (!value.start || !value.end) return false;
+    return isoWeekday(value.start) === 0 && value.start.add({ days: 6 }).compare(value.end) === 0;
+  });
+
   const currentYear = $derived(value.start?.year ?? new Date().getFullYear());
 
-  const showArrows = $derived(showYearNavigation && (isFullYear || isFullMonth));
+  const showArrows = $derived(showYearNavigation && (isFullYear || isFullMonth || isFullWeek));
 
   const dateRangeLabel = $derived.by(() => {
     if (!value.start && !value.end) return pickDateRangeLabel;
@@ -66,6 +89,9 @@
     const pad = (n: number) => String(n).padStart(2, '0');
     const short = (d: DateValue) => `${pad(d.day)}.${pad(d.month)}.`;
     const full = (d: DateValue) => `${pad(d.day)}.${pad(d.month)}.${d.year}`;
+    if (isFullWeek) {
+      return `${calendarWeekLabel} ${isoWeekNumber(value.start!)} · ${short(value.start!)} – ${full(value.end!)}`;
+    }
     if (value.start && value.end) return `${short(value.start)} – ${full(value.end)}`;
     if (value.start) return full(value.start);
     return pickDateRangeLabel;
@@ -95,7 +121,13 @@
     const params = new SvelteURLSearchParams(page.url.searchParams);
     params.delete('page');
 
-    if (isFullMonth) {
+    if (isFullWeek) {
+      const start = value.start!.add({ weeks: delta });
+      const end = start.add({ days: 6 });
+      value = { start, end };
+      params.set('startDate', toIso(start));
+      params.set('endDate', toIso(end));
+    } else if (isFullMonth) {
       let y = value.start!.year;
       let m = value.start!.month + delta;
       if (m > 12) { m = 1; y++; }
