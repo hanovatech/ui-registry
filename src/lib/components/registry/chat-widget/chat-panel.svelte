@@ -147,8 +147,8 @@
 		closeIcon?: Snippet;
 		/**
 		 * Classes for every accent surface — header avatar, send button and
-		 * visitor bubble — in place of `bg-primary`. Takes gradients too, e.g.
-		 * `bg-linear-to-br from-violet-600 to-blue-600 text-white`.
+		 * visitor bubble — in place of `bg-primary`, e.g.
+		 * `bg-foreground text-background`.
 		 */
 		accentClass?: string;
 		/** Overrides `accentClass` for the header avatar. */
@@ -626,7 +626,7 @@
 				<p class="flex items-center gap-1.5 truncate text-xs opacity-70">
 					<span
 						class={[
-							'size-1.5 shrink-0 rounded-full bg-emerald-500',
+							'size-1.5 shrink-0 rounded-full bg-current',
 							!busy && 'motion-safe:animate-pulse'
 						]}
 						aria-hidden="true"

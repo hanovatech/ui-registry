@@ -749,9 +749,6 @@
                         title="Assistant"
                         subtitle="Our AI assistant"
                         storageKey="registry-demo-chat"
-                        accentClass="bg-linear-to-br from-violet-600 to-blue-600 text-white"
-                        headerClass="border-b-0 bg-linear-to-br from-violet-600 to-blue-600 text-white"
-                        avatarClass="bg-white/15 text-white"
                         requireConsent
                         provider={{ name: 'Mistral AI', model: 'mistral-medium-latest', location: 'Paris, France' }}
                         privacyUrl="/"
